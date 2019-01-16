@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--组件扫描器-->
+    <context:component-scan base-package="com.zl.realm" />
+
+    <!-- shiro过滤器bean，id要和web.xml中filter-name一致 -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager" />	<!--加载管理器-->
+        <property name="filterChainDefinitions">
+            <value>
+                # 这里相当于ini配置文件中的[urls]
+                # url = 拦截器，拦截器[参数]
+                # authc 表示要登录了才能访问
+                # 如果用户没有该角色，然后访问该 路径 会报 401错误
+
+                # /admin/** = authc, roles[admin]
+                # /peasant/** = authc, roles[peasant]
+                # /dealer/** = authc, roles[dealer]
+
+                # anon表示匿名拦截器，不需要登录即可访问
+                # /user/login= anon
+
+                /logout = logout
+
+                # 配置静态资源可以匿名访问
+                /assets/** = anon
+
+                /** = anon
+                # 除了上面的 /login 可以匿名访问，其他路径都需要登录访问
+                # 如果没登录，就访问其他路径会跳转到 /login 登录
+            </value>
+        </property>
+    </bean>
+
+    <!--  配置Realm -->
+    <!--  直接配置继承了org.apache.shiro.realm.AuthorizingRealm的bean -->
+    <bean id="loginRealm" class="com.zl.realm.LoginRealm">
+        <!-- 配置密码匹配器 -->
+        <property name="credentialsMatcher">
+            <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+                <!-- 加密算法为MD5 -->
+                <property name="hashAlgorithmName" value="MD5"></property>
+                <!-- 加密次数 -->
+                <property name="hashIterations" value="1024"></property>
+            </bean>
+        </property>
+    </bean>
+
+
+    <!-- 配置securityManager -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <!--配置自定义Realm-->
+        <!--loginRealm 使用扫描器扫描注册成功了-->
+        <property name="realm" ref="loginRealm" />
+    </bean>
+
+    <!-- 配置 Bean 后置处理器: 会自动的调用和 Spring 整合后各个组件的生命周期方法. -->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+
+
+    <!-- 启用shiro注解 -->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"/>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+
+
+</beans>

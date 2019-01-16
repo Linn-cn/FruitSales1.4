@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zl.mapper.PeasantMapper" >
+  <resultMap id="BaseResultMap" type="com.zl.pojo.PeasantDO" >
+    <id column="peasant_id" property="peasantId" jdbcType="VARCHAR" />
+    <result column="peasant_name" property="peasantName" jdbcType="VARCHAR" />
+    <result column="peasant_identity" property="peasantIdentity" jdbcType="VARCHAR" />
+    <result column="peasant_phone" property="peasantPhone" jdbcType="VARCHAR" />
+    <result column="peasant_address" property="peasantAddress" jdbcType="VARCHAR" />
+    <result column="peasant_status" property="peasantStatus" jdbcType="INTEGER" />
+    <result column="peasant_time" property="peasantTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    peasant_id, peasant_name, peasant_identity, peasant_phone, peasant_address, peasant_status, 
+    peasant_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zl.pojo.PeasantDOExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from peasant
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from peasant
+    where peasant_id = #{peasantId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from peasant
+    where peasant_id = #{peasantId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zl.pojo.PeasantDOExample" >
+    delete from peasant
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zl.pojo.PeasantDO" >
+    insert into peasant (peasant_id, peasant_name, peasant_identity, 
+      peasant_phone, peasant_address, peasant_status, 
+      peasant_time)
+    values (#{peasantId,jdbcType=VARCHAR}, #{peasantName,jdbcType=VARCHAR}, #{peasantIdentity,jdbcType=VARCHAR}, 
+      #{peasantPhone,jdbcType=VARCHAR}, #{peasantAddress,jdbcType=VARCHAR}, #{peasantStatus,jdbcType=INTEGER}, 
+      #{peasantTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zl.pojo.PeasantDO" >
+    insert into peasant
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="peasantId != null" >
+        peasant_id,
+      </if>
+      <if test="peasantName != null" >
+        peasant_name,
+      </if>
+      <if test="peasantIdentity != null" >
+        peasant_identity,
+      </if>
+      <if test="peasantPhone != null" >
+        peasant_phone,
+      </if>
+      <if test="peasantAddress != null" >
+        peasant_address,
+      </if>
+      <if test="peasantStatus != null" >
+        peasant_status,
+      </if>
+      <if test="peasantTime != null" >
+        peasant_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="peasantId != null" >
+        #{peasantId,jdbcType=VARCHAR},
+      </if>
+      <if test="peasantName != null" >
+        #{peasantName,jdbcType=VARCHAR},
+      </if>
+      <if test="peasantIdentity != null" >
+        #{peasantIdentity,jdbcType=VARCHAR},
+      </if>
+      <if test="peasantPhone != null" >
+        #{peasantPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="peasantAddress != null" >
+        #{peasantAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="peasantStatus != null" >
+        #{peasantStatus,jdbcType=INTEGER},
+      </if>
+      <if test="peasantTime != null" >
+        #{peasantTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zl.pojo.PeasantDOExample" resultType="java.lang.Integer" >
+    select count(*) from peasant
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update peasant
+    <set >
+      <if test="record.peasantId != null" >
+        peasant_id = #{record.peasantId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.peasantName != null" >
+        peasant_name = #{record.peasantName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.peasantIdentity != null" >
+        peasant_identity = #{record.peasantIdentity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.peasantPhone != null" >
+        peasant_phone = #{record.peasantPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.peasantAddress != null" >
+        peasant_address = #{record.peasantAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.peasantStatus != null" >
+        peasant_status = #{record.peasantStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.peasantTime != null" >
+        peasant_time = #{record.peasantTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update peasant
+    set peasant_id = #{record.peasantId,jdbcType=VARCHAR},
+      peasant_name = #{record.peasantName,jdbcType=VARCHAR},
+      peasant_identity = #{record.peasantIdentity,jdbcType=VARCHAR},
+      peasant_phone = #{record.peasantPhone,jdbcType=VARCHAR},
+      peasant_address = #{record.peasantAddress,jdbcType=VARCHAR},
+      peasant_status = #{record.peasantStatus,jdbcType=INTEGER},
+      peasant_time = #{record.peasantTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zl.pojo.PeasantDO" >
+    update peasant
+    <set >
+      <if test="peasantName != null" >
+        peasant_name = #{peasantName,jdbcType=VARCHAR},
+      </if>
+      <if test="peasantIdentity != null" >
+        peasant_identity = #{peasantIdentity,jdbcType=VARCHAR},
+      </if>
+      <if test="peasantPhone != null" >
+        peasant_phone = #{peasantPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="peasantAddress != null" >
+        peasant_address = #{peasantAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="peasantStatus != null" >
+        peasant_status = #{peasantStatus,jdbcType=INTEGER},
+      </if>
+      <if test="peasantTime != null" >
+        peasant_time = #{peasantTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where peasant_id = #{peasantId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zl.pojo.PeasantDO" >
+    update peasant
+    set peasant_name = #{peasantName,jdbcType=VARCHAR},
+      peasant_identity = #{peasantIdentity,jdbcType=VARCHAR},
+      peasant_phone = #{peasantPhone,jdbcType=VARCHAR},
+      peasant_address = #{peasantAddress,jdbcType=VARCHAR},
+      peasant_status = #{peasantStatus,jdbcType=INTEGER},
+      peasant_time = #{peasantTime,jdbcType=TIMESTAMP}
+    where peasant_id = #{peasantId,jdbcType=VARCHAR}
+  </update>
+
+  <!--条件查询-->
+  <sql id="peasantQueryCondition">
+    <where>
+      <if test="condition.peasantName != '' and condition.peasantName != null">
+        AND peasant.peasant_name LIKE concat('%',#{condition.peasantName},'%')
+      </if>
+      <if test="condition.peasantIdentity != '' and condition.peasantIdentity != null">
+        AND peasant.peasant_identity LIKE concat('%',#{condition.peasantIdentity},'%')
+      </if>
+      <if test="condition.peasantPhone != '' and condition.peasantPhone != null">
+        AND peasant.peasant_phone = #{condition.peasantPhone}
+      </if>
+      <if test="condition.peasantStatus != null">
+        AND peasant.peasant_status = #{condition.peasantStatus}
+      </if>
+    </where>
+  </sql>
+
+  <select id="listPeasant" parameterType="com.zl.util.AjaxPutPage" resultMap="BaseResultMap">
+    SELECT
+      peasant.peasant_id,
+      peasant.peasant_name,
+      peasant.peasant_identity,
+      peasant.peasant_phone,
+      peasant.peasant_address,
+      peasant.peasant_status,
+      peasant.peasant_time
+    FROM
+      peasant
+      <include refid="peasantQueryCondition"></include>
+  </select>
+
+  <select id="getPeasantCount" parameterType="com.zl.util.AjaxPutPage" resultType="java.lang.Integer">
+    SELECT
+      count(*)
+    FROM
+      peasant
+    <include refid="peasantQueryCondition"></include>
+  </select>
+</mapper>

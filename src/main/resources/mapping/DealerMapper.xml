@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zl.mapper.DealerMapper" >
+  <resultMap id="BaseResultMap" type="com.zl.pojo.DealerDO" >
+    <id column="dealer_id" property="dealerId" jdbcType="VARCHAR" />
+    <result column="dealer_name" property="dealerName" jdbcType="VARCHAR" />
+    <result column="dealer_phone" property="dealerPhone" jdbcType="VARCHAR" />
+    <result column="dealer_address" property="dealerAddress" jdbcType="VARCHAR" />
+    <result column="dealer_status" property="dealerStatus" jdbcType="INTEGER" />
+    <result column="dealer_time" property="dealerTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    dealer_id, dealer_name, dealer_phone, dealer_address, dealer_status, dealer_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zl.pojo.DealerDOExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dealer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from dealer
+    where dealer_id = #{dealerId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from dealer
+    where dealer_id = #{dealerId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zl.pojo.DealerDOExample" >
+    delete from dealer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zl.pojo.DealerDO" >
+    insert into dealer (dealer_id, dealer_name, dealer_phone, 
+      dealer_address, dealer_status, dealer_time
+      )
+    values (#{dealerId,jdbcType=VARCHAR}, #{dealerName,jdbcType=VARCHAR}, #{dealerPhone,jdbcType=VARCHAR}, 
+      #{dealerAddress,jdbcType=VARCHAR}, #{dealerStatus,jdbcType=INTEGER}, #{dealerTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zl.pojo.DealerDO" >
+    insert into dealer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dealerId != null" >
+        dealer_id,
+      </if>
+      <if test="dealerName != null" >
+        dealer_name,
+      </if>
+      <if test="dealerPhone != null" >
+        dealer_phone,
+      </if>
+      <if test="dealerAddress != null" >
+        dealer_address,
+      </if>
+      <if test="dealerStatus != null" >
+        dealer_status,
+      </if>
+      <if test="dealerTime != null" >
+        dealer_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dealerId != null" >
+        #{dealerId,jdbcType=VARCHAR},
+      </if>
+      <if test="dealerName != null" >
+        #{dealerName,jdbcType=VARCHAR},
+      </if>
+      <if test="dealerPhone != null" >
+        #{dealerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="dealerAddress != null" >
+        #{dealerAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="dealerStatus != null" >
+        #{dealerStatus,jdbcType=INTEGER},
+      </if>
+      <if test="dealerTime != null" >
+        #{dealerTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zl.pojo.DealerDOExample" resultType="java.lang.Integer" >
+    select count(*) from dealer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dealer
+    <set >
+      <if test="record.dealerId != null" >
+        dealer_id = #{record.dealerId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dealerName != null" >
+        dealer_name = #{record.dealerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dealerPhone != null" >
+        dealer_phone = #{record.dealerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dealerAddress != null" >
+        dealer_address = #{record.dealerAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dealerStatus != null" >
+        dealer_status = #{record.dealerStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.dealerTime != null" >
+        dealer_time = #{record.dealerTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dealer
+    set dealer_id = #{record.dealerId,jdbcType=VARCHAR},
+      dealer_name = #{record.dealerName,jdbcType=VARCHAR},
+      dealer_phone = #{record.dealerPhone,jdbcType=VARCHAR},
+      dealer_address = #{record.dealerAddress,jdbcType=VARCHAR},
+      dealer_status = #{record.dealerStatus,jdbcType=INTEGER},
+      dealer_time = #{record.dealerTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zl.pojo.DealerDO" >
+    update dealer
+    <set >
+      <if test="dealerName != null" >
+        dealer_name = #{dealerName,jdbcType=VARCHAR},
+      </if>
+      <if test="dealerPhone != null" >
+        dealer_phone = #{dealerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="dealerAddress != null" >
+        dealer_address = #{dealerAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="dealerStatus != null" >
+        dealer_status = #{dealerStatus,jdbcType=INTEGER},
+      </if>
+      <if test="dealerTime != null" >
+        dealer_time = #{dealerTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where dealer_id = #{dealerId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zl.pojo.DealerDO" >
+    update dealer
+    set dealer_name = #{dealerName,jdbcType=VARCHAR},
+      dealer_phone = #{dealerPhone,jdbcType=VARCHAR},
+      dealer_address = #{dealerAddress,jdbcType=VARCHAR},
+      dealer_status = #{dealerStatus,jdbcType=INTEGER},
+      dealer_time = #{dealerTime,jdbcType=TIMESTAMP}
+    where dealer_id = #{dealerId,jdbcType=VARCHAR}
+  </update>
+</mapper>
