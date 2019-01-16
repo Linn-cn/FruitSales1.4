@@ -2,6 +2,7 @@ package com.zl.service;
 
 
 import com.zl.pojo.SysDO;
+import com.zl.util.MessageException;
 
 public interface SysService {
 
@@ -21,5 +22,5 @@ public interface SysService {
     * @Author: ZhuLin
     * @Date: 2019/1/8 
     */ 
-    boolean updateSysInfo(SysDO sysDO);
+    boolean updateSysInfo(SysDO sysDO) throws MessageException;
 }

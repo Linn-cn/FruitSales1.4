@@ -9,6 +9,7 @@ import com.zl.service.UserService;
 import com.zl.util.BeanCopyPropertiesUtil;
 import com.zl.util.Constants;
 import com.zl.util.MessageBean;
+import com.zl.util.MessageException;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
@@ -154,7 +155,7 @@ public class UserController {
             try {
                 userService.updateUserPassword(userinfo.getUserid(), userinfo.getUsername(), userDTO.getPassword());
                 return new MessageBean(true, Constants.SUCCESS_RESET_PASSWORD);
-            } catch (RuntimeException e) {
+            } catch (MessageException e) {
                 return new MessageBean(false, Constants.ERROR_MSG);
             }
         } else {
@@ -210,7 +211,7 @@ public class UserController {
         try {
             userService.updateUserPassword(userinfo.getUserid(), userinfo.getUsername(), newPwd);
             return new MessageBean(true, Constants.SUCCESS_UPDATE_PASSWORD);
-        } catch (RuntimeException e) {
+        } catch (MessageException e) {
             return new MessageBean(false, Constants.ERROR_MSG);
         }
     }

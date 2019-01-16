@@ -3,6 +3,7 @@ package com.zl.service.impl;
 import com.zl.mapper.SysMapper;
 import com.zl.pojo.SysDO;
 import com.zl.service.SysService;
+import com.zl.util.MessageException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ public class SysServiceImpl implements SysService {
     @Autowired
     private SysMapper sysMapper;
 
+    @Override
     public SysDO getSysInfo() {
         List<SysDO> sysDOs = sysMapper.selectByExample(null);
         SysDO sysDO = null;
@@ -29,14 +31,10 @@ public class SysServiceImpl implements SysService {
         return sysDO;
     }
 
-    public boolean updateSysInfo(SysDO sysDO) {
+    @Override
+    public boolean updateSysInfo(SysDO sysDO) throws MessageException {
         sysDO.setSysId(1);
-        try {
-            sysMapper.updateByPrimaryKeySelective(sysDO);
-        }catch (Exception e){
-            e.printStackTrace();
-            throw new RuntimeException();
-        }
+        sysMapper.updateByPrimaryKeySelective(sysDO);
         return true;
     }
 }

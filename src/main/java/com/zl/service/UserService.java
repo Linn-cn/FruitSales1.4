@@ -4,6 +4,7 @@ import com.zl.pojo.DealerDO;
 import com.zl.pojo.PeasantDO;
 import com.zl.pojo.RoleDO;
 import com.zl.pojo.UserDO;
+import com.zl.util.MessageException;
 
 /**
  * @program: FruitSales
@@ -56,5 +57,5 @@ public interface UserService {
     * @Author: ZhuLin
     * @Date: 2019/1/8 
     */ 
-    boolean updateUserPassword(String userid,String username,String password);
+    boolean updateUserPassword(String userid,String username,String password) throws MessageException;
 }
