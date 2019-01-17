@@ -91,7 +91,7 @@ public class SystemLogAspect {
             Map<String,String[]> params=request.getParameterMap(); //请求提交的参数
 
             try {
-                title=getControllerMethodDescription2(joinPoint);
+                title = getControllerMethodDescription2(joinPoint);
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 /**
  * 自定义注解 拦截Controller
  *
- * @author lin.r.x
+ * @author zhulin
  *
  */
 @Target({ ElementType.PARAMETER, ElementType.METHOD })

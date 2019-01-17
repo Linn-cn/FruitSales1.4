@@ -7,7 +7,7 @@ package com.zl.util;
  * @author: 朱林
  * @create: 2019-01-16 22:29
  **/
-public class MessageException extends RuntimeException{
+public class MessageException extends Exception{
 
     private static final long serialVersionUID = 1394818049620775426L;
     private String exceptionCode;

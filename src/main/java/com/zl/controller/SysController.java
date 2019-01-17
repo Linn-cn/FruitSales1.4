@@ -5,10 +5,7 @@ import com.zl.pojo.LogDO;
 import com.zl.pojo.SysDO;
 import com.zl.service.LogService;
 import com.zl.service.SysService;
-import com.zl.util.AjaxPutPage;
-import com.zl.util.AjaxResultPage;
-import com.zl.util.Constants;
-import com.zl.util.MessageBean;
+import com.zl.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -83,13 +80,9 @@ public class SysController {
     @SystemControllerLog(description = "修改系统信息")
     @RequestMapping("/updateSysInfo")
     @ResponseBody
-    public MessageBean updateSysInfo(SysDO sysDO){
+    public MessageBean updateSysInfo(SysDO sysDO) throws Exception{
         System.out.println(sysDO.toString());
-        try {
-            sysService.updateSysInfo(sysDO);
-        }catch (RuntimeException e){
-            return new MessageBean(false, Constants.ERROR_MSG);
-        }
+        sysService.updateSysInfo(sysDO);
         return new MessageBean(true,Constants.SUCCESS_SYSINFO);
     }
 

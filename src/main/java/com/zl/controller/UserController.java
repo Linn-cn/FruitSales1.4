@@ -126,7 +126,7 @@ public class UserController {
      */
     @RequestMapping("/verify")
     @ResponseBody
-    public MessageBean verify(UserDTO userDTO) {
+    public MessageBean verify(UserDTO userDTO) throws Exception {
         System.out.println(userDTO.toString());
         UserDO user = userService.validateUserName(userDTO.getUsername());
         if (user == null) {
@@ -152,12 +152,12 @@ public class UserController {
                 && userinfo.getAddress().equals(userDTO.getAddress());
 
         if (flag) {
-            try {
+/*            try {*/
                 userService.updateUserPassword(userinfo.getUserid(), userinfo.getUsername(), userDTO.getPassword());
                 return new MessageBean(true, Constants.SUCCESS_RESET_PASSWORD);
-            } catch (MessageException e) {
+/*            } catch (Exception e) {
                 return new MessageBean(false, Constants.ERROR_MSG);
-            }
+            }*/
         } else {
             return new MessageBean(false, Constants.ERROR_USERINFO);
         }
@@ -206,14 +206,10 @@ public class UserController {
     @SystemControllerLog(description = "修改用户密码")
     @RequestMapping("/updateUserPwd")
     @ResponseBody
-    public MessageBean updateUserPwd(String newPwd){
+    public MessageBean updateUserPwd(String newPwd) throws Exception{
         UserDTO userinfo = BaseController.getSessionUser();
-        try {
-            userService.updateUserPassword(userinfo.getUserid(), userinfo.getUsername(), newPwd);
-            return new MessageBean(true, Constants.SUCCESS_UPDATE_PASSWORD);
-        } catch (MessageException e) {
-            return new MessageBean(false, Constants.ERROR_MSG);
-        }
+        userService.updateUserPassword(userinfo.getUserid(), userinfo.getUsername(), newPwd);
+        return new MessageBean(true, Constants.SUCCESS_UPDATE_PASSWORD);
     }
 
     /** 
