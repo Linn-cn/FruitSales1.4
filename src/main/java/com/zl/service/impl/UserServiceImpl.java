@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
         return role;
     }
 
-    public boolean updateUserPassword(String userid,String username,String password) throws MessageException {
+    public void updateUserPassword(String userid,String username,String password) throws MessageException {
         Md5Hash md5Hash = new Md5Hash(password,username,Constants.HASHITERATIONS);
         password = md5Hash.toString();
         System.out.println("加密后的密码:" + password);
@@ -69,8 +69,6 @@ public class UserServiceImpl implements UserService {
         userDO.setUserid(userid);
         userDO.setPassword(password);
         userMapper.updateByPrimaryKeySelective(userDO);
-
-        return true;
     }
 
 

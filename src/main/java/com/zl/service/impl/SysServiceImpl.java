@@ -32,9 +32,8 @@ public class SysServiceImpl implements SysService {
     }
 
     @Override
-    public boolean updateSysInfo(SysDO sysDO) throws MessageException {
+    public void updateSysInfo(SysDO sysDO) throws MessageException {
         sysDO.setSysId(1);
         sysMapper.updateByPrimaryKeySelective(sysDO);
-        return true;
     }
 }

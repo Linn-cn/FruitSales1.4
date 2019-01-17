@@ -22,5 +22,5 @@ public interface SysService {
     * @Author: ZhuLin
     * @Date: 2019/1/8 
     */ 
-    boolean updateSysInfo(SysDO sysDO) throws MessageException;
+    void updateSysInfo(SysDO sysDO) throws MessageException;
 }

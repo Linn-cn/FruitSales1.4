@@ -2,10 +2,12 @@ package com.zl.service;
 
 import com.zl.pojo.PeasantDO;
 import com.zl.util.AjaxPutPage;
+import com.zl.util.MessageBean;
+import com.zl.util.MessageException;
 
 import java.util.List;
 
-public interface AdminService {
+public interface PeasantService {
 
     /**
      * @Description: 返回农民列表[可带条件]
@@ -24,4 +26,13 @@ public interface AdminService {
     * @Date: 2019/1/13 
     */ 
     Integer getPeasantCount(AjaxPutPage<PeasantDO> ajaxPutPage);
+
+    /** 
+    * @Description: 修改农民资料
+    * @Param: [peasantInfo] 
+    * @return: void 
+    * @Author: ZhuLin
+    * @Date: 2019/1/17 
+    */ 
+    void updatePeasant(PeasantDO peasantInfo) throws MessageException;
 }

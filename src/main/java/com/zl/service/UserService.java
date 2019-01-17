@@ -57,5 +57,5 @@ public interface UserService {
     * @Author: ZhuLin
     * @Date: 2019/1/8 
     */ 
-    boolean updateUserPassword(String userid,String username,String password) throws MessageException;
+    void updateUserPassword(String userid,String username,String password) throws MessageException;
 }

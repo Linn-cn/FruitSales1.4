@@ -53,7 +53,7 @@
 <!--操作-->
 <script type="text/html" id="peasantListBar">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="usable">已启用</a>
+    <a class="layui-btn layui-btn-xs layui-btn-warm">已启用</a>
     <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
 </script>
 <script>
@@ -84,12 +84,17 @@
                 {field: 'peasantName', title: '农民名字', align:"center",unresize:"true"},
                 {field: 'peasantPhone', title: '电话号码', align:'center',unresize:"true"},
                 {field: 'peasantIdentity', title: '农民身份', align:'center',unresize:"true"},
-                {field: 'peasantStatus', title: '账号状态', align:'center',unresize:"true",templet:function(d){
+                {field: 'peasantStatus', title: '账号状态', align:'center',unresize:"true",templet:function (d) {
                         return d.peasantStatus == "1" ? "正常使用" : "限制使用";
                     }},
                 {field: 'peasantAddress', title: '居住地址', align:'center',unresize:"true"},
                 {field: 'peasantTime', title: '注册时间', align:'center',sort:true,unresize:"true"},
-                {title: '操作', templet:'#peasantListBar',align:"center",unresize:"true"}
+                {title: '操作',align:"center",unresize:"true",templet:function (d) {
+                        var peasantStatus = d.peasantStatus == "1" ? "已启用" : "已禁用";
+                        return '<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>' +
+                        '<a class="layui-btn layui-btn-xs layui-btn-warm">' + peasantStatus + '</a>'
+                        + '<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>'
+                    }}
             ]]
         });
 
@@ -106,28 +111,24 @@
 
         //
         function addPeasant(edit){
+            if(edit){
+                window.sessionStorage.setItem("peasant",JSON.stringify(edit));
+            }
             var index = layui.layer.open({
                 title : "设置农民",
                 type : 2,
                 area: ['750px', '450px'],
                 content : "views/admin/addPeasant.jsp",
                 success : function(layero, index){
-                    var body = layui.layer.getChildFrame('body', index);
-                    if(edit){
-                        var peasantIdentity = edit.peasantIdentity.split("、");
-                        body.find(".peasantName").val(edit.peasantName);  //登录名
-                        body.find(".peasantIdentity input[value="+peasantIdentity[0]+"]").prop("checked","checked");  //身份
-                        body.find(".peasantIdentity input[value="+peasantIdentity[1]+"]").prop("checked","checked");  //身份
-                        body.find(".peasantPhone").val(edit.peasantPhone);  //会员等级
-                        body.find(".peasantStatus").val(edit.peasantStatus);    //用户状态
-                        body.find(".peasantAddress").text(edit.peasantAddress);    //用户简介
-                        form.render();
-                    }
                     setTimeout(function(){
                         layui.layer.tips('点击此处返回列表', '.layui-layer-setwin .layui-layer-close', {
-                            tips: 3
+                            tips: 3,
+                            time:2000
                         });
-                    },500)
+                    },300);
+                },
+                end: function(){
+                    window.sessionStorage.removeItem("peasant");
                 }
             });
             // layui.layer.full(index);
@@ -150,13 +151,7 @@
             if(layEvent === 'edit'){ //编辑
                 console.log(data);
                 addPeasant(data);
-            } else if(layEvent === 'usable'){ //删除
-                layer.confirm('真的删除行么', function(index){
-                    obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
-                    layer.close(index);
-                    //向服务端发送删除指令
-                });
-            } else if(layEvent === 'del'){ //编辑
+            }else if(layEvent === 'del'){ //编辑
                 //do something
 
                 //同步更新缓存对应的值
