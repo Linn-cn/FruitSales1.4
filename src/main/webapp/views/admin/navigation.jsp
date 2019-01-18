@@ -92,6 +92,9 @@
                     <li><a _href="admin/gotoPeasantList"> <i
                             class="iconfont">&#xe6a7;</i> <cite>农民列表</cite>
                     </a></li>
+                    <li><a _href=""> <i
+                            class="iconfont">&#xe6a7;</i> <cite>零售商列表</cite>
+                    </a></li>
                 </ul></li>
             <li><a href="javascript:;"> <i class="layui-icon">&#xe657;</i>
                 <cite>果蔬管理</cite> <i class="iconfont nav_right">&#xe697;</i>

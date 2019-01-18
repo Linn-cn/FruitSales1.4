@@ -10,7 +10,10 @@ import com.zl.util.MessageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * @program: FruitSales
@@ -25,24 +28,24 @@ public class AdminController {
     @Autowired
     private PeasantService peasantService;
 
-    /** 
+    /**
     * @Description: 跳转农民列表界面
-    * @Param: [] 
-    * @return: java.lang.String 
+    * @Param: []
+    * @return: java.lang.String
     * @Author: ZhuLin
-    * @Date: 2019/1/13 
-    */ 
+    * @Date: 2019/1/13
+    */
     @RequestMapping("/gotoPeasantList")
     public String gotoPeasantList(){
         return "admin/peasantList";
     }
 
-    /** 
+    /**
     * @Description: 获取农民列表
-    * @Param: [] 
-    * @return: com.zl.util.AjaxResultPage<com.zl.pojo.PeasantDO> 
+    * @Param: []
+    * @return: com.zl.util.AjaxResultPage<com.zl.pojo.PeasantDO>
     * @Author: ZhuLin
-    * @Date: 2019/1/13 
+    * @Date: 2019/1/13
     */
     @RequestMapping("/getPeasantList")
     @ResponseBody
@@ -55,20 +58,48 @@ public class AdminController {
         return result;
     }
 
-    /** 
+    /**
     * @Description: 修改农民资料
-    * @Param: [peasantInfo] 
-    * @return: com.zl.util.MessageBean 
+    * @Param: [peasantInfo]
+    * @return: com.zl.util.MessageBean
     * @Author: ZhuLin
-    * @Date: 2019/1/17 
+    * @Date: 2019/1/17
     */
     @SystemControllerLog(description = "修改农民资料")
     @RequestMapping("/updatePeasant")
     @ResponseBody
     public MessageBean updatePeasant(PeasantDO peasantInfo) throws Exception{
-        System.out.println(peasantInfo.toString());
         peasantService.updatePeasant(peasantInfo);
         return new MessageBean(true,Constants.SUCCESS_UPDATE);
+    }
+
+    /**
+    * @Description: 删除农民
+    * @Param: [id]
+    * @return: com.zl.util.MessageBean
+    * @Author: ZhuLin
+    * @Date: 2019/1/18
+    */
+    @SystemControllerLog(description = "删除农民")
+    @RequestMapping("/deletePeasant")
+    @ResponseBody
+    public MessageBean deletePeasant(String id) throws Exception{
+        peasantService.deletePeasant(id);
+        return new MessageBean(true,Constants.SUCCESS_DELETE);
+    }
+
+    /** 
+    * @Description: 批量删除农民
+    * @Param: [list] 
+    * @return: com.zl.util.MessageBean 
+    * @Author: ZhuLin
+    * @Date: 2019/1/18 
+    */ 
+    @RequestMapping("/batchesDelPeasant")
+    @ResponseBody
+    public MessageBean batchesDelPeasant(@RequestParam("deleteId[]")List<String> deleteId) throws Exception{
+        System.out.println("打印!!!!!!!!!!!!!!!!!!!!!!!!!:" + deleteId.size());
+        return new MessageBean(deleteId);
     }
 
 }

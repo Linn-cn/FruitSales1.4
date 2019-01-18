@@ -38,4 +38,13 @@ public interface LogMapper {
     * @Date: 2019/1/10 
     */ 
     List<LogDO> listLogDO(AjaxPutPage<LogDO> ajaxPutPage);
+
+    /** 
+    * @Description: 返回日志表总条数 
+    * @Param: [] 
+    * @return: java.lang.Long 
+    * @Author: ZhuLin
+    * @Date: 2019/1/18 
+    */ 
+    Long getLogCount();
 }

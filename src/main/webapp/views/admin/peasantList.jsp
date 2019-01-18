@@ -61,7 +61,6 @@
         var form = layui.form,
             layer = parent.layer === undefined ? layui.layer : top.layer,
             $ = layui.jquery,
-            laytpl = layui.laytpl,
             table = layui.table;
 
         //果农列表
@@ -109,8 +108,8 @@
             });
         });
 
-        //
-        function addPeasant(edit){
+        //打开设置农民弹窗
+        function updatePeasant(edit){
             if(edit){
                 window.sessionStorage.setItem("peasant",JSON.stringify(edit));
             }
@@ -118,7 +117,7 @@
                 title : "设置农民",
                 type : 2,
                 area: ['750px', '450px'],
-                content : "views/admin/addPeasant.jsp",
+                content : "views/admin/updatePeasant.jsp",
                 success : function(layero, index){
                     setTimeout(function(){
                         layui.layer.tips('点击此处返回列表', '.layui-layer-setwin .layui-layer-close', {
@@ -131,16 +130,33 @@
                     window.sessionStorage.removeItem("peasant");
                 }
             });
-            // layui.layer.full(index);
-            // window.sessionStorage.setItem("index",index);
-            // //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-            // $(window).on("resize",function(){
-            //     layui.layer.full(window.sessionStorage.getItem("index"));
-            // });
         }
 
         $(".addNews_btn").click(function(){
-            addPeasant();
+            console.log("添加农民");
+        });
+
+        //批量删除
+        $(".delAll_btn").click(function(){
+            var checkStatus = table.checkStatus('peasantListTable'),
+                data = checkStatus.data,
+                deleteId = [];
+            if(data.length > 0) {
+                for (var i in data) {
+                    deleteId.push(data[i].peasantId);
+                }
+                console.log(deleteId);
+                layer.confirm('确定删除选中的' + data.length + '个农民？', {icon: 3, title: '提示信息'}, function (index) {
+                    $.post("admin/batchesDelPeasant", {
+                        deleteId : deleteId
+                    }, function (data) {
+                        tableIns.reload();
+                        layer.close(index);
+                    });
+                });
+            }else{
+                layer.msg("请选择需要删除的农民");
+            }
         });
 
         //监听工具条
@@ -149,15 +165,20 @@
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
 
             if(layEvent === 'edit'){ //编辑
-                console.log(data);
-                addPeasant(data);
+                updatePeasant(data);
             }else if(layEvent === 'del'){ //编辑
-                //do something
-
-                //同步更新缓存对应的值
-                obj.update({
-                    username: '123'
-                    ,title: 'xxx'
+                layer.confirm('确定删除此农民？',{icon:3, title:'提示信息'},function(index){
+                    $.get("admin/deletePeasant", {
+                        id: data.peasantId  //将需要删除的newsId作为参数传入
+                    }, function (s) {
+                        if (s.success){
+                            layer.msg(s.msg);
+                            tableIns.reload();
+                        }else{
+                            layer.msg(s.msg);
+                        }
+                    });
+                    layer.close(index);
                 });
             }
         });

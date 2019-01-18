@@ -80,35 +80,28 @@
             });
         }
 
-            form.on("submit(addPeasant)",function(data){
-                var datas = data.field;
-                if (datas['peasantIdentity[0]'] != null && datas['peasantIdentity[1]'] != null) {
-                    datas.peasantIdentity = datas['peasantIdentity[0]'] + '、' + datas['peasantIdentity[1]'];
-                } else if (datas['peasantIdentity[0]'] != null || datas['peasantIdentity[1]'] != null) {
-                    datas.peasantIdentity = datas['peasantIdentity[0]'] != null ? datas['peasantIdentity[0]'] : datas['peasantIdentity[1]'];
-                }
-                delete datas['peasantIdentity[0]'];
-                delete datas['peasantIdentity[1]'];
-                var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
-                // 提交信息
-                $.post("admin/updatePeasant",datas,function(s){
-                    setTimeout(function(){
-                        top.layer.close(index);
-                        top.layer.msg(s.msg);
-                        layer.closeAll("iframe");
-                        //刷新父页面
-                        parent.location.reload();
-                    },2000);
-                });
-                // setTimeout(function(){
-                //     top.layer.close(index);
-                //     top.layer.msg("修改成功");
-                //     layer.closeAll("iframe");
-                //     //刷新父页面
-                //     parent.location.reload();
-                // },2000);
-                return false;
+        form.on("submit(addPeasant)",function(data){
+            var datas = data.field;
+            if (datas['peasantIdentity[0]'] != null && datas['peasantIdentity[1]'] != null) {
+                datas.peasantIdentity = datas['peasantIdentity[0]'] + '、' + datas['peasantIdentity[1]'];
+            } else if (datas['peasantIdentity[0]'] != null || datas['peasantIdentity[1]'] != null) {
+                datas.peasantIdentity = datas['peasantIdentity[0]'] != null ? datas['peasantIdentity[0]'] : datas['peasantIdentity[1]'];
+            }
+            delete datas['peasantIdentity[0]'];
+            delete datas['peasantIdentity[1]'];
+            var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
+            // 提交信息
+            $.post("admin/updatePeasant",datas,function(s){
+                setTimeout(function(){
+                    top.layer.close(index);
+                    top.layer.msg(s.msg);
+                    layer.closeAll("iframe");
+                    //刷新父页面
+                    parent.location.reload();
+                },2000);
             });
+            return false;
+        });
     });
 </script>
 </html>

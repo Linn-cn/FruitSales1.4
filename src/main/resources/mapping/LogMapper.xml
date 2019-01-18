@@ -320,6 +320,11 @@
         log.username
     FROM
         log
+    ORDER BY log.operateDate DESC
     LIMIT #{start},#{limit}
+  </select>
+  
+  <select id="getLogCount" resultType="java.lang.Long">
+    select count(logId) from log
   </select>
 </mapper>

@@ -271,12 +271,13 @@
       peasant.peasant_time
     FROM
       peasant
+    ORDER BY peasant.peasant_time DESC
       <include refid="peasantQueryCondition"></include>
   </select>
 
-  <select id="getPeasantCount" parameterType="com.zl.util.AjaxPutPage" resultType="java.lang.Integer">
+  <select id="getPeasantCount" parameterType="com.zl.util.AjaxPutPage" resultType="java.lang.Long">
     SELECT
-      count(*)
+      count(peasant_id)
     FROM
       peasant
     <include refid="peasantQueryCondition"></include>

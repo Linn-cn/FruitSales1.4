@@ -20,10 +20,13 @@ public class Constants {
     public static final String SUCCESS_RESET_PASSWORD = "密码重置成功";
     public static final String SUCCESS_UPDATE_PASSWORD = "密码修改成功，请重新登录";
     public static final String ERROR_USERINFO = "信息填写错误";
-    public static final String SUCCESS_UPDATE = "修改成功";
 
     //系统相关信息
     public static final String SYSINFO = "SysInfo";
     public static final String SUCCESS_SYSINFO = "修改系统信息成功";
     public static final String SUCCESS_MESSAGE = "成功";
+
+    //农民相关提示信息
+    public static final String SUCCESS_UPDATE = "修改成功";
+    public static final String SUCCESS_DELETE = "删除成功";
 }

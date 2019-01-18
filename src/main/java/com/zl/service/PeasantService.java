@@ -25,7 +25,7 @@ public interface PeasantService {
     * @Author: ZhuLin
     * @Date: 2019/1/13 
     */ 
-    Integer getPeasantCount(AjaxPutPage<PeasantDO> ajaxPutPage);
+    Long getPeasantCount(AjaxPutPage<PeasantDO> ajaxPutPage);
 
     /** 
     * @Description: 修改农民资料
@@ -35,4 +35,13 @@ public interface PeasantService {
     * @Date: 2019/1/17 
     */ 
     void updatePeasant(PeasantDO peasantInfo) throws MessageException;
+
+    /** 
+    * @Description: 删除农民
+    * @Param: [id]
+    * @return: void 
+    * @Author: ZhuLin
+    * @Date: 2019/1/18 
+    */ 
+    void deletePeasant(String id) throws MessageException;
 }

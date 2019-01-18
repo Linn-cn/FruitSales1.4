@@ -42,6 +42,6 @@ public interface LogService {
     * @Author: ZhuLin
     * @Date: 2019/1/10 
     */ 
-    int getLogCount();
+    Long getLogCount();
 
 }
