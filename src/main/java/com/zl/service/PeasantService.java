@@ -44,4 +44,12 @@ public interface PeasantService {
     * @Date: 2019/1/18 
     */ 
     void deletePeasant(String id) throws MessageException;
+
+    /**
+     * @Description: 批量删除农民
+     * @Param: [deleteId]
+     * @return: void
+     * @date: 2019/1/19 13:53 
+     */
+    void batchesDelPeasant(List<String> deleteId) throws MessageException;
 }

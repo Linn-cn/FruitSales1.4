@@ -7,8 +7,9 @@ package com.zl.util;
  * @create: 2019-01-08 15:16
  **/
 public class Constants {
-    //密码加密次数
+    //密码
     public static final Integer HASHITERATIONS = 1024;
+    public static final String PASSWORD = "000000";
 
     //异常错误提示
     public static final String ERROR_MSG = "通信异常,请及时联系系统管理员QQ:1320291471!";

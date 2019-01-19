@@ -40,7 +40,7 @@ public interface PeasantMapper {
     List<PeasantDO> listPeasant(AjaxPutPage<PeasantDO> ajaxPutPage);
 
     /** 
-    * @Description:  
+    * @Description:  返回农民总条数
     * @Param: [ajaxPutPage] 
     * @return: java.lang.Long 
     * @Author: ZhuLin

@@ -1,8 +1,11 @@
 package com.zl.controller;
 
 import com.zl.aop.SystemControllerLog;
+import com.zl.pojo.DealerDO;
 import com.zl.pojo.PeasantDO;
+import com.zl.service.DealerService;
 import com.zl.service.PeasantService;
+import com.zl.service.UserService;
 import com.zl.util.AjaxPutPage;
 import com.zl.util.AjaxResultPage;
 import com.zl.util.Constants;
@@ -27,6 +30,12 @@ public class AdminController {
 
     @Autowired
     private PeasantService peasantService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private DealerService dealerService;
 
     /**
     * @Description: 跳转农民列表界面
@@ -98,8 +107,50 @@ public class AdminController {
     @RequestMapping("/batchesDelPeasant")
     @ResponseBody
     public MessageBean batchesDelPeasant(@RequestParam("deleteId[]")List<String> deleteId) throws Exception{
-        System.out.println("打印!!!!!!!!!!!!!!!!!!!!!!!!!:" + deleteId.size());
-        return new MessageBean(deleteId);
+        peasantService.batchesDelPeasant(deleteId);
+        return new MessageBean(true,Constants.SUCCESS_DELETE);
+    }
+
+    /**
+     * @Description: 管理员重置密码
+     * @Param: [id] 需要重置的用户id
+     * @return: com.zl.util.MessageBean
+     * @date: 2019/1/19 14:49 
+     */
+    @RequestMapping("/resetPeasantPwd")
+    @ResponseBody
+    public MessageBean resetPeasantPwd(String id) throws Exception{
+        userService.resetPeasantPwd(id);
+        return new MessageBean(true,Constants.SUCCESS_RESET_PASSWORD);
+    }
+
+    /**
+     * @Description: 跳转零售商列表
+     * @Param: []
+     * @return: java.lang.String
+     * @date: 2019/1/19 23:01 
+     */
+    @RequestMapping("/gotoDealerList")
+    public String gotoDealerList(){
+        return "admin/dealerList";
+    }
+
+    /**
+     * @Description: 获取零售商列表
+     * @Param: []
+     * @return: com.zl.util.AjaxResultPage<com.zl.pojo.PeasantDO>
+     * @Author: ZhuLin
+     * @Date: 2019/1/13
+     */
+    @RequestMapping("/getDealerList")
+    @ResponseBody
+    public AjaxResultPage<DealerDO> getDealerList(AjaxPutPage<DealerDO> ajaxPutPage, DealerDO dealerCondition){
+        System.out.println(dealerCondition.toString());
+        AjaxResultPage<DealerDO> result = new AjaxResultPage<DealerDO>();
+        ajaxPutPage.setCondition(dealerCondition);
+        result.setData(dealerService.listDealer(ajaxPutPage));
+        result.setCount(dealerService.getDealerCount(ajaxPutPage));
+        return result;
     }
 
 }

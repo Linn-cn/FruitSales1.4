@@ -58,4 +58,12 @@ public interface UserService {
     * @Date: 2019/1/8 
     */ 
     void updateUserPassword(String userid,String username,String password) throws MessageException;
+
+    /**
+     * @Description: 重置密码
+     * @Param: [userid]
+     * @return: void
+     * @date: 2019/1/19 16:17 
+     */
+    void resetPeasantPwd(String userid) throws MessageException;
 }

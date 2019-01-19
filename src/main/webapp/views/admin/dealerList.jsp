@@ -8,7 +8,7 @@
 <html>
 <head>
     <base href="<%=basePath%>">
-    <title>果农列表</title>
+    <title>零售商列表</title>
     <%@include file="../../assets/styleAndscript.jsp"%>
     <style>
         .layui-table-cell .layui-form-checkbox[lay-skin="primary"]{
@@ -40,18 +40,18 @@
                 <a class="layui-btn" lay-submit lay-filter="search_btn"><i class="layui-icon">&#xe615;</i></a>
             </div>
             <div class="layui-inline">
-                <a class="layui-btn layui-btn-normal addNews_btn">添加农民</a>
+                <a class="layui-btn layui-btn-normal addNews_btn">添加零售商</a>
             </div>
             <div class="layui-inline">
                 <a class="layui-btn layui-btn-danger layui-btn-normal delAll_btn">批量删除</a>
             </div>
         </form>
     </blockquote>
-    <table id="peasantList" lay-filter="peasantList"></table>
+    <table id="dealerList" lay-filter="dealerList"></table>
 
 </body>
 <!--操作-->
-<script type="text/html" id="peasantListBar">
+<script type="text/html" id="dealerListBar">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="reset">重置</a>
     <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
@@ -65,35 +65,34 @@
 
         //果农列表
         var tableIns = table.render({
-            elem: '#peasantList',
-            id : "peasantListTable",
-            url : 'admin/getPeasantList',
-            title: '农民列表',
+            elem: '#dealerList',
+            id : "dealerListTable",
+            url : 'admin/getDealerList',
+            title: '零售商列表',
             page : true,
             height : "full-110",
             toolbar: true,
             limit : 10,
             limits : [10,15,20,25],
             initSort: {
-                field: 'peasantTime' //排序字段，对应 cols 设定的各字段名
+                field: 'dealerTime' //排序字段，对应 cols 设定的各字段名
                 ,type: 'desc' //排序方式  asc: 升序、desc: 降序、null: 默认排序
             },
             cols : [[
                 {type: "checkbox", fixed:"left"},
-                {field: 'peasantName', title: '农民名字', align:"center",unresize:"true"},
-                {field: 'peasantPhone', title: '电话号码', align:'center',unresize:"true"},
-                {field: 'peasantIdentity', title: '农民身份', align:'center',unresize:"true"},
-                {field: 'peasantStatus', title: '账号状态', align:'center',unresize:"true",templet:function (d) {
+                {field: 'dealerName', title: '零售商名字', align:"center",unresize:"true"},
+                {field: 'dealerPhone', title: '电话号码', align:'center',unresize:"true"},
+                {field: 'dealerStatus', title: '账号状态', align:'center',unresize:"true",templet:function (d) {
                         return d.peasantStatus == "1" ? "正常使用" : "限制使用";
                     }},
-                {field: 'peasantAddress', title: '居住地址', align:'center',unresize:"true"},
-                {field: 'peasantTime', title: '注册时间', align:'center',sort:true,unresize:"true"},
-                {title: '操作',align:"center",unresize:"true",toolbar:"#peasantListBar"}
+                {field: 'dealerAddress', title: '居住地址', align:'center',unresize:"true"},
+                {field: 'dealerTime', title: '注册时间', align:'center',sort:true,unresize:"true"},
+                {title: '操作',align:"center",unresize:"true",toolbar:"#dealerListBar"}
             ]]
         });
 
         //搜索
-        form.on('submit(search_btn)', function(data){
+/*        form.on('submit(search_btn)', function(data){
             console.log(data.field); //当前容器的全部表单字段，名值对形式：{name: value}
             tableIns.reload({
                 where: data.field
@@ -101,10 +100,10 @@
                     curr: 1 //重新从第 1 页开始
                 }
             });
-        });
+        });*/
 
         //打开设置农民弹窗
-        function updatePeasant(edit){
+/*        function updatePeasant(edit){
             if(edit){
                 window.sessionStorage.setItem("peasant",JSON.stringify(edit));
             }
@@ -125,14 +124,14 @@
                     window.sessionStorage.removeItem("peasant");
                 }
             });
-        }
+        }*/
 
-        $(".addNews_btn").click(function(){
+/*        $(".addNews_btn").click(function(){
             console.log("添加农民");
-        });
+        });*/
 
         //批量删除
-        $(".delAll_btn").click(function(){
+/*        $(".delAll_btn").click(function(){
             var checkStatus = table.checkStatus('peasantListTable'),
                 data = checkStatus.data,
                 deleteId = [];
@@ -152,10 +151,10 @@
             }else{
                 layer.msg("请选择需要删除的农民");
             }
-        });
+        });*/
 
         //监听工具条
-        table.on('tool(peasantList)', function(obj){
+/*        table.on('tool(peasantList)', function(obj){
             var data = obj.data; //获得当前行数据
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
 
@@ -190,7 +189,7 @@
                     layer.close(index);
                 });
             }
-        });
+        });*/
 
     });
 </script>

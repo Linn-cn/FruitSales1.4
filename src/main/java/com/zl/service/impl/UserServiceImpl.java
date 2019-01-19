@@ -71,5 +71,13 @@ public class UserServiceImpl implements UserService {
         userMapper.updateByPrimaryKeySelective(userDO);
     }
 
+    @Override
+    public void resetPeasantPwd(String userid) throws MessageException {
+        UserDO userDO = userMapper.selectByPrimaryKey(userid);
+        Md5Hash md5Hash = new Md5Hash(Constants.PASSWORD,userDO.getUsername(),Constants.HASHITERATIONS);
+        userDO.setPassword(md5Hash.toString());
+        userMapper.updateByPrimaryKeySelective(userDO);
+    }
+
 
 }

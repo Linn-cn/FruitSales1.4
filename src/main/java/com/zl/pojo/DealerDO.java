@@ -1,5 +1,8 @@
 package com.zl.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class DealerDO {
@@ -13,6 +16,8 @@ public class DealerDO {
 
     private Integer dealerStatus;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date dealerTime;
 
     public String getDealerId() {
@@ -61,5 +66,17 @@ public class DealerDO {
 
     public void setDealerTime(Date dealerTime) {
         this.dealerTime = dealerTime;
+    }
+
+    @Override
+    public String toString() {
+        return "DealerDO{" +
+                "dealerId='" + dealerId + '\'' +
+                ", dealerName='" + dealerName + '\'' +
+                ", dealerPhone='" + dealerPhone + '\'' +
+                ", dealerAddress='" + dealerAddress + '\'' +
+                ", dealerStatus=" + dealerStatus +
+                ", dealerTime=" + dealerTime +
+                '}';
     }
 }

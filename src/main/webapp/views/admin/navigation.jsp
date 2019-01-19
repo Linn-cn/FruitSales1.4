@@ -92,7 +92,7 @@
                     <li><a _href="admin/gotoPeasantList"> <i
                             class="iconfont">&#xe6a7;</i> <cite>农民列表</cite>
                     </a></li>
-                    <li><a _href=""> <i
+                    <li><a _href="admin/gotoDealerList"> <i
                             class="iconfont">&#xe6a7;</i> <cite>零售商列表</cite>
                     </a></li>
                 </ul></li>

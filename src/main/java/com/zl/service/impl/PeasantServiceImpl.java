@@ -3,6 +3,8 @@ package com.zl.service.impl;
 import com.zl.mapper.PeasantMapper;
 import com.zl.mapper.UserMapper;
 import com.zl.pojo.PeasantDO;
+import com.zl.pojo.PeasantDOExample;
+import com.zl.pojo.UserDOExample;
 import com.zl.service.PeasantService;
 import com.zl.util.AjaxPutPage;
 import com.zl.util.MessageException;
@@ -49,6 +51,16 @@ public class PeasantServiceImpl implements PeasantService {
     public void deletePeasant(String id) throws MessageException {
         peasantMapper.deleteByPrimaryKey(id);
         userMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public void batchesDelPeasant(List<String> deleteId) throws MessageException {
+        PeasantDOExample peasantDOExample = new PeasantDOExample();
+        peasantDOExample.createCriteria().andPeasantIdIn(deleteId);
+        peasantMapper.deleteByExample(peasantDOExample);
+        UserDOExample userDOExample = new UserDOExample();
+        userDOExample.createCriteria().andUseridIn(deleteId);
+        userMapper.deleteByExample(userDOExample);
     }
 
 }
