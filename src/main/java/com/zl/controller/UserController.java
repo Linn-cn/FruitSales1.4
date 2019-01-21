@@ -196,6 +196,25 @@ public class UserController {
         return new MessageBean(true);
     }
 
+    /*** 
+    * @Description: 验证用户名是否可用
+    * @Param: [userName] 
+    * @return: com.zl.util.MessageBean 
+    * @Author: ZhuLin
+    * @Date: 2019/1/21 
+    */ 
+    @RequestMapping("/validateUserName")
+    @ResponseBody
+    public MessageBean validateUserName(String userName){
+        UserDO user = userService.validateUserName(userName);
+
+        // 没有该用户名
+        if (user == null) {
+            return new MessageBean(false);
+        }
+        return new MessageBean(true);
+    }
+
     /** 
     * @Description: 修改用户密码
     * @Param: [newPwd] 

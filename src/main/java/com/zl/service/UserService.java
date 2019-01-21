@@ -65,7 +65,7 @@ public interface UserService {
      * @return: void
      * @date: 2019/1/19 16:17 
      */
-    void resetPeasantPwd(String userid) throws MessageException;
+    void resetUserPwd(String userid) throws MessageException;
 
     /*** 
     * @Description: 添加用户 

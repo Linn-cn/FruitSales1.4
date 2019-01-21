@@ -3,6 +3,7 @@ package com.zl.service;
 
 import com.zl.pojo.LogDO;
 import com.zl.util.AjaxPutPage;
+import com.zl.util.MessageException;
 
 import java.util.List;
 
@@ -43,5 +44,14 @@ public interface LogService {
     * @Date: 2019/1/10 
     */ 
     Long getLogCount();
+
+    /*** 
+    * @Description: 清除超过五天日志记录
+    * @Param: [] 
+    * @return: void 
+    * @Author: ZhuLin
+    * @Date: 2019/1/21 
+    */ 
+    void deleteLogByFiveday() throws MessageException;
 
 }

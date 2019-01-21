@@ -22,13 +22,13 @@
         <form class="layui-form">
             <div class="layui-inline">
                 <div class="layui-input-inline">
-                    <input type="text" name="peasantName" class="layui-input searchVal" placeholder="请输入用户名" />
+                    <input type="text" name="dealerName" class="layui-input searchVal" placeholder="请输入用户名" />
                 </div>
                 <div class="layui-input-inline">
-                    <input type="text" name="peasantPhone" class="layui-input searchVal" placeholder="请输入电话号码" />
+                    <input type="text" name="dealerPhone" class="layui-input searchVal" placeholder="请输入电话号码" />
                 </div>
                 <div class="layui-input-inline">
-                    <select name="peasantStatus">
+                    <select name="dealerStatus">
                         <option value="">选择用户状态</option>
                         <option value="1">正常使用</option>
                         <option value="0">限制使用</option>
@@ -65,7 +65,7 @@
             $ = layui.jquery,
             table = layui.table;
 
-        //果农列表
+        //零售商列表
         var tableIns = table.render({
             elem: '#dealerList',
             id : "dealerListTable",
@@ -85,7 +85,7 @@
                 {field: 'dealerName', title: '零售商名字', align:"center",unresize:"true"},
                 {field: 'dealerPhone', title: '电话号码', align:'center',unresize:"true"},
                 {field: 'dealerStatus', title: '账号状态', align:'center',unresize:"true",templet:function (d) {
-                        return d.peasantStatus == "1" ? "正常使用" : "限制使用";
+                        return d.dealerStatus == "1" ? "正常使用" : "限制使用";
                     }},
                 {field: 'dealerAddress', title: '居住地址', align:'center',unresize:"true"},
                 {field: 'dealerTime', title: '注册时间', align:'center',sort:true,unresize:"true"},
@@ -94,7 +94,7 @@
         });
 
         //搜索
-/*        form.on('submit(search_btn)', function(data){
+        form.on('submit(search_btn)', function(data){
             console.log(data.field); //当前容器的全部表单字段，名值对形式：{name: value}
             tableIns.reload({
                 where: data.field
@@ -102,47 +102,51 @@
                     curr: 1 //重新从第 1 页开始
                 }
             });
-        });*/
+        });
 
-        //打开设置农民弹窗
-/*        function updatePeasant(edit){
+        //打开设置零售商弹窗
+        function addOrUpdateDealer(edit){
+            var url = "views/admin/addDealer.jsp";
             if(edit){
-                window.sessionStorage.setItem("peasant",JSON.stringify(edit));
+                url = "views/admin/updateDealer.jsp";
+                window.sessionStorage.setItem("dealer",JSON.stringify(edit));
             }
             var index = layui.layer.open({
-                title : "设置农民",
+                title : "设置零售商",
                 type : 2,
                 area: ['750px', '450px'],
-                content : "views/admin/updatePeasant.jsp",
+                shadeClose: true,
+                shade: false,
+                content : url,
                 success : function(layero, index){
                     setTimeout(function(){
-                        layui.layer.tips('点击此处返回列表', '.layui-layer-setwin .layui-layer-close', {
+                        layui.layer.tips('点击此处关闭窗口', '.layui-layer-setwin .layui-layer-close', {
                             tips: 3,
                             time:2000
                         });
                     },300);
                 },
                 end: function(){
-                    window.sessionStorage.removeItem("peasant");
+                    window.sessionStorage.removeItem("dealer");
                 }
             });
-        }*/
+        }
 
-/*        $(".addNews_btn").click(function(){
-            console.log("添加农民");
-        });*/
+        $(".addNews_btn").click(function(){
+            addOrUpdateDealer();
+        });
 
         //批量删除
-/*        $(".delAll_btn").click(function(){
-            var checkStatus = table.checkStatus('peasantListTable'),
+        $(".delAll_btn").click(function(){
+            var checkStatus = table.checkStatus('dealerListTable'),
                 data = checkStatus.data,
                 deleteId = [];
             if(data.length > 0) {
                 for (var i in data) {
-                    deleteId.push(data[i].peasantId);
+                    deleteId.push(data[i].dealerId);
                 }
-                layer.confirm('确定删除选中的' + data.length + '个农民？', {icon: 3, title: '提示信息'}, function (index) {
-                    $.post("admin/batchesDelPeasant", {
+                layer.confirm('确定删除选中的' + data.length + '个零售商？', {icon: 3, title: '提示信息'}, function (index) {
+                    $.post("admin/batchesDelDealer", {
                         deleteId : deleteId
                     }, function (s) {
                         tableIns.reload();
@@ -151,21 +155,20 @@
                     });
                 });
             }else{
-                layer.msg("请选择需要删除的农民");
+                layer.msg("请选择需要删除的零售商");
             }
-        });*/
-
+        });
         //监听工具条
-/*        table.on('tool(peasantList)', function(obj){
+        table.on('tool(dealerList)', function(obj){
             var data = obj.data; //获得当前行数据
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
 
             if(layEvent === 'edit'){ //编辑
-                updatePeasant(data);
+                addOrUpdateDealer(data);
             }else if(layEvent === 'del'){ //编辑
-                layer.confirm('确定删除此农民？',{icon:3, title:'提示信息'},function(index){
-                    $.get("admin/deletePeasant", {
-                        id: data.peasantId  //将需要删除的newsId作为参数传入
+                layer.confirm('确定删除此零售商？',{icon:3, title:'提示信息'},function(index){
+                    $.get("admin/deleteDealer", {
+                        id: data.dealerId  //将需要删除的newsId作为参数传入
                     }, function (s) {
                         if (s.success){
                             layer.msg(s.msg);
@@ -178,8 +181,8 @@
                 });
             }else if(layEvent === 'reset'){
                 layer.confirm('确定重置此账号密码？',{icon:3, title:'提示信息'},function(index){
-                    $.get("admin/resetPeasantPwd", {
-                        id: data.peasantId  //将需要重置的Id作为参数传入
+                    $.get("admin/resetUserPwd", {
+                        id: data.dealerId  //将需要重置的Id作为参数传入
                     }, function (s) {
                         if (s.success){
                             layer.msg(s.msg);
@@ -191,7 +194,7 @@
                     layer.close(index);
                 });
             }
-        });*/
+        });
 
     });
 </script>

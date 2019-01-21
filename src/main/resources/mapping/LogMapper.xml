@@ -327,4 +327,14 @@
   <select id="getLogCount" resultType="java.lang.Long">
     select count(logId) from log
   </select>
+  
+  <delete id="deleteLogByFiveday">
+    DELETE
+    FROM
+      log
+    WHERE
+    DATE(log.operateDate) &lt;= DATE(
+      DATE_SUB(NOW(), INTERVAL 5 DAY)
+    );
+  </delete>
 </mapper>

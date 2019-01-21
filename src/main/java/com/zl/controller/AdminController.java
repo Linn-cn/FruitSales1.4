@@ -82,17 +82,18 @@ public class AdminController {
 
     /*** 
     * @Description: 添加农民
-    * @Param: [userDTO] 
+    * @Param: [userDO, peasantDO] 
     * @return: com.zl.util.MessageBean 
     * @Author: ZhuLin
     * @Date: 2019/1/21 
-    */
+    */ 
     @SystemControllerLog(description = "添加农民")
     @RequestMapping("/addPeasant")
     @ResponseBody
     public MessageBean addPeasant(UserDO userDO,PeasantDO peasantDO) throws Exception{
         String uuid = UuidUtils.creatUUID();
         userDO.setUserid(uuid);
+        userDO.setRole(Constants.ROLE_DEALER);
         peasantDO.setPeasantId(uuid);
         userService.insertUser(userDO);
         peasantService.insertPeasant(peasantDO);
@@ -120,7 +121,8 @@ public class AdminController {
     * @return: com.zl.util.MessageBean 
     * @Author: ZhuLin
     * @Date: 2019/1/18 
-    */ 
+    */
+    @SystemControllerLog(description = "批量删除农民")
     @RequestMapping("/batchesDelPeasant")
     @ResponseBody
     public MessageBean batchesDelPeasant(@RequestParam("deleteId[]")List<String> deleteId) throws Exception{
@@ -134,10 +136,11 @@ public class AdminController {
      * @return: com.zl.util.MessageBean
      * @date: 2019/1/19 14:49 
      */
-    @RequestMapping("/resetPeasantPwd")
+    @SystemControllerLog(description = "管理员重置密码")
+    @RequestMapping("/resetUserPwd")
     @ResponseBody
-    public MessageBean resetPeasantPwd(String id) throws Exception{
-        userService.resetPeasantPwd(id);
+    public MessageBean resetUserPwd(String id) throws Exception{
+        userService.resetUserPwd(id);
         return new MessageBean(true,Constants.SUCCESS_RESET_PASSWORD);
     }
 
@@ -168,6 +171,56 @@ public class AdminController {
         result.setData(dealerService.listDealer(ajaxPutPage));
         result.setCount(dealerService.getDealerCount(ajaxPutPage));
         return result;
+    }
+
+    /*** 
+    * @Description: 删除零售商
+    * @Param: [id] 
+    * @return: com.zl.util.MessageBean 
+    * @Author: ZhuLin
+    * @Date: 2019/1/21 
+    */
+    @SystemControllerLog(description = "删除零售商")
+    @RequestMapping("/deleteDealer")
+    @ResponseBody
+    public MessageBean deleteDealer(String id) throws Exception{
+        dealerService.deleteDealer(id);
+        return new MessageBean(true,Constants.SUCCESS_DELETE);
+    }
+
+    /** 
+    * @Description: 批量删除零售商
+    * @Param: [deleteId] 
+    * @return: com.zl.util.MessageBean 
+    * @Author: ZhuLin
+    * @Date: 2019/1/21 
+    */
+    @SystemControllerLog(description = "批量删除零售商")
+    @RequestMapping("/batchesDelDealer")
+    @ResponseBody
+    public MessageBean batchesDelDealer(@RequestParam("deleteId[]")List<String> deleteId) throws Exception{
+        dealerService.batchesDelPeasant(deleteId);
+        return new MessageBean(true,Constants.SUCCESS_DELETE);
+    }
+
+    /** 
+    * @Description: 添加零售商
+    * @Param: [userDO, dealerDO] 
+    * @return: com.zl.util.MessageBean 
+    * @Author: ZhuLin
+    * @Date: 2019/1/21 
+    */
+    @SystemControllerLog(description = "添加零售商")
+    @RequestMapping("/addDealer")
+    @ResponseBody
+    public MessageBean addDealer(UserDO userDO,DealerDO dealerDO) throws Exception{
+        String uuid = UuidUtils.creatUUID();
+        userDO.setUserid(uuid);
+        userDO.setRole(Constants.ROLE_DEALER);
+        dealerDO.setDealerId(uuid);
+        userService.insertUser(userDO);
+        dealerService.insertDealer(dealerDO);
+        return new MessageBean(true,Constants.SUCCESS_INSERT);
     }
 
 }

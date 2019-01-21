@@ -119,10 +119,12 @@
                 title : "设置农民",
                 type : 2,
                 area: ['750px', '450px'],
+                shadeClose: true,
+                shade: false,
                 content : url,
                 success : function(layero, index){
                     setTimeout(function(){
-                        layui.layer.tips('点击此处返回列表', '.layui-layer-setwin .layui-layer-close', {
+                        layui.layer.tips('点击此处关闭窗口', '.layui-layer-setwin .layui-layer-close', {
                             tips: 3,
                             time:2000
                         });
@@ -132,14 +134,6 @@
                     window.sessionStorage.removeItem("peasant");
                 }
             });
-            if(!edit){
-                layui.layer.full(index);
-                window.sessionStorage.setItem("index",index);
-                //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-                $(window).on("resize",function(){
-                    layui.layer.full(window.sessionStorage.getItem("index"));
-                })
-            }
         }
 
         $(".addNews_btn").click(function(){
@@ -192,7 +186,7 @@
                 });
             }else if(layEvent === 'reset'){
                 layer.confirm('确定重置此账号密码？',{icon:3, title:'提示信息'},function(index){
-                    $.get("admin/resetPeasantPwd", {
+                    $.get("admin/resetUserPwd", {
                         id: data.peasantId  //将需要重置的Id作为参数传入
                     }, function (s) {
                         if (s.success){

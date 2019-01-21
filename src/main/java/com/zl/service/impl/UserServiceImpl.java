@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void resetPeasantPwd(String userid) throws MessageException {
+    public void resetUserPwd(String userid) throws MessageException {
         UserDO userDO = userMapper.selectByPrimaryKey(userid);
         Md5Hash md5Hash = new Md5Hash(Constants.PASSWORD,userDO.getUsername(),Constants.HASHITERATIONS);
         userDO.setPassword(md5Hash.toString());
@@ -82,7 +82,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void insertUser(UserDO userDO) throws MessageException {
-        userDO.setRole(Constants.ROLE_PEASANT);
         String password = new Md5Hash(Constants.PASSWORD,userDO.getUsername(),Constants.HASHITERATIONS).toString();
         userDO.setPassword(password);
         userMapper.insertSelective(userDO);

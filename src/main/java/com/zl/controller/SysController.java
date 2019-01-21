@@ -115,5 +115,19 @@ public class SysController {
         result.setData(logService.listLogDO(ajaxPutPage));
         return result;
     }
+    
+    /*** 
+    * @Description: 清除超过五天日志记录
+    * @Param: [] 
+    * @return: com.zl.util.MessageBean 
+    * @Author: ZhuLin
+    * @Date: 2019/1/21 
+    */ 
+    @RequestMapping("/deleteLog")
+    @ResponseBody
+    public MessageBean deleteLog() throws Exception{
+        logService.deleteLogByFiveday();
+        return new MessageBean(true,Constants.SUCCESS_MESSAGE);
+    }
 
 }

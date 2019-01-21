@@ -15,7 +15,7 @@ public class MD5Test {
 
     @Test
     public void md5test(){
-        Md5Hash md5Hash = new Md5Hash("000000","nongmin2",Constants.HASHITERATIONS);
+        Md5Hash md5Hash = new Md5Hash("000000","lingshoushang1",Constants.HASHITERATIONS);
         System.out.println(md5Hash.toString());
     }
 }

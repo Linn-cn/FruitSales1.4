@@ -2,6 +2,7 @@ package com.zl.service;
 
 import com.zl.pojo.DealerDO;
 import com.zl.util.AjaxPutPage;
+import com.zl.util.MessageException;
 
 import java.util.List;
 
@@ -31,4 +32,31 @@ public interface DealerService {
      * @Date: 2019/1/13
      */
     Long getDealerCount(AjaxPutPage<DealerDO> ajaxPutPage);
+
+    /*** 
+    * @Description: 删除零售商
+    * @Param: [id] 
+    * @return: void 
+    * @Author: ZhuLin
+    * @Date: 2019/1/21 
+    */ 
+    void deleteDealer(String id) throws MessageException;
+
+    /** 
+    * @Description: 批量删除零售商
+    * @Param: [deleteId] 
+    * @return: void 
+    * @Author: ZhuLin
+    * @Date: 2019/1/21 
+    */ 
+    void batchesDelPeasant(List<String> deleteId) throws MessageException;
+
+    /** 
+    * @Description: 添加零售商
+    * @Param: [dealerDO] 
+    * @return: void 
+    * @Author: ZhuLin
+    * @Date: 2019/1/21 
+    */ 
+    void insertDealer(DealerDO dealerDO) throws MessageException;
 }

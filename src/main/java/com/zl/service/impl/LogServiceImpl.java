@@ -5,6 +5,7 @@ import com.zl.mapper.LogMapper;
 import com.zl.pojo.LogDO;
 import com.zl.service.LogService;
 import com.zl.util.AjaxPutPage;
+import com.zl.util.MessageException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +37,11 @@ public class LogServiceImpl  implements LogService {
 	@Override
 	public Long getLogCount() {
 		return logMapper.getLogCount();
+	}
+
+	@Override
+	public void deleteLogByFiveday() throws MessageException {
+		logMapper.deleteLogByFiveday();
 	}
 
 

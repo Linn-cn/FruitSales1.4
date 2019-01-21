@@ -438,10 +438,9 @@ xblock{
     height: 100%;
 
 }
-
-iframe{
+.page-content .layui-tab-content .layui-tab-item iframe{
     width: 100%;
-    height: 100% !important;
+    height: 100%;
 
 }
 

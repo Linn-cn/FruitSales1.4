@@ -230,13 +230,13 @@
   <sql id="dealerQueryCondition">
     <where>
       <if test="condition.dealerName != '' and condition.dealerName != null">
-        AND peasant.dealer_name LIKE concat('%',#{condition.dealerName},'%')
+        AND dealer.dealer_name LIKE concat('%',#{condition.dealerName},'%')
       </if>
       <if test="condition.dealerPhone != '' and condition.dealerPhone != null">
-        AND peasant.dealer_phone = #{condition.dealerPhone}
+        AND dealer.dealer_phone = #{condition.dealerPhone}
       </if>
       <if test="condition.dealerStatus != null">
-        AND peasant.dealer_status = #{condition.dealerStatus}
+        AND dealer.dealer_status = #{condition.dealerStatus}
       </if>
     </where>
   </sql>

@@ -67,7 +67,7 @@
     <ul class="layui-nav right right2">
         <li class="layui-nav-item">
             <a href="javascript:;" class="clearCache">
-                <i class="layui-icon" data-icon="&#xe640;">&#xe640;&nbsp;</i><cite>清除缓存</cite><span
+                <i class="layui-icon">&#xe640;&nbsp;</i><cite>清除缓存</cite><span
                     class="layui-badge-dot"></span></a>
         </li>
         <li class="layui-nav-item showNotice" id="showNotice">
