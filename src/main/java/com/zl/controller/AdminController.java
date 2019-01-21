@@ -3,13 +3,11 @@ package com.zl.controller;
 import com.zl.aop.SystemControllerLog;
 import com.zl.pojo.DealerDO;
 import com.zl.pojo.PeasantDO;
+import com.zl.pojo.UserDO;
 import com.zl.service.DealerService;
 import com.zl.service.PeasantService;
 import com.zl.service.UserService;
-import com.zl.util.AjaxPutPage;
-import com.zl.util.AjaxResultPage;
-import com.zl.util.Constants;
-import com.zl.util.MessageBean;
+import com.zl.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -80,6 +78,25 @@ public class AdminController {
     public MessageBean updatePeasant(PeasantDO peasantInfo) throws Exception{
         peasantService.updatePeasant(peasantInfo);
         return new MessageBean(true,Constants.SUCCESS_UPDATE);
+    }
+
+    /*** 
+    * @Description: 添加农民
+    * @Param: [userDTO] 
+    * @return: com.zl.util.MessageBean 
+    * @Author: ZhuLin
+    * @Date: 2019/1/21 
+    */
+    @SystemControllerLog(description = "添加农民")
+    @RequestMapping("/addPeasant")
+    @ResponseBody
+    public MessageBean addPeasant(UserDO userDO,PeasantDO peasantDO) throws Exception{
+        String uuid = UuidUtils.creatUUID();
+        userDO.setUserid(uuid);
+        peasantDO.setPeasantId(uuid);
+        userService.insertUser(userDO);
+        peasantService.insertPeasant(peasantDO);
+        return new MessageBean(true,Constants.SUCCESS_INSERT);
     }
 
     /**

@@ -36,6 +36,15 @@ public interface PeasantService {
     */ 
     void updatePeasant(PeasantDO peasantInfo) throws MessageException;
 
+    /*** 
+    * @Description: 添加农民资料 
+    * @Param: [peasantDO] 
+    * @return: void 
+    * @Author: ZhuLin
+    * @Date: 2019/1/21 
+    */ 
+    void insertPeasant(PeasantDO peasantDO) throws MessageException;
+
     /** 
     * @Description: 删除农民
     * @Param: [id]

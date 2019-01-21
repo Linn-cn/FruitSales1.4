@@ -11,6 +11,10 @@ public class Constants {
     public static final Integer HASHITERATIONS = 1024;
     public static final String PASSWORD = "000000";
 
+    //权限等级
+    public static final Integer ROLE_PEASANT = 1;
+    public static final Integer ROLE_DEALER = 2;
+
     //异常错误提示
     public static final String ERROR_MSG = "通信异常,请及时联系系统管理员QQ:1320291471!";
 
@@ -30,4 +34,5 @@ public class Constants {
     //农民相关提示信息
     public static final String SUCCESS_UPDATE = "修改成功";
     public static final String SUCCESS_DELETE = "删除成功";
+    public static final String SUCCESS_INSERT = "添加成功,默认密码为000000";
 }

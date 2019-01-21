@@ -28,22 +28,24 @@
                     <input type="text" name="peasantPhone" class="layui-input searchVal" placeholder="请输入电话号码" />
                 </div>
                 <div class="layui-input-inline">
-                    <input type="text" name="peasantIdentity" class="layui-input searchVal" placeholder="请输入身份" />
-                </div>
-                <div class="layui-input-inline">
                     <select name="peasantStatus">
                         <option value="">选择用户状态</option>
                         <option value="1">正常使用</option>
                         <option value="0">限制使用</option>
                     </select>
                 </div>
-                <a class="layui-btn" lay-submit lay-filter="search_btn"><i class="layui-icon">&#xe615;</i></a>
+                <a title="搜索" class="layui-btn" lay-submit lay-filter="search_btn"><i class="layui-icon">&#xe615;</i></a>
             </div>
             <div class="layui-inline">
                 <a class="layui-btn layui-btn-normal addNews_btn">添加零售商</a>
             </div>
             <div class="layui-inline">
                 <a class="layui-btn layui-btn-danger layui-btn-normal delAll_btn">批量删除</a>
+            </div>
+            <div class="layui-inline" style="float: right">
+                <a class="layui-btn" href="javascript:location.reload();" title="刷新">
+                    <i class="layui-icon">&#xe669;</i>
+                </a>
             </div>
         </form>
     </blockquote>

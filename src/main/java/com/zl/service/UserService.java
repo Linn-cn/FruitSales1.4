@@ -66,4 +66,13 @@ public interface UserService {
      * @date: 2019/1/19 16:17 
      */
     void resetPeasantPwd(String userid) throws MessageException;
+
+    /*** 
+    * @Description: 添加用户 
+    * @Param: [userDO] 
+    * @return: void 
+    * @Author: ZhuLin
+    * @Date: 2019/1/21 
+    */ 
+    void insertUser(UserDO userDO) throws MessageException;
 }

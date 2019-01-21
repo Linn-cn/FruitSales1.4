@@ -37,13 +37,18 @@
                         <option value="0">限制使用</option>
                     </select>
                 </div>
-                <a class="layui-btn" lay-submit lay-filter="search_btn"><i class="layui-icon">&#xe615;</i></a>
+                <a title="搜索" class="layui-btn" lay-submit lay-filter="search_btn"><i class="layui-icon">&#xe615;</i></a>
             </div>
             <div class="layui-inline">
                 <a class="layui-btn layui-btn-normal addNews_btn">添加农民</a>
             </div>
             <div class="layui-inline">
                 <a class="layui-btn layui-btn-danger layui-btn-normal delAll_btn">批量删除</a>
+            </div>
+            <div class="layui-inline" style="float: right">
+                <a class="layui-btn" href="javascript:location.reload();" title="刷新">
+                    <i class="layui-icon">&#xe669;</i>
+                </a>
             </div>
         </form>
     </blockquote>
@@ -104,15 +109,17 @@
         });
 
         //打开设置农民弹窗
-        function updatePeasant(edit){
+        function addOrUpdatePeasant(edit){
+            var url = "views/admin/addPeasant.jsp";
             if(edit){
+                url = "views/admin/updatePeasant.jsp";
                 window.sessionStorage.setItem("peasant",JSON.stringify(edit));
             }
             var index = layui.layer.open({
                 title : "设置农民",
                 type : 2,
                 area: ['750px', '450px'],
-                content : "views/admin/updatePeasant.jsp",
+                content : url,
                 success : function(layero, index){
                     setTimeout(function(){
                         layui.layer.tips('点击此处返回列表', '.layui-layer-setwin .layui-layer-close', {
@@ -125,10 +132,18 @@
                     window.sessionStorage.removeItem("peasant");
                 }
             });
+            if(!edit){
+                layui.layer.full(index);
+                window.sessionStorage.setItem("index",index);
+                //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+                $(window).on("resize",function(){
+                    layui.layer.full(window.sessionStorage.getItem("index"));
+                })
+            }
         }
 
         $(".addNews_btn").click(function(){
-            console.log("添加农民");
+            addOrUpdatePeasant();
         });
 
         //批量删除
@@ -160,7 +175,7 @@
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
 
             if(layEvent === 'edit'){ //编辑
-                updatePeasant(data);
+                addOrUpdatePeasant(data);
             }else if(layEvent === 'del'){ //编辑
                 layer.confirm('确定删除此农民？',{icon:3, title:'提示信息'},function(index){
                     $.get("admin/deletePeasant", {

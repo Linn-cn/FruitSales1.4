@@ -252,6 +252,7 @@
     FROM
         dealer
         <include refid="dealerQueryCondition"></include>
+    ORDER BY dealer.dealer_time DESC
   </select>
 
   <select id="getDealerCount" parameterType="com.zl.util.AjaxPutPage" resultType="java.lang.Long">

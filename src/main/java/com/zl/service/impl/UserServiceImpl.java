@@ -8,6 +8,7 @@ import com.zl.pojo.*;
 import com.zl.service.UserService;
 import com.zl.util.Constants;
 import com.zl.util.MessageException;
+import com.zl.util.UuidUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -77,6 +78,14 @@ public class UserServiceImpl implements UserService {
         Md5Hash md5Hash = new Md5Hash(Constants.PASSWORD,userDO.getUsername(),Constants.HASHITERATIONS);
         userDO.setPassword(md5Hash.toString());
         userMapper.updateByPrimaryKeySelective(userDO);
+    }
+
+    @Override
+    public void insertUser(UserDO userDO) throws MessageException {
+        userDO.setRole(Constants.ROLE_PEASANT);
+        String password = new Md5Hash(Constants.PASSWORD,userDO.getUsername(),Constants.HASHITERATIONS).toString();
+        userDO.setPassword(password);
+        userMapper.insertSelective(userDO);
     }
 
 

@@ -8,9 +8,12 @@ import com.zl.pojo.UserDOExample;
 import com.zl.service.PeasantService;
 import com.zl.util.AjaxPutPage;
 import com.zl.util.MessageException;
+import com.zl.util.UuidUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -45,6 +48,12 @@ public class PeasantServiceImpl implements PeasantService {
         Timestamp timestamp = new Timestamp(date.getTime());
         peasantInfo.setPeasantTime(timestamp);*/
         peasantMapper.updateByPrimaryKeySelective(peasantInfo);
+    }
+
+    @Override
+    public void insertPeasant(PeasantDO peasantDO) throws MessageException {
+        peasantDO.setPeasantTime(new Timestamp(new Date().getTime()));
+        peasantMapper.insertSelective(peasantDO);
     }
 
     @Override

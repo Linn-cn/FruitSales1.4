@@ -8,34 +8,52 @@
 <head>
     <meta charset="UTF-8">
     <base href="<%=basePath%>">
-    <title>编辑农民</title>
+    <title>添加农民</title>
     <%@include file="../../assets/styleAndscript.jsp" %>
 </head>
 <body class="x-body">
-<form class="layui-form" style="width:90%;" lay-filter="addPeasantForm">
+<form class="layui-form" style="width:50%;" lay-filter="addPeasantForm">
     <input type="hidden" id="peasantId" name="peasantId">
     <div class="layui-form-item layui-row layui-col-xs12">
+        <label class="layui-form-label">登录名</label>
+        <div class="layui-input-inline">
+            <input type="text" name="username" class="layui-input peasantName" lay-verify="required|username" placeholder="请输入账号">
+        </div>
+        <div class="layui-form-mid layui-word-aux">
+            <span class="x-red">*</span>您唯一的登入名
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12">
         <label class="layui-form-label">姓名</label>
-        <div class="layui-input-block">
+        <div class="layui-input-inline">
             <input type="text" name="peasantName" class="layui-input peasantName" lay-verify="required" placeholder="请输入真实姓名">
+        </div>
+        <div class="layui-form-mid layui-word-aux">
+            <span class="x-red">*</span>您的真实姓名
         </div>
     </div>
     <div class="layui-form-item layui-row layui-col-xs12">
         <label class="layui-form-label">电话号码</label>
-        <div class="layui-input-block">
-            <input type="text" name="peasantPhone" class="layui-input peasantPhone" lay-verify="required" placeholder="请输入电话号码">
+        <div class="layui-input-inline">
+            <input type="text" name="peasantPhone" class="layui-input peasantPhone" lay-verify="required|phone" placeholder="请输入电话号码">
+        </div>
+        <div class="layui-form-mid layui-word-aux">
+            <span class="x-red">*</span>方便我们及时与你联系
         </div>
     </div>
     <div class="layui-form-item layui-row layui-col-xs12">
         <label class="layui-form-label">身份</label>
-        <div class="layui-input-block peasantIdentity">
+        <div class="layui-input-inline peasantIdentity">
             <input type="checkbox" name="peasantIdentity[0]" title="果农" value="果农">
             <input type="checkbox" name="peasantIdentity[1]" title="菜农" value="菜农">
+        </div>
+        <div class="layui-form-mid layui-word-aux">
+            <span class="x-red">*</span>必选,可多选
         </div>
     </div>
     <div class="layui-form-item layui-row layui-col-xs6">
         <label class="layui-form-label">用户状态</label>
-        <div class="layui-input-block">
+        <div class="layui-input-inline">
             <select name="peasantStatus" class="peasantStatus" lay-verify="required" lay-filter="peasantStatus">
                 <option value="">-请选择-</option>
                 <option value="1">正常使用</option>
@@ -43,7 +61,7 @@
             </select>
         </div>
     </div>
-    <div class="layui-form-item layui-row layui-col-xs12">
+    <div class="layui-form-item layui-row layui-col-xs6">
         <label class="layui-form-label">居住地址</label>
         <div class="layui-input-block">
             <textarea name="peasantAddress" placeholder="请输入居住地址" lay-verify="required" class="layui-textarea peasantAddress"></textarea>
@@ -63,22 +81,16 @@
             layer = parent.layer === undefined ? layui.layer : top.layer,
             $ = layui.jquery;
 
-        var edit = JSON.parse(window.sessionStorage.getItem("peasant"));
-        if(edit != null && edit != ""){
-            var peasantIdentity = edit.peasantIdentity.split("、");
-            // 判断当前农民所拥有的身份
-            var flag1 = peasantIdentity.indexOf("果农") != -1;
-            var flag2 = peasantIdentity.indexOf("菜农") != -1;
-            form.val('addPeasantForm', {
-                "peasantId" : edit.peasantId,
-                "peasantName": edit.peasantName, // "name": "value"
-                "peasantIdentity[0]" : flag1,
-                "peasantIdentity[1]" : flag2,
-                "peasantPhone" : edit.peasantPhone,
-                "peasantStatus" : edit.peasantStatus,
-                "peasantAddress" : edit.peasantAddress
-            });
-        }
+        form.verify({
+            username: function(value, item){
+                if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+                    return '用户名不能有特殊字符';
+                }
+                if(/(^\_)|(\__)|(\_+$)/.test(value)){
+                    return '用户名首尾不能出现下划线\'_\'';
+                }
+            }
+        });
 
         form.on("submit(addPeasant)",function(data){
             var datas = data.field;
@@ -91,10 +103,10 @@
             delete datas['peasantIdentity[1]'];
             var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
             // 提交信息
-            $.post("admin/updatePeasant",datas,function(s){
+            $.post("admin/addPeasant",datas,function(s){
                 setTimeout(function(){
                     top.layer.close(index);
-                    top.layer.msg(s.msg);
+                    top.layer.alert(s.msg);
                     layer.closeAll("iframe");
                     //刷新父页面
                     parent.location.reload();

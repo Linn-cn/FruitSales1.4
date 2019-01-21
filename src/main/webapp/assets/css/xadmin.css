@@ -438,11 +438,13 @@ xblock{
     height: 100%;
 
 }
-.page-content .layui-tab-content .layui-tab-item iframe{
+
+iframe{
     width: 100%;
-    height: 100%;
+    height: 100% !important;
 
 }
+
 .x-admin-carousel,.layui-carousel,.x-admin-carousel>[carousel-item]>* {
     background-color:#fff
 }
