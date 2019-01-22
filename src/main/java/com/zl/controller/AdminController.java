@@ -233,7 +233,8 @@ public class AdminController {
     * @return: com.zl.util.MessageBean 
     * @Author: ZhuLin
     * @Date: 2019/1/22 
-    */ 
+    */
+    @SystemControllerLog(description = "修改零售商")
     @RequestMapping("/updateDealer")
     @ResponseBody
     public MessageBean updateDealer(DealerDO dealerDO) throws Exception{

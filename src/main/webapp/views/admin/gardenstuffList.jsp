@@ -117,14 +117,14 @@
         });
 
         //打开设置农民弹窗
-/*        function addOrUpdatePeasant(edit){
-            var url = "views/admin/addPeasant.jsp";
+        function addOrUpdateGardenstuff(edit){
+            var url = "views/admin/addGardenstuff.jsp";
             if(edit){
                 url = "views/admin/updatePeasant.jsp";
                 window.sessionStorage.setItem("peasant",JSON.stringify(edit));
             }
             var index = layui.layer.open({
-                title : "设置农民",
+                title : "设置果蔬",
                 type : 2,
                 area: ['750px', '450px'],
                 shadeClose: true,
@@ -139,17 +139,16 @@
                     },300);
                 },
                 end: function(){
-                    window.sessionStorage.removeItem("peasant");
+                    window.sessionStorage.removeItem("gardenstuff");
                 }
             });
-        }*/
+        }
 
-/*
         $(".addNews_btn").click(function(){
-            addOrUpdatePeasant();
+            addOrUpdateGardenstuff();
         });
 
-        //批量删除
+/*        //批量删除
         $(".delAll_btn").click(function(){
             var checkStatus = table.checkStatus('peasantListTable'),
                 data = checkStatus.data,
@@ -208,8 +207,7 @@
                     layer.close(index);
                 });
             }
-        });
-*/
+        });*/
 
     });
 </script>
