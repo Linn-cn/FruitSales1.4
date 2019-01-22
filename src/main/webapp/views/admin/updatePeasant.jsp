@@ -65,7 +65,7 @@
 
         var edit = JSON.parse(window.sessionStorage.getItem("peasant"));
         if(edit != null && edit != ""){
-            var peasantIdentity = edit.peasantIdentity.split("、");
+            var peasantIdentity = edit.peasantIdentity.split(",");
             // 判断当前农民所拥有的身份
             var flag1 = peasantIdentity.indexOf("果农") != -1;
             var flag2 = peasantIdentity.indexOf("菜农") != -1;
@@ -83,7 +83,7 @@
         form.on("submit(updatePeasant)",function(data){
             var datas = data.field;
             if (datas['peasantIdentity[0]'] != null && datas['peasantIdentity[1]'] != null) {
-                datas.peasantIdentity = datas['peasantIdentity[0]'] + '、' + datas['peasantIdentity[1]'];
+                datas.peasantIdentity = datas['peasantIdentity[0]'] + ',' + datas['peasantIdentity[1]'];
             } else if (datas['peasantIdentity[0]'] != null || datas['peasantIdentity[1]'] != null) {
                 datas.peasantIdentity = datas['peasantIdentity[0]'] != null ? datas['peasantIdentity[0]'] : datas['peasantIdentity[1]'];
             }

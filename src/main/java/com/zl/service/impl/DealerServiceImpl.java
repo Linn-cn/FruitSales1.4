@@ -62,4 +62,9 @@ public class DealerServiceImpl implements DealerService {
         dealerDO.setDealerTime(new Timestamp(new Date().getTime()));
         dealerMapper.insertSelective(dealerDO);
     }
+
+    @Override
+    public void updateDealer(DealerDO dealerDO) throws MessageException {
+        dealerMapper.updateByPrimaryKeySelective(dealerDO);
+    }
 }

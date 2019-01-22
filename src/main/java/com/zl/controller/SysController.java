@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @program: FruitSales
@@ -111,8 +112,9 @@ public class SysController {
         AjaxResultPage<LogDO> result = new AjaxResultPage<LogDO>();
         result.setCode(0);
         result.setMsg(Constants.SUCCESS_MESSAGE);
-        result.setCount(logService.getLogCount());
-        result.setData(logService.listLogDO(ajaxPutPage));
+        List<LogDO> list = logService.listLogDO(ajaxPutPage);
+        result.setData(list);
+        result.setCount(list.size());
         return result;
     }
     

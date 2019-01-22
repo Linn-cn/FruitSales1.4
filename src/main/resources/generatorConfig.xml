@@ -65,9 +65,9 @@
         </javaClientGenerator>
 
         <!-- 数据表进行生成操作 tableName:表名; domainObjectName:对应的DO -->
-        <table tableName="log" domainObjectName="LogDO">
+        <table tableName="category" domainObjectName="CategoryDO">
 
-            <property name="useActualColumnNames" value="true"></property>
+            <property name="useActualColumnNames" value="false"></property>
         </table>
 
     </context>

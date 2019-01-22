@@ -13,6 +13,7 @@
 </head>
 <body class="x-body">
 <form class="layui-form" style="width:90%;" lay-filter="updateDealerForm">
+    <input type="hidden" id="dealerId" name="dealerId">
     <div class="layui-form-item layui-row layui-col-xs12">
         <label class="layui-form-label">姓名</label>
         <div class="layui-input-block">
@@ -67,17 +68,9 @@
         }
 
         form.on("submit(updateDealer)",function(data){
-            var datas = data.field;
-            if (datas['peasantIdentity[0]'] != null && datas['peasantIdentity[1]'] != null) {
-                datas.peasantIdentity = datas['peasantIdentity[0]'] + '、' + datas['peasantIdentity[1]'];
-            } else if (datas['peasantIdentity[0]'] != null || datas['peasantIdentity[1]'] != null) {
-                datas.peasantIdentity = datas['peasantIdentity[0]'] != null ? datas['peasantIdentity[0]'] : datas['peasantIdentity[1]'];
-            }
-            delete datas['peasantIdentity[0]'];
-            delete datas['peasantIdentity[1]'];
             var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
             // 提交信息
-            $.post("admin/updatePeasant",datas,function(s){
+            $.post("admin/updateDealer",data.field,function(s){
                 setTimeout(function(){
                     top.layer.close(index);
                     top.layer.msg(s.msg);

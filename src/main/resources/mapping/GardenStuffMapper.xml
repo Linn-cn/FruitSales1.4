@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zl.mapper.GardenStuffMapper" >
+  <resultMap id="BaseResultMap" type="com.zl.pojo.GardenStuffDO" >
+    <id column="gardenstuff_id" property="gardenstuffId" jdbcType="VARCHAR" />
+    <result column="gardenstuff_peasantid" property="gardenstuffPeasantid" jdbcType="VARCHAR" />
+    <result column="gardenstuff_name" property="gardenstuffName" jdbcType="VARCHAR" />
+    <result column="gardenstuff_price" property="gardenstuffPrice" jdbcType="DECIMAL" />
+    <result column="gardenstuff_category" property="gardenstuffCategory" jdbcType="VARCHAR" />
+    <result column="gardenstuff_categoryname" property="gardenstuffCategoryname" jdbcType="VARCHAR" />
+    <result column="gardenstuff_number" property="gardenstuffNumber" jdbcType="INTEGER" />
+    <result column="gardenstuff_address" property="gardenstuffAddress" jdbcType="VARCHAR" />
+    <result column="gardenstuff_time" property="gardenstuffTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    gardenstuff_id, gardenstuff_peasantid, gardenstuff_name, gardenstuff_price, gardenstuff_category, 
+    gardenstuff_categoryname, gardenstuff_number, gardenstuff_address, gardenstuff_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zl.pojo.GardenStuffDOExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from gardenstuff
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from gardenstuff
+    where gardenstuff_id = #{gardenstuffId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from gardenstuff
+    where gardenstuff_id = #{gardenstuffId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zl.pojo.GardenStuffDOExample" >
+    delete from gardenstuff
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zl.pojo.GardenStuffDO" >
+    insert into gardenstuff (gardenstuff_id, gardenstuff_peasantid, 
+      gardenstuff_name, gardenstuff_price, gardenstuff_category, 
+      gardenstuff_categoryname, gardenstuff_number, 
+      gardenstuff_address, gardenstuff_time)
+    values (#{gardenstuffId,jdbcType=VARCHAR}, #{gardenstuffPeasantid,jdbcType=VARCHAR}, 
+      #{gardenstuffName,jdbcType=VARCHAR}, #{gardenstuffPrice,jdbcType=DECIMAL}, #{gardenstuffCategory,jdbcType=VARCHAR}, 
+      #{gardenstuffCategoryname,jdbcType=VARCHAR}, #{gardenstuffNumber,jdbcType=INTEGER}, 
+      #{gardenstuffAddress,jdbcType=VARCHAR}, #{gardenstuffTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zl.pojo.GardenStuffDO" >
+    insert into gardenstuff
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gardenstuffId != null" >
+        gardenstuff_id,
+      </if>
+      <if test="gardenstuffPeasantid != null" >
+        gardenstuff_peasantid,
+      </if>
+      <if test="gardenstuffName != null" >
+        gardenstuff_name,
+      </if>
+      <if test="gardenstuffPrice != null" >
+        gardenstuff_price,
+      </if>
+      <if test="gardenstuffCategory != null" >
+        gardenstuff_category,
+      </if>
+      <if test="gardenstuffCategoryname != null" >
+        gardenstuff_categoryname,
+      </if>
+      <if test="gardenstuffNumber != null" >
+        gardenstuff_number,
+      </if>
+      <if test="gardenstuffAddress != null" >
+        gardenstuff_address,
+      </if>
+      <if test="gardenstuffTime != null" >
+        gardenstuff_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gardenstuffId != null" >
+        #{gardenstuffId,jdbcType=VARCHAR},
+      </if>
+      <if test="gardenstuffPeasantid != null" >
+        #{gardenstuffPeasantid,jdbcType=VARCHAR},
+      </if>
+      <if test="gardenstuffName != null" >
+        #{gardenstuffName,jdbcType=VARCHAR},
+      </if>
+      <if test="gardenstuffPrice != null" >
+        #{gardenstuffPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="gardenstuffCategory != null" >
+        #{gardenstuffCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="gardenstuffCategoryname != null" >
+        #{gardenstuffCategoryname,jdbcType=VARCHAR},
+      </if>
+      <if test="gardenstuffNumber != null" >
+        #{gardenstuffNumber,jdbcType=INTEGER},
+      </if>
+      <if test="gardenstuffAddress != null" >
+        #{gardenstuffAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="gardenstuffTime != null" >
+        #{gardenstuffTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zl.pojo.GardenStuffDOExample" resultType="java.lang.Integer" >
+    select count(*) from gardenstuff
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update gardenstuff
+    <set >
+      <if test="record.gardenstuffId != null" >
+        gardenstuff_id = #{record.gardenstuffId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gardenstuffPeasantid != null" >
+        gardenstuff_peasantid = #{record.gardenstuffPeasantid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gardenstuffName != null" >
+        gardenstuff_name = #{record.gardenstuffName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gardenstuffPrice != null" >
+        gardenstuff_price = #{record.gardenstuffPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.gardenstuffCategory != null" >
+        gardenstuff_category = #{record.gardenstuffCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gardenstuffCategoryname != null" >
+        gardenstuff_categoryname = #{record.gardenstuffCategoryname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gardenstuffNumber != null" >
+        gardenstuff_number = #{record.gardenstuffNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.gardenstuffAddress != null" >
+        gardenstuff_address = #{record.gardenstuffAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gardenstuffTime != null" >
+        gardenstuff_time = #{record.gardenstuffTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update gardenstuff
+    set gardenstuff_id = #{record.gardenstuffId,jdbcType=VARCHAR},
+      gardenstuff_peasantid = #{record.gardenstuffPeasantid,jdbcType=VARCHAR},
+      gardenstuff_name = #{record.gardenstuffName,jdbcType=VARCHAR},
+      gardenstuff_price = #{record.gardenstuffPrice,jdbcType=DECIMAL},
+      gardenstuff_category = #{record.gardenstuffCategory,jdbcType=VARCHAR},
+      gardenstuff_categoryname = #{record.gardenstuffCategoryname,jdbcType=VARCHAR},
+      gardenstuff_number = #{record.gardenstuffNumber,jdbcType=INTEGER},
+      gardenstuff_address = #{record.gardenstuffAddress,jdbcType=VARCHAR},
+      gardenstuff_time = #{record.gardenstuffTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zl.pojo.GardenStuffDO" >
+    update gardenstuff
+    <set >
+      <if test="gardenstuffPeasantid != null" >
+        gardenstuff_peasantid = #{gardenstuffPeasantid,jdbcType=VARCHAR},
+      </if>
+      <if test="gardenstuffName != null" >
+        gardenstuff_name = #{gardenstuffName,jdbcType=VARCHAR},
+      </if>
+      <if test="gardenstuffPrice != null" >
+        gardenstuff_price = #{gardenstuffPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="gardenstuffCategory != null" >
+        gardenstuff_category = #{gardenstuffCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="gardenstuffCategoryname != null" >
+        gardenstuff_categoryname = #{gardenstuffCategoryname,jdbcType=VARCHAR},
+      </if>
+      <if test="gardenstuffNumber != null" >
+        gardenstuff_number = #{gardenstuffNumber,jdbcType=INTEGER},
+      </if>
+      <if test="gardenstuffAddress != null" >
+        gardenstuff_address = #{gardenstuffAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="gardenstuffTime != null" >
+        gardenstuff_time = #{gardenstuffTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where gardenstuff_id = #{gardenstuffId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zl.pojo.GardenStuffDO" >
+    update gardenstuff
+    set gardenstuff_peasantid = #{gardenstuffPeasantid,jdbcType=VARCHAR},
+      gardenstuff_name = #{gardenstuffName,jdbcType=VARCHAR},
+      gardenstuff_price = #{gardenstuffPrice,jdbcType=DECIMAL},
+      gardenstuff_category = #{gardenstuffCategory,jdbcType=VARCHAR},
+      gardenstuff_categoryname = #{gardenstuffCategoryname,jdbcType=VARCHAR},
+      gardenstuff_number = #{gardenstuffNumber,jdbcType=INTEGER},
+      gardenstuff_address = #{gardenstuffAddress,jdbcType=VARCHAR},
+      gardenstuff_time = #{gardenstuffTime,jdbcType=TIMESTAMP}
+    where gardenstuff_id = #{gardenstuffId,jdbcType=VARCHAR}
+  </update>
+
+  <!-- 条件查询 -->
+  <sql id="GardenStuffQueryCondition">
+      <if test="condition.gardenstuffName != '' and condition.gardenstuffName != null">
+        AND g.gardenstuff_name = #{condition.gardenstuffName}
+      </if>
+      <if test="condition.gardenstuffCategory != '' and condition.gardenstuffCategory != null">
+        AND g.gardenstuff_category REGEXP #{condition.gardenstuffCategory}
+      </if>
+      <if test="condition.peasantName != '' and condition.peasantName != null">
+        AND p.peasant_name LIKE concat('%',#{condition.peasantName},'%')
+      </if>
+  </sql>
+
+  <select id="listGardenStuff" parameterType="com.zl.util.AjaxPutPage" resultType="com.zl.pojo.GardenStuffDTO">
+    SELECT
+      g.gardenstuff_id gardenstuffId,
+      g.gardenstuff_peasantid gardenstuffPeasantid,
+      g.gardenstuff_name gardenstuffName,
+      g.gardenstuff_price gardenstuffPrice,
+      g.gardenstuff_category gardenstuffCategory,
+      g.gardenstuff_categoryname gardenstuffCategoryname,
+      g.gardenstuff_number gardenstuffNumber,
+      g.gardenstuff_address gardenstuffAddress,
+      g.gardenstuff_time gardenstuffTime,
+      p.peasant_name peasantName
+    FROM
+        gardenstuff AS g,
+        peasant AS p
+    WHERE
+	  g.gardenstuff_peasantid = p.peasant_id
+    <include refid="GardenStuffQueryCondition"></include>
+    ORDER BY g.gardenstuff_time DESC
+  </select>
+</mapper>

@@ -18,7 +18,7 @@ public class AjaxResultPage<T> implements Serializable {
     private String msg;
 
     //总条数
-    private Long count;
+    private Integer count;
 
     //表格数据
     private List<T> data;
@@ -39,11 +39,11 @@ public class AjaxResultPage<T> implements Serializable {
         this.msg = msg;
     }
 
-    public Long getCount() {
+    public Integer getCount() {
         return count;
     }
 
-    public void setCount(Long count) {
+    public void setCount(Integer count) {
         this.count = count;
     }
 

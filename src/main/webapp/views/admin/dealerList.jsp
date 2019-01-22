@@ -76,10 +76,6 @@
             toolbar: true,
             limit : 10,
             limits : [10,15,20,25],
-            initSort: {
-                field: 'dealerTime' //排序字段，对应 cols 设定的各字段名
-                ,type: 'desc' //排序方式  asc: 升序、desc: 降序、null: 默认排序
-            },
             cols : [[
                 {type: "checkbox", fixed:"left"},
                 {field: 'dealerName', title: '零售商名字', align:"center",unresize:"true"},

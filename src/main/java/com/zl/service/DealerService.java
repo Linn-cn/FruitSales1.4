@@ -59,4 +59,13 @@ public interface DealerService {
     * @Date: 2019/1/21 
     */ 
     void insertDealer(DealerDO dealerDO) throws MessageException;
+
+    /** 
+    * @Description: 修改零售商
+    * @Param: [dealerDO] 
+    * @return: void 
+    * @Author: ZhuLin
+    * @Date: 2019/1/22 
+    */ 
+    void updateDealer(DealerDO dealerDO) throws MessageException;
 }

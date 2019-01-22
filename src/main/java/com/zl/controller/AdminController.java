@@ -1,10 +1,9 @@
 package com.zl.controller;
 
 import com.zl.aop.SystemControllerLog;
-import com.zl.pojo.DealerDO;
-import com.zl.pojo.PeasantDO;
-import com.zl.pojo.UserDO;
+import com.zl.pojo.*;
 import com.zl.service.DealerService;
+import com.zl.service.GardenStuffService;
 import com.zl.service.PeasantService;
 import com.zl.service.UserService;
 import com.zl.util.*;
@@ -35,6 +34,9 @@ public class AdminController {
     @Autowired
     private DealerService dealerService;
 
+    @Autowired
+    private GardenStuffService gardenStuffService;
+
     /**
     * @Description: 跳转农民列表界面
     * @Param: []
@@ -60,8 +62,9 @@ public class AdminController {
         System.out.println(peasantCondition.toString());
         AjaxResultPage<PeasantDO> result = new AjaxResultPage<PeasantDO>();
         ajaxPutPage.setCondition(peasantCondition);
-        result.setData(peasantService.listPeasant(ajaxPutPage));
-        result.setCount(peasantService.getPeasantCount(ajaxPutPage));
+        List<PeasantDO> list = peasantService.listPeasant(ajaxPutPage);
+        result.setData(list);
+        result.setCount(list.size());
         return result;
     }
 
@@ -148,28 +151,29 @@ public class AdminController {
      * @Description: 跳转零售商列表
      * @Param: []
      * @return: java.lang.String
-     * @date: 2019/1/19 23:01 
+     * @date: 2019/1/19 23:01
      */
     @RequestMapping("/gotoDealerList")
     public String gotoDealerList(){
         return "admin/dealerList";
     }
 
-    /**
-     * @Description: 获取零售商列表
-     * @Param: []
-     * @return: com.zl.util.AjaxResultPage<com.zl.pojo.PeasantDO>
-     * @Author: ZhuLin
-     * @Date: 2019/1/13
-     */
+    /** 
+    * @Description: 获取零售商列表
+    * @Param: [ajaxPutPage, dealerCondition] 
+    * @return: com.zl.util.AjaxResultPage<com.zl.pojo.DealerDO> 
+    * @Author: ZhuLin
+    * @Date: 2019/1/22 
+    */ 
     @RequestMapping("/getDealerList")
     @ResponseBody
     public AjaxResultPage<DealerDO> getDealerList(AjaxPutPage<DealerDO> ajaxPutPage, DealerDO dealerCondition){
         System.out.println(dealerCondition.toString());
         AjaxResultPage<DealerDO> result = new AjaxResultPage<DealerDO>();
         ajaxPutPage.setCondition(dealerCondition);
-        result.setData(dealerService.listDealer(ajaxPutPage));
-        result.setCount(dealerService.getDealerCount(ajaxPutPage));
+        List<DealerDO> list = dealerService.listDealer(ajaxPutPage);
+        result.setData(list);
+        result.setCount(list.size());
         return result;
     }
 
@@ -221,6 +225,65 @@ public class AdminController {
         userService.insertUser(userDO);
         dealerService.insertDealer(dealerDO);
         return new MessageBean(true,Constants.SUCCESS_INSERT);
+    }
+
+    /** 
+    * @Description: 修改零售商
+    * @Param: [dealerDO] 
+    * @return: com.zl.util.MessageBean 
+    * @Author: ZhuLin
+    * @Date: 2019/1/22 
+    */ 
+    @RequestMapping("/updateDealer")
+    @ResponseBody
+    public MessageBean updateDealer(DealerDO dealerDO) throws Exception{
+        dealerService.updateDealer(dealerDO);
+        return new MessageBean(true,Constants.SUCCESS_UPDATE);
+    }
+
+    /**
+     * @Description: 跳转果蔬列表
+     * @Param: []
+     * @return: java.lang.String
+     * @date: 2019/1/19 23:01
+     */
+    @RequestMapping("/gotoGardenStuffList")
+    public String gotoGardenStuffList(){
+        return "admin/gardenstuffList";
+    }
+
+    /** 
+    * @Description: 获取果蔬列表
+    * @Param: [ajaxPutPage, GardenStuffCondition] 
+    * @return: com.zl.util.AjaxResultPage<com.zl.pojo.GardenStuffDTO> 
+    * @Author: ZhuLin
+    * @Date: 2019/1/22 
+    */ 
+    @RequestMapping("/getGardenStuffList")
+    @ResponseBody
+    public AjaxResultPage<GardenStuffDTO> getGardenStuffList(AjaxPutPage<GardenStuffDTO> ajaxPutPage, GardenStuffDTO GardenStuffCondition){
+        System.out.println(GardenStuffCondition.toString());
+        AjaxResultPage<GardenStuffDTO> result = new AjaxResultPage<GardenStuffDTO>();
+        ajaxPutPage.setCondition(GardenStuffCondition);
+        List<GardenStuffDTO> list = gardenStuffService.listGardenStuff(ajaxPutPage);
+        result.setData(list);
+        result.setCount(list.size());
+        return result;
+    }
+
+    /** 
+    * @Description: 获取果蔬类别
+    * @Param: [] 
+    * @return: com.zl.util.AjaxResultPage<com.zl.pojo.CategoryDO> 
+    * @Author: ZhuLin
+    * @Date: 2019/1/22 
+    */ 
+    @RequestMapping("/getCategoryList")
+    @ResponseBody
+    public AjaxResultPage<CategoryDO> getCategoryList(){
+        AjaxResultPage<CategoryDO> result = new AjaxResultPage<CategoryDO>();
+        result.setData(gardenStuffService.listCategory());
+        return result;
     }
 
 }

@@ -8,8 +8,10 @@
 <html>
 <head>
     <base href="<%=basePath%>">
-    <title>果农列表</title>
+    <title>果蔬列表</title>
     <%@include file="../../assets/styleAndscriptForm.jsp"%>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" type="text/css" href="assets/css/formSelects-v4.css"/>
     <style>
         .layui-table-cell .layui-form-checkbox[lay-skin="primary"]{
             top: 50%;
@@ -22,29 +24,20 @@
         <form class="layui-form">
             <div class="layui-input-inline">
                 <div class="layui-input-inline">
-                    <input type="text" name="peasantName" class="layui-input searchVal" placeholder="请输入用户名" />
+                    <input type="text" name="peasantName" class="layui-input searchVal" placeholder="请输入农民名" />
                 </div>
                 <div class="layui-input-inline">
-                    <input type="text" name="peasantPhone" class="layui-input searchVal" placeholder="请输入电话号码" />
+                    <input type="text" name="gardenstuffName" class="layui-input searchVal" placeholder="请输入果蔬名" />
                 </div>
                 <div class="layui-input-inline">
-                    <select name="peasantIdentity" xm-select="peasantIdentity" xm-select-show-count="1" xm-select-skin="default">
-                        <option value="">请选择农民身份</option>
-                        <option value="果农">果农</option>
-                        <option value="菜农">菜农</option>
-                    </select>
-                </div>
-                <div class="layui-input-inline">
-                    <select name="peasantStatus">
-                        <option value="">选择用户状态</option>
-                        <option value="1">正常使用</option>
-                        <option value="0">限制使用</option>
+                    <select name="gardenstuffCategory" xm-select="gardenstuffCategory" xm-select-show-count="1" xm-select-skin="default">
+                        <option value="">请选择果蔬类别</option>
                     </select>
                 </div>
                 <a title="搜索" class="layui-btn" lay-submit lay-filter="search_btn"><i class="layui-icon">&#xe615;</i></a>
             </div>
             <div class="layui-inline">
-                <a class="layui-btn layui-btn-normal addNews_btn">添加农民</a>
+                <a class="layui-btn layui-btn-normal addNews_btn">添加果蔬</a>
             </div>
             <div class="layui-inline">
                 <a class="layui-btn layui-btn-danger layui-btn-normal delAll_btn">批量删除</a>
@@ -56,11 +49,11 @@
             </div>
         </form>
     </blockquote>
-    <table id="peasantList" lay-filter="peasantList"></table>
+    <table id="gardenStuffList" lay-filter="gardenStuffList"></table>
 
 </body>
 <!--操作-->
-<script type="text/html" id="peasantListBar">
+<script type="text/html" id="gardenStuffListBar">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="reset">重置</a>
     <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
@@ -73,15 +66,23 @@
             table = layui.table;
 
         var formSelects = layui.formSelects;
-        //配置只显示名称,紧凑型, 适合宽度较窄的情况
-        formSelects.btns('peasantIdentity', ['select']);
 
-        //果农列表
+        formSelects.config('gardenstuffCategory',{
+            keyName: 'categoryName',
+            keyVal: 'categoryId'
+        });
+        formSelects.data('gardenstuffCategory', 'server', {
+            url: 'admin/getCategoryList'
+        });
+        //配置只显示名称,紧凑型, 适合宽度较窄的情况
+        formSelects.btns('gardenstuffCategory', ['select']);
+
+        //果蔬列表
         var tableIns = table.render({
-            elem: '#peasantList',
-            id : "peasantListTable",
-            url : 'admin/getPeasantList',
-            title: '农民列表',
+            elem: '#gardenStuffList',
+            id : "gardenStuffListTable",
+            url : 'admin/getGardenStuffList',
+            title: '果蔬列表',
             page : true,
             height : "full-110",
             toolbar: true,
@@ -90,28 +91,25 @@
             cols : [[
                 {type: "checkbox", fixed:"left"},
                 {field: 'peasantName', title: '农民名字', align:"center",unresize:"true"},
-                {field: 'peasantPhone', title: '电话号码', align:'center',unresize:"true"},
-                {field: 'peasantIdentity', title: '农民身份', align:'center',unresize:"true"},
-                {field: 'peasantStatus', title: '账号状态', align:'center',unresize:"true",templet:function (d) {
-                        return d.peasantStatus == "1" ? "正常使用" : "限制使用";
-                    }},
-                {field: 'peasantAddress', title: '居住地址', align:'center',unresize:"true"},
-                {field: 'peasantTime', title: '注册时间', align:'center',sort:true,unresize:"true"},
-                {title: '操作',align:"center",unresize:"true",toolbar:"#peasantListBar"}
+                {field: 'gardenstuffName', title: '果蔬名', align:'center',unresize:"true"},
+                {field: 'gardenstuffPrice', title: '价格', align:'center',unresize:"true"},
+                {field: 'gardenstuffCategoryname', title: '类别', align:'center',unresize:"true"},
+                {field: 'gardenstuffNumber', title: '库存', align:'center',unresize:"true"},
+                {field: 'gardenstuffAddress', title: '产地', align:'center',unresize:"true"},
+                {field: 'gardenstuffTime', title: '注册时间', align:'center',sort:true,unresize:"true"},
+                {title: '操作',align:"center",unresize:"true",toolbar:"#gardenStuffListBar"}
             ]]
         });
 
         //搜索
         form.on('submit(search_btn)', function(data){
             var datas = data.field;
-            if (datas.peasantIdentity != null) {
-                if (datas.peasantIdentity == "菜农,果农"){
-                    datas.peasantIdentity = "果农,菜农";
-                }
+            if (datas.gardenstuffCategory != null && datas.gardenstuffCategory != ''){
+                datas.gardenstuffCategory = "[" + datas.gardenstuffCategory + "]";
             }
             console.log(data.field); //当前容器的全部表单字段，名值对形式：{name: value}
             tableIns.reload({
-                where: data.field
+                where: datas
                 ,page: {
                     curr: 1 //重新从第 1 页开始
                 }
@@ -119,7 +117,7 @@
         });
 
         //打开设置农民弹窗
-        function addOrUpdatePeasant(edit){
+/*        function addOrUpdatePeasant(edit){
             var url = "views/admin/addPeasant.jsp";
             if(edit){
                 url = "views/admin/updatePeasant.jsp";
@@ -144,8 +142,9 @@
                     window.sessionStorage.removeItem("peasant");
                 }
             });
-        }
+        }*/
 
+/*
         $(".addNews_btn").click(function(){
             addOrUpdatePeasant();
         });
@@ -210,6 +209,7 @@
                 });
             }
         });
+*/
 
     });
 </script>

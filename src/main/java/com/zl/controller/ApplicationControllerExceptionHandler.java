@@ -18,10 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class ApplicationControllerExceptionHandler {
 
-/*    @ExceptionHandler(value = Exception.class)
+    @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public MessageBean handlerError(HttpServletRequest req, Exception e) {
         return new MessageBean(false, Constants.ERROR_MSG);
-    }*/
+    }
 
 }

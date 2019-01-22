@@ -107,7 +107,7 @@
         form.on("submit(addPeasant)",function(data){
             var datas = data.field;
             if (datas['peasantIdentity[0]'] != null && datas['peasantIdentity[1]'] != null) {
-                datas.peasantIdentity = datas['peasantIdentity[0]'] + '、' + datas['peasantIdentity[1]'];
+                datas.peasantIdentity = datas['peasantIdentity[0]'] + ',' + datas['peasantIdentity[1]'];
             } else if (datas['peasantIdentity[0]'] != null || datas['peasantIdentity[1]'] != null) {
                 datas.peasantIdentity = datas['peasantIdentity[0]'] != null ? datas['peasantIdentity[0]'] : datas['peasantIdentity[1]'];
             }
