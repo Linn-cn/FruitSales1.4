@@ -30,7 +30,8 @@
                     <input type="text" name="gardenstuffName" class="layui-input searchVal" placeholder="请输入果蔬名" />
                 </div>
                 <div class="layui-input-inline">
-                    <select name="gardenstuffCategory" xm-select="gardenstuffCategory" xm-select-show-count="1" xm-select-skin="default">
+                    <select name="gardenstuffCategory" xm-select="gardenstuffCategory"
+                            xm-select-show-count="1" xm-select-skin="default">
                         <option value="">请选择果蔬类别</option>
                     </select>
                 </div>

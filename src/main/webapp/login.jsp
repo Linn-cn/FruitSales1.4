@@ -81,7 +81,7 @@
                         layer.load(2);
                         setTimeout(function(){
                             layer.closeAll('loading');
-                        }, 2000);
+                        }, 1500);
                         layer.msg("登录成功,等待跳转",function(){
                             location.href = s.msg;
                         });

@@ -115,6 +115,7 @@ public class AdminController {
     @ResponseBody
     public MessageBean deletePeasant(String id) throws Exception{
         peasantService.deletePeasant(id);
+        gardenStuffService.deleteGardenStuffByPeasantid(id);
         return new MessageBean(true,Constants.SUCCESS_DELETE);
     }
 
@@ -272,19 +273,35 @@ public class AdminController {
         return result;
     }
 
-    /** 
+    /**
     * @Description: 获取果蔬类别
-    * @Param: [] 
-    * @return: com.zl.util.AjaxResultPage<com.zl.pojo.CategoryDO> 
+    * @Param: []
+    * @return: com.zl.util.AjaxResultPage<com.zl.pojo.CategoryDO>
     * @Author: ZhuLin
-    * @Date: 2019/1/22 
-    */ 
+    * @Date: 2019/1/22
+    */
     @RequestMapping("/getCategoryList")
     @ResponseBody
     public AjaxResultPage<CategoryDO> getCategoryList(){
         AjaxResultPage<CategoryDO> result = new AjaxResultPage<CategoryDO>();
         result.setData(gardenStuffService.listCategory());
         return result;
+    }
+
+
+    /**
+     * @Description: 添加果蔬
+     * @Param: [gardenStuffDTO]
+     * @return: com.zl.util.MessageBean
+     * @date: 2019/1/27 20:09 
+     */
+    @SystemControllerLog(description = "添加果蔬")
+    @RequestMapping("/addGardenstuff")
+    @ResponseBody
+    public MessageBean addGardenstuff(GardenStuffDO gardenStuffDO) throws Exception{
+        System.out.println(gardenStuffDO.toString());
+        gardenStuffService.insertGardenStuff(gardenStuffDO);
+        return new MessageBean(true,Constants.SUCCESS_MESSAGE);
     }
 
 }

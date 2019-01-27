@@ -16,8 +16,8 @@
     <div class="layui-form-item layui-row layui-col-xs12">
         <label class="layui-form-label">农民名</label>
         <div class="layui-input-inline">
-            <select name="gardenstuff_peasantid" xm-select-search
-                    xm-select-radio="" xm-select="gardenstuff_peasantid" xm-select-skin="default">
+            <select name="gardenstuffPeasantid" xm-select-search
+                    xm-select-radio="" xm-select="gardenstuffPeasantid" xm-select-skin="default">
                 <option value="">请选择农民</option>
             </select>
         </div>
@@ -28,7 +28,7 @@
     <div class="layui-form-item layui-row layui-col-xs12">
         <label class="layui-form-label">果蔬名</label>
         <div class="layui-input-inline">
-            <input type="text" name="peasantName" class="layui-input" lay-verify="required" placeholder="请输入果蔬名字">
+            <input type="text" name="gardenstuffName" class="layui-input" lay-verify="required" placeholder="请输入果蔬名字">
         </div>
     </div>
     <div class="layui-form-item layui-row layui-col-xs12">
@@ -42,24 +42,27 @@
     <div class="layui-form-item layui-row layui-col-xs12">
         <label class="layui-form-label">价格</label>
         <div class="layui-input-inline">
-            <input type="text" name="peasantPhone" class="layui-input" lay-verify="required|phone" placeholder="请输入价格">
+            <input type="text" name="gardenstuffPrice" class="layui-input" lay-verify="required" placeholder="请输入价格">
+        </div>
+        <div class="layui-form-mid layui-word-aux">
+            <span class="x-red">*</span>按公斤算
         </div>
     </div>
     <div class="layui-form-item layui-row layui-col-xs12">
         <label class="layui-form-label">库存</label>
         <div class="layui-input-inline">
-            <input type="text" name="peasantPhone" class="layui-input" lay-verify="required|phone" placeholder="请输入库存">
+            <input type="text" name="gardenstuffNumber" class="layui-input" lay-verify="required" placeholder="请输入库存">
         </div>
     </div>
     <div class="layui-form-item layui-row layui-col-xs6">
         <label class="layui-form-label">产地</label>
         <div class="layui-input-block">
-            <textarea name="peasantAddress" placeholder="请输入果蔬产地" lay-verify="required" class="layui-textarea"></textarea>
+            <textarea name="gardenstuffAddress" placeholder="请输入果蔬产地" lay-verify="required" class="layui-textarea"></textarea>
         </div>
     </div>
     <div class="layui-form-item layui-row layui-col-xs12">
         <div class="layui-input-block">
-            <input id="submit" type="button" class="layui-btn" lay-submit lay-filter="addPeasant" value="提交">
+            <input id="submit" type="button" class="layui-btn" lay-submit lay-filter="addGardenstuff" value="提交">
             </input>
         </div>
     </div>
@@ -74,11 +77,12 @@
         var formSelects = layui.formSelects;
 
         //动态加载农民
-        formSelects.config('gardenstuff_peasantid',{
+        formSelects.config('gardenstuffPeasantid',{
+            data:{"peasantStatus" : 1}, //禁用状态的农民不显示
             keyName: 'peasantName',
             keyVal: 'peasantId'
         });
-        formSelects.data('gardenstuff_peasantid', 'server', {
+        formSelects.data('gardenstuffPeasantid', 'server', {
             url: 'admin/getPeasantList',
             beforeSuccess: function(id, url, searchVal, result){
                 //把数据外层的code, msg, data去掉
@@ -107,6 +111,23 @@
         //配置只显示名称,紧凑型, 适合宽度较窄的情况
         formSelects.btns('gardenstuffCategory', ['select']);
 
+        form.on("submit(addGardenstuff)",function(data){
+            var datas = data.field;
+            datas.gardenstuffCategoryname = formSelects.value('gardenstuffCategory', 'nameStr');
+            var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
+            console.log(datas);
+            // 提交信息
+            $.post("admin/addGardenstuff",datas,function(s){
+                setTimeout(function(){
+                    top.layer.close(index);
+                    top.layer.alert(s.msg);
+                    layer.closeAll("iframe");
+                    //刷新父页面
+                    parent.location.reload();
+                },1500);
+            });
+            return false;
+        });
     });
 </script>
 </html>

@@ -8,7 +8,7 @@
 <html>
 <head>
     <base href="<%=basePath%>">
-    <title>果农列表</title>
+    <title>农民列表</title>
     <%@include file="../../assets/styleAndscriptForm.jsp"%>
     <style>
         .layui-table-cell .layui-form-checkbox[lay-skin="primary"]{
@@ -28,7 +28,8 @@
                     <input type="text" name="peasantPhone" class="layui-input searchVal" placeholder="请输入电话号码" />
                 </div>
                 <div class="layui-input-inline">
-                    <select name="peasantIdentity" xm-select="peasantIdentity" xm-select-show-count="1" xm-select-skin="default">
+                    <select name="peasantIdentity" xm-select="peasantIdentity"
+                            xm-select-show-count="1" xm-select-skin="default">
                         <option value="">请选择农民身份</option>
                         <option value="果农">果农</option>
                         <option value="菜农">菜农</option>

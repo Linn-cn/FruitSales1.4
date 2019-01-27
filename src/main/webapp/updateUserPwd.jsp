@@ -105,9 +105,8 @@
                     }
                 }
             });
+            return false;
         });
-
-
     });
 </script>
 

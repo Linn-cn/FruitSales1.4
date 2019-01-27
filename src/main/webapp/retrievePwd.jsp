@@ -131,6 +131,7 @@
                     }
                 }
             });
+            return false;
         });
     });
 </script>

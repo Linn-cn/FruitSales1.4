@@ -77,7 +77,7 @@
                     layer.closeAll("iframe");
                     //刷新父页面
                     parent.location.reload();
-                },2000);
+                },1500);
             });
             return false;
         });
