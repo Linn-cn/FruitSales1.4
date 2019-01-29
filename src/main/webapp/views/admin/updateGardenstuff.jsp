@@ -8,11 +8,11 @@
 <head>
     <meta charset="UTF-8">
     <base href="<%=basePath%>">
-    <title>添加果蔬</title>
+    <title>修改果蔬</title>
     <%@include file="../../assets/styleAndscriptForm.jsp" %>
 </head>
 <body class="x-body">
-<form class="layui-form" style="width:90%;">
+<form class="layui-form" style="width:90%;" lay-filter="updateGardenStuffForm">
     <div class="layui-form-item layui-row layui-col-xs12">
         <label class="layui-form-label">农民名</label>
         <div class="layui-input-inline">
@@ -62,7 +62,7 @@
     </div>
     <div class="layui-form-item layui-row layui-col-xs12">
         <div class="layui-input-block">
-            <input id="submit" type="button" class="layui-btn" lay-submit lay-filter="addGardenStuff" value="提交">
+            <input id="submit" type="button" class="layui-btn" lay-submit lay-filter="updateGardenStuff" value="提交">
             </input>
         </div>
     </div>
@@ -76,6 +76,9 @@
 
         var formSelects = layui.formSelects;
 
+        //用于获取修改数据
+        var edit = JSON.parse(window.sessionStorage.getItem("gardenStuff"));
+
         //动态加载农民
         formSelects.config('gardenstuffPeasantid',{
             data:{"peasantStatus" : 1}, //禁用状态的农民不显示
@@ -84,6 +87,9 @@
         });
         formSelects.data('gardenstuffPeasantid', 'server', {
             url: 'admin/getPeasantList',
+            success: function(id, url, searchVal, result){
+                formSelects.value('gardenstuffPeasantid',edit.gardenstuffPeasantid.split(","),true);
+            }
         });
         //动态加载果蔬类别
         formSelects.config('gardenstuffCategory',{
@@ -91,18 +97,32 @@
             keyVal: 'categoryId'
         });
         formSelects.data('gardenstuffCategory', 'server', {
-            url: 'admin/getCategoryList'
+            url: 'admin/getCategoryList',
+            success: function(id, url, searchVal, result){
+                formSelects.value('gardenstuffCategory',edit.gardenstuffCategory.split(","),true);
+            }
         });
         //配置只显示名称,紧凑型, 适合宽度较窄的情况
         formSelects.btns('gardenstuffCategory', ['select']);
 
-        form.on("submit(addGardenStuff)",function(data){
+        if(edit != null && edit != ""){
+            form.val('updateGardenStuffForm', {
+                "gardenstuffName": edit.gardenstuffName,
+                "gardenstuffPrice" : edit.gardenstuffPrice,
+                "gardenstuffNumber" : edit.gardenstuffNumber,
+                "gardenstuffAddress" : edit.gardenstuffAddress
+            });
+        }
+
+
+        form.on("submit(updateGardenStuff)",function(data){
             var datas = data.field;
+            datas.gardenstuffId = edit.gardenstuffId;
             datas.gardenstuffCategoryname = formSelects.value('gardenstuffCategory', 'nameStr');
             var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
             console.log(datas);
             // 提交信息
-            $.post("admin/addGardenStuff",datas,function(s){
+            $.post("admin/updateGardenStuff",datas,function(s){
                 setTimeout(function(){
                     top.layer.close(index);
                     top.layer.alert(s.msg);

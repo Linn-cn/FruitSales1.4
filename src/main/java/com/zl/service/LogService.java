@@ -43,7 +43,7 @@ public interface LogService {
     * @Author: ZhuLin
     * @Date: 2019/1/10 
     */ 
-    Long getLogCount();
+    Integer getLogCount();
 
     /*** 
     * @Description: 清除超过五天日志记录

@@ -29,7 +29,7 @@
                 </div>
                 <div class="layui-input-inline">
                     <select name="peasantIdentity" xm-select="peasantIdentity"
-                            xm-select-show-count="1" xm-select-skin="default">
+                            xm-select-show-count="1" xm-select-skin="normal">
                         <option value="">请选择农民身份</option>
                         <option value="果农">果农</option>
                         <option value="菜农">菜农</option>
@@ -67,7 +67,7 @@
     <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
 </script>
 <script>
-    layui.use(['form','layer','table','laytpl'],function(){
+    layui.use(['form','layer','table'],function(){
         var form = layui.form,
             layer = parent.layer === undefined ? layui.layer : top.layer,
             $ = layui.jquery,
@@ -86,7 +86,6 @@
             page : true,
             height : "full-110",
             toolbar: true,
-            limit : 10,
             limits : [10,15,20,25],
             cols : [[
                 {type: "checkbox", fixed:"left"},

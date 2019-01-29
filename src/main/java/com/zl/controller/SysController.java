@@ -114,7 +114,7 @@ public class SysController {
         result.setMsg(Constants.SUCCESS_MESSAGE);
         List<LogDO> list = logService.listLogDO(ajaxPutPage);
         result.setData(list);
-        result.setCount(list.size());
+        result.setCount(logService.getLogCount());
         return result;
     }
     

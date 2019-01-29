@@ -35,7 +35,7 @@ public class LogServiceImpl  implements LogService {
 	}
 
 	@Override
-	public Long getLogCount() {
+	public Integer getLogCount() {
 		return logMapper.getLogCount();
 	}
 

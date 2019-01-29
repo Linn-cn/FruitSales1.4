@@ -285,6 +285,7 @@ public class AdminController {
     public AjaxResultPage<CategoryDO> getCategoryList(){
         AjaxResultPage<CategoryDO> result = new AjaxResultPage<CategoryDO>();
         result.setData(gardenStuffService.listCategory());
+        result.setCount(gardenStuffService.listCategory().size());
         return result;
     }
 
@@ -296,12 +297,69 @@ public class AdminController {
      * @date: 2019/1/27 20:09 
      */
     @SystemControllerLog(description = "添加果蔬")
-    @RequestMapping("/addGardenstuff")
+    @RequestMapping("/addGardenStuff")
     @ResponseBody
-    public MessageBean addGardenstuff(GardenStuffDO gardenStuffDO) throws Exception{
-        System.out.println(gardenStuffDO.toString());
+    public MessageBean addGardenStuff(GardenStuffDO gardenStuffDO) throws Exception{
         gardenStuffService.insertGardenStuff(gardenStuffDO);
         return new MessageBean(true,Constants.SUCCESS_MESSAGE);
+    }
+
+    /** 
+    * @Description: 修改果蔬信息
+    * @Param: [gardenStuffDO] 
+    * @return: com.zl.util.MessageBean 
+    * @Author: ZhuLin
+    * @Date: 2019/1/29 
+    */ 
+    @SystemControllerLog(description = "修改果蔬信息")
+    @RequestMapping("/updateGardenStuff")
+    @ResponseBody
+    public MessageBean updateGardenStuff(GardenStuffDO gardenStuffDO) throws Exception{
+        gardenStuffService.updateGardenStuff(gardenStuffDO);
+        return new MessageBean(true,Constants.SUCCESS_UPDATE);
+    }
+
+
+    /** 
+    * @Description: 删除果蔬
+    * @Param: [id] 
+    * @return: com.zl.util.MessageBean 
+    * @Author: ZhuLin
+    * @Date: 2019/1/29 
+    */ 
+    @SystemControllerLog(description = "删除果蔬")
+    @RequestMapping("/deleteGardenStuff")
+    @ResponseBody
+    public MessageBean deleteGardenStuff(String id){
+        System.out.println("删除：" + id);
+        gardenStuffService.deleteGardenStuff(id);
+        return new MessageBean(true,Constants.SUCCESS_DELETE);
+    }
+
+    /**
+     * @Description: 跳转果蔬类别列表
+     * @Param: []
+     * @return: java.lang.String
+     * @date: 2019/1/19 23:01
+     */
+    @RequestMapping("/gotoCategoryList")
+    public String gotoCategoryList(){
+        return "admin/CategoryList";
+    }
+
+    /** 
+    * @Description: 修改果蔬类别信息
+    * @Param: [categoryDO] 
+    * @return: com.zl.util.MessageBean 
+    * @Author: ZhuLin
+    * @Date: 2019/1/29 
+    */
+    @SystemControllerLog(description = "修改果蔬类别信息")
+    @RequestMapping("/updateCategory")
+    @ResponseBody
+    public MessageBean updateCategory(CategoryDO categoryDO){
+        gardenStuffService.updateCategory(categoryDO);
+        return new MessageBean(true,Constants.SUCCESS_UPDATE);
     }
 
 }

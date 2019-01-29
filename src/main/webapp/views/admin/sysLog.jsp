@@ -41,12 +41,7 @@
             page : true,
             height : "full-20",
             toolbar: '#toolbarDemo',
-            limit : 10,
             limits : [10,15,20,25],
-            initSort: {
-                field: 'operateDate' //排序字段，对应 cols 设定的各字段名
-                ,type: 'desc' //排序方式  asc: 升序、desc: 降序、null: 默认排序
-            },
             cols : [[
                 {type: 'checkbox', fixed: 'left'},
                 {field: 'logId', title: '编号', align:"center"},
@@ -59,13 +54,6 @@
                             return '<span class="layui-btn layui-btn-danger layui-btn-xs">'+d.type+'</span>';
                         }
                     }},
-/*                {field: 'method', title: '操作方式', align:'center',templet:function(d){
-                        if(d.method.toUpperCase() == "GET" || d.method.toUpperCase() == "get"){
-                            return '<span class="x-blue">'+d.method+'</span>'
-                        }else{
-                            return '<span class="x-red">'+d.method+'</span>'
-                        }
-                    }},*/
                 {field: 'params', title: '请求参数', width:350},
                 {field: 'remoteAddr', title: '操作IP',  align:'center', minWidth:130},
                 {field: 'timeout', title: '请求超时', align:'center',templet:function(d){

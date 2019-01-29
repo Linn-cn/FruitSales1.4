@@ -31,7 +31,7 @@
                 </div>
                 <div class="layui-input-inline">
                     <select name="gardenstuffCategory" xm-select="gardenstuffCategory"
-                            xm-select-show-count="1" xm-select-skin="default">
+                            xm-select-show-count="1" xm-select-skin="normal">
                         <option value="">请选择果蔬类别</option>
                     </select>
                 </div>
@@ -56,7 +56,6 @@
 <!--操作-->
 <script type="text/html" id="gardenStuffListBar">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="reset">重置</a>
     <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
 </script>
 <script>
@@ -87,7 +86,6 @@
             page : true,
             height : "full-110",
             toolbar: true,
-            limit : 10,
             limits : [10,15,20,25],
             cols : [[
                 {type: "checkbox", fixed:"left"},
@@ -117,12 +115,12 @@
             });
         });
 
-        //打开设置农民弹窗
+        //打开设置果蔬弹窗
         function addOrUpdateGardenstuff(edit){
             var url = "views/admin/addGardenstuff.jsp";
             if(edit){
-                url = "views/admin/updatePeasant.jsp";
-                window.sessionStorage.setItem("peasant",JSON.stringify(edit));
+                url = "views/admin/updateGardenstuff.jsp";
+                window.sessionStorage.setItem("gardenStuff",JSON.stringify(edit));
             }
             var index = layui.layer.open({
                 title : "设置果蔬",
@@ -140,7 +138,7 @@
                     },300);
                 },
                 end: function(){
-                    window.sessionStorage.removeItem("gardenstuff");
+                    window.sessionStorage.removeItem("gardenStuff");
                 }
             });
         }
@@ -170,33 +168,19 @@
             }else{
                 layer.msg("请选择需要删除的农民");
             }
-        });
+        });*/
 
         //监听工具条
-        table.on('tool(peasantList)', function(obj){
+        table.on('tool(gardenStuffList)', function(obj){
             var data = obj.data; //获得当前行数据
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
 
             if(layEvent === 'edit'){ //编辑
-                addOrUpdatePeasant(data);
+                addOrUpdateGardenstuff(data);
             }else if(layEvent === 'del'){ //编辑
-                layer.confirm('确定删除此农民？',{icon:3, title:'提示信息'},function(index){
-                    $.get("admin/deletePeasant", {
-                        id: data.peasantId  //将需要删除的newsId作为参数传入
-                    }, function (s) {
-                        if (s.success){
-                            layer.msg(s.msg);
-                            tableIns.reload();
-                        }else{
-                            layer.msg(s.msg);
-                        }
-                    });
-                    layer.close(index);
-                });
-            }else if(layEvent === 'reset'){
-                layer.confirm('确定重置此账号密码？',{icon:3, title:'提示信息'},function(index){
-                    $.get("admin/resetUserPwd", {
-                        id: data.peasantId  //将需要重置的Id作为参数传入
+                layer.confirm('确定删除此果蔬？',{icon:3, title:'提示信息'},function(index){
+                    $.get("admin/deleteGardenStuff", {
+                        id: data.gardenstuffId  //将需要删除的Id作为参数传入
                     }, function (s) {
                         if (s.success){
                             layer.msg(s.msg);
@@ -208,7 +192,7 @@
                     layer.close(index);
                 });
             }
-        });*/
+        });
 
     });
 </script>

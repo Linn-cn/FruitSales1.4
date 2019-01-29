@@ -42,4 +42,31 @@ public interface GardenStuffService {
      * @date: 2019/1/27 20:35 
      */
     void deleteGardenStuffByPeasantid(String id);
+
+    /** 
+    * @Description: 修改果蔬信息
+    * @Param: [gardenStuffDO] 
+    * @return: void 
+    * @Author: ZhuLin
+    * @Date: 2019/1/29 
+    */ 
+    void updateGardenStuff(GardenStuffDO gardenStuffDO);
+
+    /** 
+    * @Description: 删除果蔬信息
+    * @Param: [gardenStuffDO] 
+    * @return: void 
+    * @Author: ZhuLin
+    * @Date: 2019/1/29 
+    */ 
+    void deleteGardenStuff(String id);
+
+    /** 
+    * @Description: 修改果蔬类别信息 
+    * @Param: [categoryDO] 
+    * @return: void 
+    * @Author: ZhuLin
+    * @Date: 2019/1/29 
+    */ 
+    void updateCategory(CategoryDO categoryDO);
 }

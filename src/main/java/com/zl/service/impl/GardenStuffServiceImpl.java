@@ -55,4 +55,19 @@ public class GardenStuffServiceImpl implements GardenStuffService {
         gardenStuffMapper.deleteByExample(example);
     }
 
+    @Override
+    public void updateGardenStuff(GardenStuffDO gardenStuffDO) {
+        gardenStuffMapper.updateByPrimaryKeySelective(gardenStuffDO);
+    }
+
+    @Override
+    public void deleteGardenStuff(String id) {
+        gardenStuffMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public void updateCategory(CategoryDO categoryDO) {
+        categoryMapper.updateByPrimaryKeySelective(categoryDO);
+    }
+
 }

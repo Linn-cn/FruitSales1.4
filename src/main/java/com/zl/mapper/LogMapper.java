@@ -46,7 +46,7 @@ public interface LogMapper {
     * @Author: ZhuLin
     * @Date: 2019/1/18 
     */ 
-    Long getLogCount();
+    Integer getLogCount();
     
     /*** 
     * @Description: 清除超过五天日志记录

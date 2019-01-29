@@ -74,7 +74,6 @@
             page : true,
             height : "full-110",
             toolbar: true,
-            limit : 10,
             limits : [10,15,20,25],
             cols : [[
                 {type: "checkbox", fixed:"left"},
