@@ -148,13 +148,30 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.zl.pojo.CategoryDO" >
+
+    <if test="categoryName != null" >
+      UPDATE gardenstuff
+      SET gardenstuff_categoryname = REPLACE (
+      gardenstuff_categoryname,
+      (
+      SELECT
+      category.category_name
+      FROM
+      category
+      WHERE
+      category.category_id = #{categoryId,jdbcType=INTEGER}
+      ),
+      #{categoryName,jdbcType=VARCHAR}
+      );
+    </if>
+
     update category
     <set >
       <if test="categoryName != null" >
         category_name = #{categoryName,jdbcType=VARCHAR},
       </if>
     </set>
-    where category_id = #{categoryId,jdbcType=INTEGER}
+    where category_id = #{categoryId,jdbcType=INTEGER};
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zl.pojo.CategoryDO" >
     update category

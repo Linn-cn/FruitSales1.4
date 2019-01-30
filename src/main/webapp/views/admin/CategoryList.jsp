@@ -23,14 +23,15 @@
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
         <button class="layui-btn layui-btn-sm addCategory">
-            <i class="layui-icon">&#xe640;&nbsp;</i>添加果蔬类别</button>
+            <i class="layui-icon">&#xe654;&nbsp;</i>添加果蔬类别</button>
+        <button class="layui-btn layui-btn-sm refresh">
+            <i class="layui-icon">&#xe9aa;&nbsp;</i>刷新数据</button>
     </div>
 </script>
 
 <script>
-    layui.use(['form','layer','table'],function(){
-        var form = layui.form,
-            layer = parent.layer === undefined ? layui.layer : top.layer,
+    layui.use(['layer','table'],function(){
+        var layer = parent.layer === undefined ? layui.layer : top.layer,
             $ = layui.jquery,
             table = layui.table;
 
@@ -43,6 +44,7 @@
             page : true,
             height : "full-20",
             toolbar: '#toolbarDemo',
+            defaultToolbar: [], //不显示右侧工具栏
             cols : [[
                 {field: 'categoryId', title: '类别编号', align:"center",unresize:"true"},
                 {field: 'categoryName', title: '类别名', align:"center",unresize:"true",edit:"text"}
@@ -57,6 +59,21 @@
                     layer.msg(s.msg);
                 }
             });
+        });
+
+        $('.addCategory').click(function(){
+            //默认prompt
+            layer.prompt({title: '添加果蔬类别', formType: 0,maxlength: 50}, function(value, index){
+                $.post("admin/addCategory",{"categoryName":value},function(s){
+                    layer.msg(s.msg);
+                    tableIns.reload();
+                });
+                layer.close(index);
+            });
+        });
+
+        $('.refresh').click(function(){
+            tableIns.reload();
         });
 
     });

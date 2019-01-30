@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <base href="<%=basePath%>">
     <title>修改密码</title>
-    <%@include file="assets/styleAndscript.jsp" %>
+    <%@include file="../../assets/styleAndscript.jsp" %>
     <style>
         .pwdTips {
             min-height: auto;

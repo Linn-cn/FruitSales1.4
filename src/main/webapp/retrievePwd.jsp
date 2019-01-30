@@ -14,6 +14,7 @@
 <body>
 <div class="x-body">
     <form class="layui-form">
+
         <div class="layui-form-item">
             <label for="username" class="layui-form-label">
                 <span class="x-red">*</span>登录名

@@ -62,11 +62,20 @@ public interface GardenStuffService {
     void deleteGardenStuff(String id);
 
     /** 
-    * @Description: 修改果蔬类别信息 
+    * @Description: 修改果蔬类别信息[同时修改果蔬类别信息记录]
     * @Param: [categoryDO] 
     * @return: void 
     * @Author: ZhuLin
     * @Date: 2019/1/29 
     */ 
     void updateCategory(CategoryDO categoryDO);
+
+    /** 
+    * @Description: 添加果蔬类别 
+    * @Param: [categoryDO] 
+    * @return: void 
+    * @Author: ZhuLin
+    * @Date: 2019/1/30 
+    */ 
+    void insertCategory(CategoryDO categoryDO);
 }

@@ -56,10 +56,11 @@
 <!--操作-->
 <script type="text/html" id="gardenStuffListBar">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="accessory">附属品</a>
     <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
 </script>
 <script>
-    layui.use(['form','layer','table','laytpl'],function(){
+    layui.use(['form','layer','table'],function(){
         var form = layui.form,
             layer = parent.layer === undefined ? layui.layer : top.layer,
             $ = layui.jquery,
@@ -191,6 +192,19 @@
                     });
                     layer.close(index);
                 });
+            }else if(layEvent === 'accessory'){
+
+                var url = "admin/getAccessoryList?"+data.gardenstuffId;
+                console.log(url);
+
+/*                layer.open({
+                    title : "附属品",
+                    type : 2,
+                    area: ['750px', '450px'],
+                    shadeClose: true,
+                    shade: false,
+                    content : url
+                });*/
             }
         });
 

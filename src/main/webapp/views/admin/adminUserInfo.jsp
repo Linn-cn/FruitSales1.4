@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <base href="<%=basePath%>">
     <title>个人信息</title>
-    <%@include file="assets/styleAndscript.jsp"%>
+    <%@include file="../../assets/styleAndscript.jsp"%>
 </head>
 <body>
 <div class="x-body">
@@ -70,25 +70,6 @@
                 }
             });
         });
-
-        //监听提交
-/*        form.on('submit(update)', function (data) {
-            console.log(data.field); //当前容器的全部表单字段，名值对形式：{name: value}
-            $.ajax({
-                url: "user/verify",
-                type: "post",
-                data: data.field,
-                success: function (s) {
-                    if (s.success) {
-                        layer.alert(s.msg, {icon: 1},function () {
-                            x_admin_close();
-                        });
-                    } else {
-                        layer.alert(s.msg, {icon: 2});
-                    }
-                }
-            });
-        });*/
     });
 </script>
 

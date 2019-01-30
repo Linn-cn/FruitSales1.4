@@ -70,4 +70,10 @@ public class GardenStuffServiceImpl implements GardenStuffService {
         categoryMapper.updateByPrimaryKeySelective(categoryDO);
     }
 
+    @Override
+    public void insertCategory(CategoryDO categoryDO) {
+        categoryMapper.insertSelective(categoryDO);
+    }
+
+
 }

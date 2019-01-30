@@ -348,7 +348,7 @@ public class AdminController {
     }
 
     /** 
-    * @Description: 修改果蔬类别信息
+    * @Description: 修改果蔬类别信息[同时修改果蔬类别信息记录]
     * @Param: [categoryDO] 
     * @return: com.zl.util.MessageBean 
     * @Author: ZhuLin
@@ -360,6 +360,22 @@ public class AdminController {
     public MessageBean updateCategory(CategoryDO categoryDO){
         gardenStuffService.updateCategory(categoryDO);
         return new MessageBean(true,Constants.SUCCESS_UPDATE);
+    }
+
+
+    /** 
+    * @Description: 添加果蔬类别
+    * @Param: [categoryDO]
+    * @return: com.zl.util.MessageBean 
+    * @Author: ZhuLin
+    * @Date: 2019/1/30 
+    */ 
+    @SystemControllerLog(description = "添加果蔬类别")
+    @RequestMapping("/addCategory")
+    @ResponseBody
+    public MessageBean addCategory(CategoryDO categoryDO){
+        gardenStuffService.insertCategory(categoryDO);
+        return new MessageBean(true,Constants.SUCCESS_MESSAGE);
     }
 
 }

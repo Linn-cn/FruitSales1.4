@@ -172,7 +172,7 @@ public class UserController {
     */ 
     @RequestMapping("/gotoUpdateUserPwd")
     public String gotoUpdateUserPwd(){
-        return "redirect:/updateUserPwd.jsp";
+        return "redirect:/views/public/updateUserPwd.jsp";
     }
 
     /** 

@@ -48,7 +48,7 @@
             <dl class="layui-nav-child">
                 <!-- 二级菜单 -->
                 <dd>
-                    <a onclick="x_admin_show('个人信息','adminUserInfo.jsp',500,300)"><i class="fa fa-address-card-o"
+                    <a onclick="x_admin_show('个人信息','views/admin/adminUserInfo.jsp',500,300)"><i class="fa fa-address-card-o"
                                                                               aria-hidden="true"></i>个人信息</a>
                 </dd>
                 <dd>
