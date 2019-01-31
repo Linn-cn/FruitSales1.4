@@ -2,10 +2,7 @@ package com.zl.controller;
 
 import com.zl.aop.SystemControllerLog;
 import com.zl.pojo.*;
-import com.zl.service.DealerService;
-import com.zl.service.GardenStuffService;
-import com.zl.service.PeasantService;
-import com.zl.service.UserService;
+import com.zl.service.*;
 import com.zl.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,6 +33,9 @@ public class AdminController {
 
     @Autowired
     private GardenStuffService gardenStuffService;
+
+    @Autowired
+    private AccessoryService accessoryService;
 
     /**
     * @Description: 跳转农民列表界面
@@ -284,8 +284,9 @@ public class AdminController {
     @ResponseBody
     public AjaxResultPage<CategoryDO> getCategoryList(){
         AjaxResultPage<CategoryDO> result = new AjaxResultPage<CategoryDO>();
-        result.setData(gardenStuffService.listCategory());
-        result.setCount(gardenStuffService.listCategory().size());
+        List<CategoryDO> list = gardenStuffService.listCategory();
+        result.setData(list);
+        result.setCount(list.size());
         return result;
     }
 
@@ -362,7 +363,6 @@ public class AdminController {
         return new MessageBean(true,Constants.SUCCESS_UPDATE);
     }
 
-
     /** 
     * @Description: 添加果蔬类别
     * @Param: [categoryDO]
@@ -375,6 +375,68 @@ public class AdminController {
     @ResponseBody
     public MessageBean addCategory(CategoryDO categoryDO){
         gardenStuffService.insertCategory(categoryDO);
+        return new MessageBean(true,Constants.SUCCESS_MESSAGE);
+    }
+
+    /** 
+    * @Description: 返回和果蔬对应的附属品
+    * @Param: [gardenstuffId] 
+    * @return: com.zl.util.AjaxResultPage<com.zl.pojo.AccessoryDO> 
+    * @Author: ZhuLin
+    * @Date: 2019/1/31 
+    */ 
+    @RequestMapping("/getAccessoryList")
+    @ResponseBody
+    public AjaxResultPage<AccessoryDO> getAccessoryList(String gardenstuffId){
+        AjaxResultPage<AccessoryDO> result = new AjaxResultPage<AccessoryDO>();
+        List<AccessoryDO> list = accessoryService.listAccessoryByGardenId(gardenstuffId);
+        result.setCount(list.size());
+        result.setData(list);
+        return result;
+    }
+    
+    /** 
+    * @Description: 修改附属品信息 
+    * @Param: [accessoryDO] 
+    * @return: com.zl.util.MessageBean 
+    * @Author: ZhuLin
+    * @Date: 2019/1/31 
+    */ 
+    @SystemControllerLog(description = "修改附属品信息")
+    @RequestMapping("/updateAccessory")
+    @ResponseBody
+    public MessageBean updateAccessory(AccessoryDO accessoryDO){
+        accessoryService.updateAccessory(accessoryDO);
+        return new MessageBean(true,Constants.SUCCESS_UPDATE);
+    }
+
+    /** 
+    * @Description: 删除附属品 
+    * @Param: [id] 
+    * @return: com.zl.util.MessageBean 
+    * @Author: ZhuLin
+    * @Date: 2019/1/31 
+    */ 
+    @SystemControllerLog(description = "删除附属品")
+    @RequestMapping("/deleteAccessory")
+    @ResponseBody
+    public MessageBean deleteAccessory(String id){
+        accessoryService.deleteAccessory(id);
+        return new MessageBean(true,Constants.SUCCESS_DELETE);
+    }
+
+    /** 
+    * @Description: 添加附属品 
+    * @Param: [accessoryDO] 
+    * @return: com.zl.util.MessageBean 
+    * @Author: ZhuLin
+    * @Date: 2019/1/31 
+    */ 
+    @SystemControllerLog(description = "添加附属品")
+    @RequestMapping("/addAccessory")
+    @ResponseBody
+    public MessageBean addAccessory(AccessoryDO accessoryDO){
+
         return new MessageBean(true,Constants.SUCCESS_MESSAGE);
     }
 

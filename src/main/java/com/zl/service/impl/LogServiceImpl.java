@@ -40,8 +40,8 @@ public class LogServiceImpl  implements LogService {
 	}
 
 	@Override
-	public void deleteLogByFiveday() throws MessageException {
-		logMapper.deleteLogByFiveday();
+	public void deleteLogBySevenday() throws MessageException {
+		logMapper.deleteLogBySevenday();
 	}
 
 

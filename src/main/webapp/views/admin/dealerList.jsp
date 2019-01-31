@@ -110,8 +110,6 @@
                 title : "设置零售商",
                 type : 2,
                 area: ['750px', '450px'],
-                shadeClose: true,
-                shade: false,
                 content : url,
                 success : function(layero, index){
                     setTimeout(function(){

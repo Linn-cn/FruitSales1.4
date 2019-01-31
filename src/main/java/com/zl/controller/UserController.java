@@ -152,12 +152,8 @@ public class UserController {
                 && userinfo.getAddress().equals(userDTO.getAddress());
 
         if (flag) {
-/*            try {*/
                 userService.updateUserPassword(userinfo.getUserid(), userinfo.getUsername(), userDTO.getPassword());
                 return new MessageBean(true, Constants.SUCCESS_RESET_PASSWORD);
-/*            } catch (Exception e) {
-                return new MessageBean(false, Constants.ERROR_MSG);
-            }*/
         } else {
             return new MessageBean(false, Constants.ERROR_USERINFO);
         }

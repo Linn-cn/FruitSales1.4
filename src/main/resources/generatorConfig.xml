@@ -65,7 +65,7 @@
         </javaClientGenerator>
 
         <!-- 数据表进行生成操作 tableName:表名; domainObjectName:对应的DO -->
-        <table tableName="category" domainObjectName="CategoryDO">
+        <table tableName="accessory" domainObjectName="AccessoryDO">
 
             <property name="useActualColumnNames" value="false"></property>
         </table>

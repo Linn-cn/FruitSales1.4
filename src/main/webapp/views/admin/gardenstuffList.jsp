@@ -127,8 +127,6 @@
                 title : "设置果蔬",
                 type : 2,
                 area: ['750px', '450px'],
-                shadeClose: true,
-                shade: false,
                 content : url,
                 success : function(layero, index){
                     setTimeout(function(){
@@ -193,18 +191,16 @@
                     layer.close(index);
                 });
             }else if(layEvent === 'accessory'){
-
-                var url = "admin/getAccessoryList?"+data.gardenstuffId;
-                console.log(url);
-
-/*                layer.open({
+                window.sessionStorage.setItem("gardenStuffId",data.gardenstuffId);
+                layer.open({
                     title : "附属品",
                     type : 2,
                     area: ['750px', '450px'],
-                    shadeClose: true,
-                    shade: false,
-                    content : url
-                });*/
+                    content : "views/admin/accessory.jsp",
+                    end: function(){
+                        window.sessionStorage.removeItem("gardenStuffId");
+                    }
+                });
             }
         });
 

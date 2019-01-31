@@ -119,7 +119,7 @@ public class SysController {
     }
     
     /*** 
-    * @Description: 清除超过五天日志记录
+    * @Description: 清除超过七天日志记录
     * @Param: [] 
     * @return: com.zl.util.MessageBean 
     * @Author: ZhuLin
@@ -128,7 +128,7 @@ public class SysController {
     @RequestMapping("/deleteLog")
     @ResponseBody
     public MessageBean deleteLog() throws Exception{
-        logService.deleteLogByFiveday();
+        logService.deleteLogBySevenday();
         return new MessageBean(true,Constants.SUCCESS_MESSAGE);
     }
 

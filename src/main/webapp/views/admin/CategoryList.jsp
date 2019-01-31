@@ -38,7 +38,7 @@
         //果蔬类别
         var tableIns = table.render({
             elem: '#Category',
-            id : "systemLog",
+            id : "Category",
             url : 'admin/getCategoryList',
             title: '果蔬类别表',
             page : true,

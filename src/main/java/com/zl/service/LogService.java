@@ -46,12 +46,12 @@ public interface LogService {
     Integer getLogCount();
 
     /*** 
-    * @Description: 清除超过五天日志记录
+    * @Description: 清除超过七天日志记录
     * @Param: [] 
     * @return: void 
     * @Author: ZhuLin
     * @Date: 2019/1/21 
     */ 
-    void deleteLogByFiveday() throws MessageException;
+    void deleteLogBySevenday() throws MessageException;
 
 }

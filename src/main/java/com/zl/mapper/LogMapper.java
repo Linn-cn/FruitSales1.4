@@ -55,5 +55,5 @@ public interface LogMapper {
     * @Author: ZhuLin
     * @Date: 2019/1/21 
     */ 
-    int deleteLogByFiveday();
+    int deleteLogBySevenday();
 }

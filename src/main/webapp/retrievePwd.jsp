@@ -23,7 +23,8 @@
                 <input type="text" id="username" name="username" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
-            <div class="layui-form-mid layui-word-aux">
+            <div class="layui-form-mid layu
+            0i-word-aux">
                 <span class="x-red">*</span>您唯一的登入名
             </div>
         </div>

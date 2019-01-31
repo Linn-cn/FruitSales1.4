@@ -328,13 +328,13 @@
     select count(logId) from log
   </select>
   
-  <delete id="deleteLogByFiveday">
+  <delete id="deleteLogBySevenday">
     DELETE
     FROM
       log
     WHERE
     DATE(log.operateDate) &lt;= DATE(
-      DATE_SUB(NOW(), INTERVAL 5 DAY)
+      DATE_SUB(NOW(), INTERVAL 7 DAY)
     );
   </delete>
 </mapper>
