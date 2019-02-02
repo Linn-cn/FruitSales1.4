@@ -44,14 +44,15 @@
             url : 'admin/getAccessoryList?gardenstuffId='+window.sessionStorage.getItem("gardenStuffId"),
             title: '附属品表',
             page : true,
-            height : "full-20",
+            height : "full-40",
             toolbar: '#toolbarDemo',
+            size: 'sm',
             defaultToolbar: [], //不显示右侧工具栏
             cols : [[
-                {field: 'accessoryName', title: '附属品名字', align:"center",unresize:"true",edit:"text"},
-                {field: 'accessoryPrice', title: '附属品单价', align:'center',unresize:"true",edit:"text"},
-                {field: 'accessoryTime', title: '创建时间', align:'center',unresize:"true"},
-                {title: '操作',align:"center",unresize:"true",toolbar:"#accessoryListBar"}
+                {field: 'accessoryName', title: '附属品名字', align:"center",edit:"text"},
+                {field: 'accessoryPrice', title: '附属品单价', align:'center',edit:"text"},
+                {field: 'accessoryTime', title: '创建时间', align:'center',},
+                {title: '操作',align:"center",toolbar:"#accessoryListBar"}
             ]]
         });
 
@@ -118,8 +119,8 @@
                 $.post("admin/addAccessory",datas,function(s){
                     setTimeout(function(){
                         top.layer.close(index);
-                        top.layer.alert(s.msg);
-                        layer.closeAll("iframe");
+                        top.layer.msg(s.msg);
+                        layer.closeAll();
                         //刷新表格
                         tableIns.reload();
                     },1500);

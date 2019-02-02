@@ -4,6 +4,7 @@ import com.zl.pojo.CategoryDO;
 import com.zl.pojo.GardenStuffDO;
 import com.zl.pojo.GardenStuffDTO;
 import com.zl.util.AjaxPutPage;
+import com.zl.util.MessageException;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public interface GardenStuffService {
      * @return: void
      * @date: 2019/1/27 20:19 
      */
-    void insertGardenStuff(GardenStuffDO gardenStuffDO);
+    void insertGardenStuff(GardenStuffDO gardenStuffDO) throws MessageException;
 
     /**
      * @Description: 根据农民id删除所属农民的所有果蔬[删除农民时执行]
@@ -41,7 +42,7 @@ public interface GardenStuffService {
      * @return: void
      * @date: 2019/1/27 20:35 
      */
-    void deleteGardenStuffByPeasantid(String id);
+    void deleteGardenStuffByPeasantid(String id) throws MessageException;
 
     /** 
     * @Description: 修改果蔬信息
@@ -50,7 +51,7 @@ public interface GardenStuffService {
     * @Author: ZhuLin
     * @Date: 2019/1/29 
     */ 
-    void updateGardenStuff(GardenStuffDO gardenStuffDO);
+    void updateGardenStuff(GardenStuffDO gardenStuffDO) throws MessageException;
 
     /** 
     * @Description: 删除果蔬信息
@@ -59,7 +60,7 @@ public interface GardenStuffService {
     * @Author: ZhuLin
     * @Date: 2019/1/29 
     */ 
-    void deleteGardenStuff(String id);
+    void deleteGardenStuff(String id) throws MessageException;
 
     /** 
     * @Description: 修改果蔬类别信息[同时修改果蔬类别信息记录]
@@ -68,7 +69,7 @@ public interface GardenStuffService {
     * @Author: ZhuLin
     * @Date: 2019/1/29 
     */ 
-    void updateCategory(CategoryDO categoryDO);
+    void updateCategory(CategoryDO categoryDO) throws MessageException;
 
     /** 
     * @Description: 添加果蔬类别 
@@ -77,5 +78,5 @@ public interface GardenStuffService {
     * @Author: ZhuLin
     * @Date: 2019/1/30 
     */ 
-    void insertCategory(CategoryDO categoryDO);
+    void insertCategory(CategoryDO categoryDO) throws MessageException;
 }

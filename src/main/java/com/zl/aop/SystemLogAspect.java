@@ -136,7 +136,7 @@ public class SystemLogAspect {
     }
 
     /**
-     *  异常通知[因为方法内部处理了，基本拿不到异常情况]
+     * 异常通知
      * @param joinPoint
      * @param e
      */
@@ -145,7 +145,9 @@ public class SystemLogAspect {
         LogDO logDO = logThreadLocal.get();
         if(logDO != null){
             logDO.setType("error");
-            logDO.setException(e.toString());
+            String msg = e.toString();
+            int len = msg.indexOf(':');
+            logDO.setException(msg.substring(0,len));
             new UpdateLogThread(logDO, logService).start();
         }
     }

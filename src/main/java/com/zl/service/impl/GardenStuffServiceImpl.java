@@ -8,6 +8,7 @@ import com.zl.pojo.GardenStuffDOExample;
 import com.zl.pojo.GardenStuffDTO;
 import com.zl.service.GardenStuffService;
 import com.zl.util.AjaxPutPage;
+import com.zl.util.MessageException;
 import com.zl.util.UuidUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,36 +43,36 @@ public class GardenStuffServiceImpl implements GardenStuffService {
     }
 
     @Override
-    public void insertGardenStuff(GardenStuffDO gardenStuffDO) {
+    public void insertGardenStuff(GardenStuffDO gardenStuffDO) throws MessageException {
         gardenStuffDO.setGardenstuffId(UuidUtils.creatUUID());
         gardenStuffDO.setGardenstuffTime(new Timestamp(new Date().getTime()));
         gardenStuffMapper.insertSelective(gardenStuffDO);
     }
 
     @Override
-    public void deleteGardenStuffByPeasantid(String id) {
+    public void deleteGardenStuffByPeasantid(String id) throws MessageException{
         GardenStuffDOExample example = new GardenStuffDOExample();
         example.createCriteria().andGardenstuffPeasantidEqualTo(id);
         gardenStuffMapper.deleteByExample(example);
     }
 
     @Override
-    public void updateGardenStuff(GardenStuffDO gardenStuffDO) {
+    public void updateGardenStuff(GardenStuffDO gardenStuffDO) throws MessageException{
         gardenStuffMapper.updateByPrimaryKeySelective(gardenStuffDO);
     }
 
     @Override
-    public void deleteGardenStuff(String id) {
+    public void deleteGardenStuff(String id) throws MessageException{
         gardenStuffMapper.deleteByPrimaryKey(id);
     }
 
     @Override
-    public void updateCategory(CategoryDO categoryDO) {
+    public void updateCategory(CategoryDO categoryDO) throws MessageException {
         categoryMapper.updateByPrimaryKeySelective(categoryDO);
     }
 
     @Override
-    public void insertCategory(CategoryDO categoryDO) {
+    public void insertCategory(CategoryDO categoryDO) throws MessageException {
         categoryMapper.insertSelective(categoryDO);
     }
 

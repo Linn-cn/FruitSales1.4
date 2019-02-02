@@ -16,8 +16,8 @@ public class DealerDO {
 
     private Integer dealerStatus;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")    //将String转换成Date,一般前台给后台传值时用
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")    //将Date转换成String,一般后台传值给前台时
     private Date dealerTime;
 
     public String getDealerId() {

@@ -1,6 +1,7 @@
 package com.zl.service;
 
 import com.zl.pojo.AccessoryDO;
+import com.zl.util.MessageException;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public interface AccessoryService {
     * @Author: ZhuLin
     * @Date: 2019/1/31 
     */ 
-    void updateAccessory(AccessoryDO accessoryDO);
+    void updateAccessory(AccessoryDO accessoryDO) throws MessageException;
     
     /** 
     * @Description: 删除附属品 
@@ -31,5 +32,13 @@ public interface AccessoryService {
     * @Author: ZhuLin
     * @Date: 2019/1/31 
     */ 
-    void deleteAccessory(String id);
+    void deleteAccessory(String id) throws MessageException;
+
+    /**
+     * @Description: 添加附属品
+     * @Param: [accessoryDO]
+     * @return: void
+     * @date: 2019/2/2 21:09 
+     */
+    void insertAccessory(AccessoryDO accessoryDO) throws MessageException;
 }

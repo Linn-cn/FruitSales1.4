@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zl.mapper.AccessoryMapper" >
+  <resultMap id="BaseResultMap" type="com.zl.pojo.AccessoryDO" >
+    <id column="accessory_id" property="accessoryId" jdbcType="VARCHAR" />
+    <result column="gardenstuff_id" property="gardenstuffId" jdbcType="VARCHAR" />
+    <result column="accessory_name" property="accessoryName" jdbcType="VARCHAR" />
+    <result column="accessory_price" property="accessoryPrice" jdbcType="DECIMAL" />
+    <result column="accessory_time" property="accessoryTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    accessory_id, gardenstuff_id, accessory_name, accessory_price, accessory_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zl.pojo.AccessoryDOExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from accessory
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from accessory
+    where accessory_id = #{accessoryId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from accessory
+    where accessory_id = #{accessoryId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zl.pojo.AccessoryDOExample" >
+    delete from accessory
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zl.pojo.AccessoryDO" >
+    insert into accessory (accessory_id, gardenstuff_id, accessory_name, 
+      accessory_price, accessory_time)
+    values (#{accessoryId,jdbcType=VARCHAR}, #{gardenstuffId,jdbcType=VARCHAR}, #{accessoryName,jdbcType=VARCHAR}, 
+      #{accessoryPrice,jdbcType=DECIMAL}, #{accessoryTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zl.pojo.AccessoryDO" >
+    insert into accessory
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="accessoryId != null" >
+        accessory_id,
+      </if>
+      <if test="gardenstuffId != null" >
+        gardenstuff_id,
+      </if>
+      <if test="accessoryName != null" >
+        accessory_name,
+      </if>
+      <if test="accessoryPrice != null" >
+        accessory_price,
+      </if>
+      <if test="accessoryTime != null" >
+        accessory_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="accessoryId != null" >
+        #{accessoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="gardenstuffId != null" >
+        #{gardenstuffId,jdbcType=VARCHAR},
+      </if>
+      <if test="accessoryName != null" >
+        #{accessoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="accessoryPrice != null" >
+        #{accessoryPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="accessoryTime != null" >
+        #{accessoryTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zl.pojo.AccessoryDOExample" resultType="java.lang.Integer" >
+    select count(*) from accessory
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update accessory
+    <set >
+      <if test="record.accessoryId != null" >
+        accessory_id = #{record.accessoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gardenstuffId != null" >
+        gardenstuff_id = #{record.gardenstuffId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accessoryName != null" >
+        accessory_name = #{record.accessoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accessoryPrice != null" >
+        accessory_price = #{record.accessoryPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.accessoryTime != null" >
+        accessory_time = #{record.accessoryTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update accessory
+    set accessory_id = #{record.accessoryId,jdbcType=VARCHAR},
+      gardenstuff_id = #{record.gardenstuffId,jdbcType=VARCHAR},
+      accessory_name = #{record.accessoryName,jdbcType=VARCHAR},
+      accessory_price = #{record.accessoryPrice,jdbcType=DECIMAL},
+      accessory_time = #{record.accessoryTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zl.pojo.AccessoryDO" >
+    update accessory
+    <set >
+      <if test="gardenstuffId != null" >
+        gardenstuff_id = #{gardenstuffId,jdbcType=VARCHAR},
+      </if>
+      <if test="accessoryName != null" >
+        accessory_name = #{accessoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="accessoryPrice != null" >
+        accessory_price = #{accessoryPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="accessoryTime != null" >
+        accessory_time = #{accessoryTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where accessory_id = #{accessoryId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zl.pojo.AccessoryDO" >
+    update accessory
+    set gardenstuff_id = #{gardenstuffId,jdbcType=VARCHAR},
+      accessory_name = #{accessoryName,jdbcType=VARCHAR},
+      accessory_price = #{accessoryPrice,jdbcType=DECIMAL},
+      accessory_time = #{accessoryTime,jdbcType=TIMESTAMP}
+    where accessory_id = #{accessoryId,jdbcType=VARCHAR}
+  </update>
+</mapper>

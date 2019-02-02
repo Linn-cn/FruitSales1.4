@@ -4,6 +4,7 @@ import com.zl.mapper.AccessoryMapper;
 import com.zl.pojo.AccessoryDO;
 import com.zl.pojo.AccessoryDOExample;
 import com.zl.service.AccessoryService;
+import com.zl.util.MessageException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,12 +30,17 @@ public class AccessoryServiceImpl implements AccessoryService {
     }
 
     @Override
-    public void updateAccessory(AccessoryDO accessoryDO) {
+    public void updateAccessory(AccessoryDO accessoryDO) throws MessageException{
         accessoryMapper.updateByPrimaryKeySelective(accessoryDO);
     }
 
     @Override
-    public void deleteAccessory(String id) {
+    public void deleteAccessory(String id) throws MessageException{
         accessoryMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public void insertAccessory(AccessoryDO accessoryDO) throws MessageException{
+        accessoryMapper.insertSelective(accessoryDO);
     }
 }

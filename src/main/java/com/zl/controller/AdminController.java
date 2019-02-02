@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -331,7 +333,7 @@ public class AdminController {
     @SystemControllerLog(description = "删除果蔬")
     @RequestMapping("/deleteGardenStuff")
     @ResponseBody
-    public MessageBean deleteGardenStuff(String id){
+    public MessageBean deleteGardenStuff(String id) throws Exception{
         System.out.println("删除：" + id);
         gardenStuffService.deleteGardenStuff(id);
         return new MessageBean(true,Constants.SUCCESS_DELETE);
@@ -358,7 +360,7 @@ public class AdminController {
     @SystemControllerLog(description = "修改果蔬类别信息")
     @RequestMapping("/updateCategory")
     @ResponseBody
-    public MessageBean updateCategory(CategoryDO categoryDO){
+    public MessageBean updateCategory(CategoryDO categoryDO) throws Exception{
         gardenStuffService.updateCategory(categoryDO);
         return new MessageBean(true,Constants.SUCCESS_UPDATE);
     }
@@ -373,7 +375,7 @@ public class AdminController {
     @SystemControllerLog(description = "添加果蔬类别")
     @RequestMapping("/addCategory")
     @ResponseBody
-    public MessageBean addCategory(CategoryDO categoryDO){
+    public MessageBean addCategory(CategoryDO categoryDO) throws Exception{
         gardenStuffService.insertCategory(categoryDO);
         return new MessageBean(true,Constants.SUCCESS_MESSAGE);
     }
@@ -405,7 +407,7 @@ public class AdminController {
     @SystemControllerLog(description = "修改附属品信息")
     @RequestMapping("/updateAccessory")
     @ResponseBody
-    public MessageBean updateAccessory(AccessoryDO accessoryDO){
+    public MessageBean updateAccessory(AccessoryDO accessoryDO) throws Exception{
         accessoryService.updateAccessory(accessoryDO);
         return new MessageBean(true,Constants.SUCCESS_UPDATE);
     }
@@ -420,7 +422,7 @@ public class AdminController {
     @SystemControllerLog(description = "删除附属品")
     @RequestMapping("/deleteAccessory")
     @ResponseBody
-    public MessageBean deleteAccessory(String id){
+    public MessageBean deleteAccessory(String id) throws Exception{
         accessoryService.deleteAccessory(id);
         return new MessageBean(true,Constants.SUCCESS_DELETE);
     }
@@ -435,8 +437,10 @@ public class AdminController {
     @SystemControllerLog(description = "添加附属品")
     @RequestMapping("/addAccessory")
     @ResponseBody
-    public MessageBean addAccessory(AccessoryDO accessoryDO){
-
+    public MessageBean addAccessory(AccessoryDO accessoryDO) throws Exception{
+        accessoryDO.setAccessoryId(UuidUtils.creatUUID());
+        accessoryDO.setAccessoryTime(new Timestamp(new Date().getTime()));
+        accessoryService.insertAccessory(accessoryDO);
         return new MessageBean(true,Constants.SUCCESS_MESSAGE);
     }
 

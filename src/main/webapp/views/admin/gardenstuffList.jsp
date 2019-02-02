@@ -192,7 +192,7 @@
                 });
             }else if(layEvent === 'accessory'){
                 window.sessionStorage.setItem("gardenStuffId",data.gardenstuffId);
-                layer.open({
+                layui.layer.open({
                     title : "附属品",
                     type : 2,
                     area: ['750px', '450px'],
