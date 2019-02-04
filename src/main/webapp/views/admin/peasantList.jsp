@@ -63,7 +63,7 @@
 <!--操作-->
 <script type="text/html" id="peasantListBar">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="reset">重置</a>
+    <a title="重置密码" class="layui-btn layui-btn-xs layui-btn-warm" lay-event="reset">重置</a>
     <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
 </script>
 <script>

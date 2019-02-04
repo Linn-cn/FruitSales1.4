@@ -146,17 +146,17 @@
             addOrUpdateGardenstuff();
         });
 
-/*        //批量删除
+        //批量删除
         $(".delAll_btn").click(function(){
-            var checkStatus = table.checkStatus('peasantListTable'),
+            var checkStatus = table.checkStatus('gardenStuffListTable'),
                 data = checkStatus.data,
                 deleteId = [];
             if(data.length > 0) {
                 for (var i in data) {
-                    deleteId.push(data[i].peasantId);
+                    deleteId.push(data[i].gardenstuffId);
                 }
-                layer.confirm('确定删除选中的' + data.length + '个农民？', {icon: 3, title: '提示信息'}, function (index) {
-                    $.post("admin/batchesDelPeasant", {
+                layer.confirm('确定删除选中的' + data.length + '个果蔬？', {icon: 3, title: '提示信息'}, function (index) {
+                    $.post("admin/batchesDelGardenStuff", {
                         deleteId : deleteId
                     }, function (s) {
                         tableIns.reload();
@@ -165,9 +165,9 @@
                     });
                 });
             }else{
-                layer.msg("请选择需要删除的农民");
+                layer.msg("请选择需要删除的果蔬");
             }
-        });*/
+        });
 
         //监听工具条
         table.on('tool(gardenStuffList)', function(obj){

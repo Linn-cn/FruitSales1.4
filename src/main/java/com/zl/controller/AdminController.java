@@ -334,8 +334,21 @@ public class AdminController {
     @RequestMapping("/deleteGardenStuff")
     @ResponseBody
     public MessageBean deleteGardenStuff(String id) throws Exception{
-        System.out.println("删除：" + id);
         gardenStuffService.deleteGardenStuff(id);
+        return new MessageBean(true,Constants.SUCCESS_DELETE);
+    }
+
+    /**
+     * @Description: 批量删除果蔬
+     * @Param: [deleteId]
+     * @return: com.zl.util.MessageBean
+     * @date: 2019/2/4 13:38 
+     */
+    @SystemControllerLog(description = "批量删除果蔬")
+    @RequestMapping("/batchesDelGardenStuff")
+    @ResponseBody
+    public MessageBean batchesDelGardenStuff(@RequestParam("deleteId[]")List<String> deleteId) throws Exception{
+        gardenStuffService.batchesDelGardenStuff(deleteId);
         return new MessageBean(true,Constants.SUCCESS_DELETE);
     }
 

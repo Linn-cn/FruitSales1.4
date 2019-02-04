@@ -119,9 +119,6 @@
                 <cite>用户管理</cite> <i class="iconfont nav_right">&#xe697;</i>
             </a>
                 <ul class="sub-menu">
-                    <li><a _href="admin/gotoAdminUpdate"> <i
-                            class="iconfont">&#xe6a7;</i> <cite>信息修改</cite>
-                    </a></li>
                     <li><a _href="user/gotoUpdateUserPwd"> <i
                             class="iconfont">&#xe6a7;</i> <cite>密码修改</cite>
                     </a></li>

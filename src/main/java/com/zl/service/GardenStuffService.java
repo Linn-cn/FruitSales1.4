@@ -54,13 +54,21 @@ public interface GardenStuffService {
     void updateGardenStuff(GardenStuffDO gardenStuffDO) throws MessageException;
 
     /** 
-    * @Description: 删除果蔬信息
+    * @Description: 删除果蔬信息[根据果蔬id删除其附属品信息]
     * @Param: [gardenStuffDO] 
     * @return: void 
     * @Author: ZhuLin
     * @Date: 2019/1/29 
     */ 
     void deleteGardenStuff(String id) throws MessageException;
+
+    /**
+     * @Description: 批量删除果蔬[根据果蔬id删除其附属品信息]
+     * @Param: [deleteId]
+     * @return: void
+     * @date: 2019/2/4 13:39 
+     */
+    void batchesDelGardenStuff(List<String> deleteId) throws MessageException;
 
     /** 
     * @Description: 修改果蔬类别信息[同时修改果蔬类别信息记录]
