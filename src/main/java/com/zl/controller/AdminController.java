@@ -39,6 +39,9 @@ public class AdminController {
     @Autowired
     private AccessoryService accessoryService;
 
+    @Autowired
+    private ContractService contractService;
+
     /**
     * @Description: 跳转农民列表界面
     * @Param: []
@@ -455,6 +458,48 @@ public class AdminController {
         accessoryDO.setAccessoryTime(new Timestamp(new Date().getTime()));
         accessoryService.insertAccessory(accessoryDO);
         return new MessageBean(true,Constants.SUCCESS_MESSAGE);
+    }
+
+    /**
+     * @Description: 跳转合同列表界面
+     * @Param: []
+     * @return: java.lang.String
+     * @date: 2019/2/5 20:12 
+     */
+    @RequestMapping("/gotoContractList")
+    public String gotoContractList(){
+        return "admin/ContractList";
+    }
+
+    /**
+     * @Description: 返回合同信息
+     * @Param: [ajaxPutPage, contractCondition]
+     * @return: com.zl.util.AjaxResultPage<com.zl.pojo.ContractDO>
+     * @date: 2019/2/5 15:41 
+     */
+    @RequestMapping("/getContractList")
+    @ResponseBody
+    public AjaxResultPage<ContractDTO> getContractList(AjaxPutPage<ContractDTO> ajaxPutPage, ContractDTO contractCondition){
+        System.out.println(contractCondition.toString());
+        AjaxResultPage<ContractDTO> result = new AjaxResultPage<ContractDTO>();
+        ajaxPutPage.setCondition(contractCondition);
+        List<ContractDTO> list = contractService.listContract(ajaxPutPage);
+        result.setData(list);
+        result.setCount(list.size());
+        return result;
+    }
+
+    /**
+     * @Description: 返回合同详情
+     * @Param: [contractId]
+     * @return: com.zl.pojo.ContractVO
+     * @date: 2019/2/8 12:23 
+     */
+    @RequestMapping("/getContractInfo")
+    @ResponseBody
+    public MessageBean getContractInfo(String contractId){
+        ContractVO contractVO = contractService.getContractInfo(contractId);
+        return new MessageBean(true,null,contractVO);
     }
 
 }

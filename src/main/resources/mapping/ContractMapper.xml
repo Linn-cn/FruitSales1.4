@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zl.mapper.ContractMapper" >
+  <resultMap id="BaseResultMap" type="com.zl.pojo.ContractDO" >
+    <id column="contract_id" property="contractId" jdbcType="VARCHAR" />
+    <result column="peasant_id" property="peasantId" jdbcType="VARCHAR" />
+    <result column="dealer_id" property="dealerId" jdbcType="VARCHAR" />
+    <result column="barcode" property="barcode" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="check" property="check" jdbcType="INTEGER" />
+    <result column="contract_price" property="contractPrice" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    contract_id, peasant_id, dealer_id, barcode, type, createtime, check, contract_price
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zl.pojo.ContractDOExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from contract
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from contract
+    where contract_id = #{contractId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from contract
+    where contract_id = #{contractId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zl.pojo.ContractDOExample" >
+    delete from contract
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zl.pojo.ContractDO" >
+    insert into contract (contract_id, peasant_id, dealer_id, 
+      barcode, type, createtime, 
+      check, contract_price)
+    values (#{contractId,jdbcType=VARCHAR}, #{peasantId,jdbcType=VARCHAR}, #{dealerId,jdbcType=VARCHAR}, 
+      #{barcode,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{check,jdbcType=INTEGER}, #{contractPrice,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zl.pojo.ContractDO" >
+    insert into contract
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="contractId != null" >
+        contract_id,
+      </if>
+      <if test="peasantId != null" >
+        peasant_id,
+      </if>
+      <if test="dealerId != null" >
+        dealer_id,
+      </if>
+      <if test="barcode != null" >
+        barcode,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="check != null" >
+        check,
+      </if>
+      <if test="contractPrice != null" >
+        contract_price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="contractId != null" >
+        #{contractId,jdbcType=VARCHAR},
+      </if>
+      <if test="peasantId != null" >
+        #{peasantId,jdbcType=VARCHAR},
+      </if>
+      <if test="dealerId != null" >
+        #{dealerId,jdbcType=VARCHAR},
+      </if>
+      <if test="barcode != null" >
+        #{barcode,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="check != null" >
+        #{check,jdbcType=INTEGER},
+      </if>
+      <if test="contractPrice != null" >
+        #{contractPrice,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zl.pojo.ContractDOExample" resultType="java.lang.Integer" >
+    select count(*) from contract
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update contract
+    <set >
+      <if test="record.contractId != null" >
+        contract_id = #{record.contractId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.peasantId != null" >
+        peasant_id = #{record.peasantId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dealerId != null" >
+        dealer_id = #{record.dealerId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.barcode != null" >
+        barcode = #{record.barcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.createtime != null" >
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.check != null" >
+        check = #{record.check,jdbcType=INTEGER},
+      </if>
+      <if test="record.contractPrice != null" >
+        contract_price = #{record.contractPrice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update contract
+    set contract_id = #{record.contractId,jdbcType=VARCHAR},
+      peasant_id = #{record.peasantId,jdbcType=VARCHAR},
+      dealer_id = #{record.dealerId,jdbcType=VARCHAR},
+      barcode = #{record.barcode,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      check = #{record.check,jdbcType=INTEGER},
+      contract_price = #{record.contractPrice,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zl.pojo.ContractDO" >
+    update contract
+    <set >
+      <if test="peasantId != null" >
+        peasant_id = #{peasantId,jdbcType=VARCHAR},
+      </if>
+      <if test="dealerId != null" >
+        dealer_id = #{dealerId,jdbcType=VARCHAR},
+      </if>
+      <if test="barcode != null" >
+        barcode = #{barcode,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="check != null" >
+        check = #{check,jdbcType=INTEGER},
+      </if>
+      <if test="contractPrice != null" >
+        contract_price = #{contractPrice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where contract_id = #{contractId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zl.pojo.ContractDO" >
+    update contract
+    set peasant_id = #{peasantId,jdbcType=VARCHAR},
+      dealer_id = #{dealerId,jdbcType=VARCHAR},
+      barcode = #{barcode,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      check = #{check,jdbcType=INTEGER},
+      contract_price = #{contractPrice,jdbcType=DECIMAL}
+    where contract_id = #{contractId,jdbcType=VARCHAR}
+  </update>
+
+  <sql id="ContractQueryCondition">
+    <if test="condition.dealerName != '' and condition.dealerName != null">
+      AND d.dealer_name = #{condition.dealerName}
+    </if>
+    <if test="condition.peasantName != '' and condition.peasantName != null">
+      AND p.peasant_name = #{condition.peasantName}
+    </if>
+    <if test="condition.check != '' and condition.check != null">
+      AND c.`check` = #{condition.check}
+    </if>
+  </sql>
+  
+  <select id="listContract" parameterType="com.zl.util.AjaxPutPage" resultType="com.zl.pojo.ContractDTO">
+    SELECT
+        c.contract_id contractId,
+        c.barcode,
+        c.type,
+        c.createtime,
+        c.`check`,
+        c.contract_price contractPrice,
+        d.dealer_name dealerName,
+        p.peasant_name peasantName
+    FROM
+        contract AS c,
+        dealer AS d,
+        peasant AS p
+    WHERE
+        c.peasant_id = p.peasant_id
+        AND c.dealer_id = d.dealer_id
+        <include refid="ContractQueryCondition"></include>
+        ORDER BY c.createtime DESC
+  </select>
+
+  <resultMap id="ContractInfo" type="com.zl.pojo.ContractVO">
+      <id column="contract_id" property="contractId" jdbcType="VARCHAR" />
+      <result column="barcode" property="barcode" jdbcType="VARCHAR" />
+      <result column="type" property="type" jdbcType="INTEGER" />
+      <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+      <result column="check" property="check" jdbcType="INTEGER" />
+      <result column="contract_price" property="contractPrice" jdbcType="DECIMAL" />
+      <!-- 零售商信息，一个合同对应一个零售商信息 -->
+      <association property="dealer" javaType="com.zl.pojo.DealerDO"
+                   resultMap="com.zl.mapper.DealerMapper.BaseResultMap">
+
+      </association>
+      <!-- 农民信息，一个合同对应一个农民信息 -->
+      <association property="peasant" javaType="com.zl.pojo.PeasantDO"
+                   resultMap="com.zl.mapper.PeasantMapper.BaseResultMap">
+
+      </association>
+      <!--果蔬信息，一个合同对应多个果蔬-->
+      <collection property="gardenStuffList" ofType="com.zl.pojo.GardenStuffVO">
+          <id column="gardenstuff_id" property="gardenstuffId" jdbcType="VARCHAR"/>
+          <result column="gardenstuff_peasantid" property="gardenstuffPeasantid" jdbcType="VARCHAR"/>
+          <result column="gardenstuff_name" property="gardenstuffName" jdbcType="VARCHAR"/>
+          <result column="gardenstuff_price" property="gardenstuffPrice" jdbcType="DECIMAL"/>
+          <result column="gardenstuff_category" property="gardenstuffCategory" jdbcType="VARCHAR"/>
+          <result column="gardenstuff_categoryname" property="gardenstuffCategoryname" jdbcType="VARCHAR"/>
+          <result column="gardenstuff_number" property="gardenstuffNumber" jdbcType="INTEGER" />
+          <result column="gardenstuff_address" property="gardenstuffAddress" jdbcType="VARCHAR"/>
+          <result column="gardenstuff_time" property="gardenstuffTime" jdbcType="TIMESTAMP"/>
+          <collection property="accessoryList" ofType="com.zl.pojo.AccessoryDO"
+                      resultMap="com.zl.mapper.AccessoryMapper.BaseResultMap">
+          </collection>
+      </collection>
+  </resultMap>
+
+  <select id="getContractInfo" parameterType="java.lang.String" resultMap="ContractInfo">
+    SELECT
+        c.contract_id,
+        c.barcode,
+        c.type,
+        c.createtime,
+        c.`check`,
+        c.contract_price,
+        d.dealer_id,
+        d.dealer_name,
+        d.dealer_phone,
+        d.dealer_address,
+        d.dealer_status,
+        p.peasant_id,
+        p.peasant_name,
+        p.peasant_identity,
+        p.peasant_phone,
+        p.peasant_address,
+        p.peasant_status,
+        mdl.gardenstuff_id,
+        mdl.gardenstuff_name,
+        mdl.gardenstuff_price,
+        mdl.gardenstuff_address,
+        mdl.gardenstuff_categoryname,
+        mdl.number AS gardenstuff_number,
+        mdl.accessory_name,
+        mdl.accessory_price
+    FROM
+        (
+    SELECT
+        c.gardenstuff_id,
+        c.gardenstuff_name,
+        c.gardenstuff_price,
+        c.gardenstuff_address,
+        c.gardenstuff_categoryname,
+        m.number,
+        a.accessory_name,
+        a.accessory_price
+    FROM
+        middle AS m
+        LEFT JOIN gardenstuff AS c ON m.gardenstuff_id = c.gardenstuff_id
+        LEFT JOIN accessory AS a ON a.gardenstuff_id = m.gardenstuff_id
+    WHERE
+        m.contract_id = #{contractId}
+        ) AS mdl,
+        contract AS c
+        LEFT JOIN dealer d ON c.dealer_id = d.dealer_id
+        LEFT JOIN peasant p ON c.peasant_id = p.peasant_id
+    WHERE
+        c.contract_id = #{contractId}
+  </select>
+  
+</mapper>
