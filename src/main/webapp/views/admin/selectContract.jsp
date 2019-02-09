@@ -12,95 +12,106 @@
     <%@include file="../../assets/styleAndscriptForm.jsp" %>
 </head>
 <body class="x-body">
-<form class="layui-form" style="width:90%;" lay-filter="updateGardenStuffForm">
-    <div class="layui-form-item layui-row layui-col-xs12">
+<form class="layui-form" style="width:90%;" lay-filter="selectContractForm">
+    <div class="layui-form-item layui-row layui-col-md12">
         <label class="layui-form-label">合同编号</label>
         <div class="layui-input-inline">
-            <input type="text" name="barcode" class="layui-input" lay-verify="required">
+            <input type="text" name="barcode" class="layui-input" disabled="disabled">
         </div>
         <div class="layui-form-mid layui-word-aux">
             <span class="x-red">*</span>合同的唯一编号
         </div>
     </div>
-    <div class="layui-form-item layui-row layui-col-xs12">
+    <div class="layui-form-item layui-row layui-col-md12">
         <label class="layui-form-label">合同类型</label>
-        <select name="dealerStatus" lay-verify="required" lay-filter="dealerStatus">
-            <option value="">-请选择-</option>
-            <option value="1">省内</option>
-            <option value="2">省外</option>
-        </select>
-    </div>
-    <div class="layui-form-item layui-row layui-col-xs12">
-        <label class="layui-form-label">果蔬类别</label>
         <div class="layui-input-inline">
-            <select name="gardenstuffCategory" xm-select="gardenstuffCategory" xm-select-show-count="1" xm-select-skin="normal">
-                <option value="">请选择果蔬类别</option>
+            <select name="type" disabled="disabled">
+                <option value="">-请选择-</option>
+                <option value="1">省内</option>
+                <option value="2">省外</option>
             </select>
         </div>
     </div>
-    <div class="layui-form-item layui-row layui-col-xs12">
-        <label class="layui-form-label">价格</label>
+    <div class="layui-form-item layui-row layui-col-md12">
+        <label class="layui-form-label">零售商信息</label>
         <div class="layui-input-inline">
-            <input type="text" name="gardenstuffPrice" class="layui-input" lay-verify="required" placeholder="请输入价格">
+            <input type="text" name="dealerName" class="layui-input" disabled="disabled">
         </div>
-        <div class="layui-form-mid layui-word-aux">
-            <span class="x-red">*</span>按公斤算
-        </div>
-    </div>
-    <div class="layui-form-item layui-row layui-col-xs12">
-        <label class="layui-form-label">库存</label>
+        <div class="layui-form-mid">联系电话：</div>
         <div class="layui-input-inline">
-            <input type="text" name="gardenstuffNumber" class="layui-input" lay-verify="required" placeholder="请输入库存">
+            <input type="text" name="dealerPhone" class="layui-input" disabled="disabled">
         </div>
     </div>
-    <div class="layui-form-item layui-row layui-col-xs6">
-        <label class="layui-form-label">产地</label>
+    <div class="layui-form-item layui-row layui-col-md12">
+        <label class="layui-form-label">地址：</label>
         <div class="layui-input-block">
-            <textarea name="gardenstuffAddress" placeholder="请输入果蔬产地" lay-verify="required" class="layui-textarea"></textarea>
+            <input type="text" name="dealerAddress" class="layui-input" disabled="disabled">
         </div>
     </div>
-    <div class="layui-form-item layui-row layui-col-xs12">
+    <div class="layui-form-item layui-row layui-col-md12">
+        <label class="layui-form-label">农民信息</label>
+        <div class="layui-input-inline">
+            <input type="text" name="peasantName" class="layui-input" disabled="disabled">
+        </div>
+        <div class="layui-form-mid">联系电话：</div>
+        <div class="layui-input-inline">
+            <input type="text" name="peasantPhone" class="layui-input" disabled="disabled">
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-md12">
+        <label class="layui-form-label">地址：</label>
         <div class="layui-input-block">
-            <input id="submit" type="button" class="layui-btn" lay-submit lay-filter="updateGardenStuff" value="提交">
+            <input type="text" name="peasantAddress" class="layui-input" disabled="disabled">
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-row layui-col-md12">
+        <div class="layui-input-block">
+            <input id="submit" type="button" class="layui-btn" lay-submit lay-filter="updateGardenStuff" value="打印详情">
             </input>
         </div>
+    </div>
     </div>
 </form>
 </body>
 <script>
-    layui.use(['form','layer'],function(){
+    layui.use(['form', 'layer'], function () {
         var form = layui.form,
             layer = parent.layer === undefined ? layui.layer : top.layer,
             $ = layui.jquery;
 
         //用于获取修改数据
-        var edit = JSON.parse(window.sessionStorage.getItem("gardenStuff"));
+        var edit = JSON.parse(window.sessionStorage.getItem("contract"));
 
-        if(edit != null && edit != ""){
-            form.val('updateGardenStuffForm', {
-                "gardenstuffName": edit.gardenstuffName,
-                "gardenstuffPrice" : edit.gardenstuffPrice,
-                "gardenstuffNumber" : edit.gardenstuffNumber,
-                "gardenstuffAddress" : edit.gardenstuffAddress
+        if (edit != null && edit != "") {
+            form.val('selectContractForm', {
+                "barcode": edit.barcode,
+                "type": edit.type,
+                "dealerName": edit.dealer.dealerName,
+                "dealerPhone": edit.dealer.dealerPhone,
+                "dealerAddress": edit.dealer.dealerAddress,
+                "peasantName": edit.peasant.peasantName,
+                "peasantPhone": edit.peasant.peasantPhone,
+                "peasantAddress": edit.peasant.peasantAddress,
             });
         }
 
 
-        form.on("submit(updateGardenStuff)",function(data){
+        form.on("submit(updateGardenStuff)", function (data) {
             var datas = data.field;
             datas.gardenstuffId = edit.gardenstuffId;
             datas.gardenstuffCategoryname = formSelects.value('gardenstuffCategory', 'nameStr');
-            var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
+            var index = top.layer.msg('数据提交中，请稍候', {icon: 16, time: false, shade: 0.8});
             console.log(datas);
             // 提交信息
-            $.post("admin/updateGardenStuff",datas,function(s){
-                setTimeout(function(){
+            $.post("admin/updateGardenStuff", datas, function (s) {
+                setTimeout(function () {
                     top.layer.close(index);
                     top.layer.alert(s.msg);
                     layer.closeAll("iframe");
                     //刷新父页面
                     parent.location.reload();
-                },1500);
+                }, 1500);
             });
             return false;
         });

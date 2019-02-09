@@ -267,7 +267,7 @@
       AND c.`check` = #{condition.check}
     </if>
   </sql>
-  
+
   <select id="listContract" parameterType="com.zl.util.AjaxPutPage" resultType="com.zl.pojo.ContractDTO">
     SELECT
         c.contract_id contractId,
@@ -323,6 +323,7 @@
       </collection>
   </resultMap>
 
+    <!-- 单个合同详情 -->
   <select id="getContractInfo" parameterType="java.lang.String" resultMap="ContractInfo">
     SELECT
         c.contract_id,

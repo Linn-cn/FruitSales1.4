@@ -76,7 +76,9 @@
                 {field: 'peasantName', title: '农民名字', align:"center",unresize:"true"},
                 {field: 'dealerName', title: '零售商名', align:'center',unresize:"true"},
                 {field: 'barcode', title: '合同编号', align:'center',unresize:"true"},
-                {field: 'type', title: '合同类型', align:'center',unresize:"true"},
+                {field: 'type', title: '合同类型', align:'center',unresize:"true",templet:function(d){
+                        return d.type == "1" ? "省内" : "省外";
+                    }},
                 {field: 'check', title: '合同状态', align:'center',unresize:"true",templet:function (d) {
                         return d.check == "1" ? "<span style='color: #009688;'>已签约</span>" : "<span style='color: red;'>待确认</span>";
                     }},
@@ -147,13 +149,14 @@
        });*/
 
         //监听工具条
-        table.on('tool(gardenStuffList)', function(obj){
+        table.on('tool(ContractList)', function(obj){
             var data = obj.data; //获得当前行数据
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
 
-            if(layEvent === 'edit'){ //编辑
+            if(layEvent === 'info'){ //编辑
+                console.log(data);
                 $.get("admin/getContractInfo", {
-                    id: data.contractId
+                    contractId : data.contractId
                 }, function (s) {
                     if (s.success){
                         addOrSelectContract(s.data);
