@@ -67,7 +67,7 @@
 
     <div class="layui-form-item layui-row layui-col-md12">
         <div class="layui-input-block">
-            <input id="submit" type="button" class="layui-btn" lay-submit lay-filter="updateGardenStuff" value="打印详情">
+            <input id="submit" type="button" class="layui-btn" lay-submit lay-filter="print" value="打印详情">
             </input>
         </div>
     </div>
@@ -95,6 +95,11 @@
                 "peasantAddress": edit.peasant.peasantAddress,
             });
         }
+
+        form.on("submit(print)",function(data){
+            $('#x-body').jqprint();
+        });
+
     });
 </script>
 </html>
