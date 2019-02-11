@@ -99,12 +99,8 @@ public class AdminController {
     @RequestMapping("/addPeasant")
     @ResponseBody
     public MessageBean addPeasant(UserDO userDO,PeasantDO peasantDO) throws Exception{
-        String uuid = UuidUtils.creatUUID();
-        userDO.setUserid(uuid);
-        userDO.setRole(Constants.ROLE_DEALER);
-        peasantDO.setPeasantId(uuid);
-        userService.insertUser(userDO);
-        peasantService.insertPeasant(peasantDO);
+        // 优化用户插入，防止出现错误导致事务不回滚
+        peasantService.insertPeasant(userDO,peasantDO);
         return new MessageBean(true,Constants.SUCCESS_INSERT);
     }
 
@@ -119,8 +115,8 @@ public class AdminController {
     @RequestMapping("/deletePeasant")
     @ResponseBody
     public MessageBean deletePeasant(String id) throws Exception{
+        // 优化农民删除，防止出现错误导致事务不回滚
         peasantService.deletePeasant(id);
-        gardenStuffService.deleteGardenStuffByPeasantid(id);
         return new MessageBean(true,Constants.SUCCESS_DELETE);
     }
 
@@ -224,12 +220,8 @@ public class AdminController {
     @RequestMapping("/addDealer")
     @ResponseBody
     public MessageBean addDealer(UserDO userDO,DealerDO dealerDO) throws Exception{
-        String uuid = UuidUtils.creatUUID();
-        userDO.setUserid(uuid);
-        userDO.setRole(Constants.ROLE_DEALER);
-        dealerDO.setDealerId(uuid);
-        userService.insertUser(userDO);
-        dealerService.insertDealer(dealerDO);
+        // 优化添加零售商，防止出现错误导致事务不回滚
+        dealerService.insertDealer(userDO,dealerDO);
         return new MessageBean(true,Constants.SUCCESS_INSERT);
     }
 

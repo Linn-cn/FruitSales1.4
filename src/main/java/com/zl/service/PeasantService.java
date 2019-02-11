@@ -1,6 +1,7 @@
 package com.zl.service;
 
 import com.zl.pojo.PeasantDO;
+import com.zl.pojo.UserDO;
 import com.zl.util.AjaxPutPage;
 import com.zl.util.MessageBean;
 import com.zl.util.MessageException;
@@ -43,7 +44,7 @@ public interface PeasantService {
     * @Author: ZhuLin
     * @Date: 2019/1/21 
     */ 
-    void insertPeasant(PeasantDO peasantDO) throws MessageException;
+    void insertPeasant(UserDO userDO, PeasantDO peasantDO) throws MessageException;
 
     /** 
     * @Description: 删除农民

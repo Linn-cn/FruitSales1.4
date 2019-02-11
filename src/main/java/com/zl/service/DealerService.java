@@ -1,6 +1,7 @@
 package com.zl.service;
 
 import com.zl.pojo.DealerDO;
+import com.zl.pojo.UserDO;
 import com.zl.util.AjaxPutPage;
 import com.zl.util.MessageException;
 
@@ -58,7 +59,7 @@ public interface DealerService {
     * @Author: ZhuLin
     * @Date: 2019/1/21 
     */ 
-    void insertDealer(DealerDO dealerDO) throws MessageException;
+    void insertDealer(UserDO userDO, DealerDO dealerDO) throws MessageException;
 
     /** 
     * @Description: 修改零售商

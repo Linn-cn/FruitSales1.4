@@ -1,14 +1,15 @@
 package com.zl.service.impl;
 
+import com.zl.mapper.GardenStuffMapper;
 import com.zl.mapper.PeasantMapper;
 import com.zl.mapper.UserMapper;
-import com.zl.pojo.PeasantDO;
-import com.zl.pojo.PeasantDOExample;
-import com.zl.pojo.UserDOExample;
+import com.zl.pojo.*;
 import com.zl.service.PeasantService;
 import com.zl.util.AjaxPutPage;
+import com.zl.util.Constants;
 import com.zl.util.MessageException;
 import com.zl.util.UuidUtils;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,9 @@ public class PeasantServiceImpl implements PeasantService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private GardenStuffMapper gardenStuffMapper;
+
     @Override
     public List<PeasantDO> listPeasant(AjaxPutPage<PeasantDO> ajaxPutPage) {
         return peasantMapper.listPeasant(ajaxPutPage);
@@ -51,7 +55,14 @@ public class PeasantServiceImpl implements PeasantService {
     }
 
     @Override
-    public void insertPeasant(PeasantDO peasantDO) throws MessageException {
+    public void insertPeasant(UserDO userDO, PeasantDO peasantDO) throws MessageException {
+        String uuid = UuidUtils.creatUUID();
+        userDO.setUserid(uuid);
+        userDO.setRole(Constants.ROLE_DEALER);
+        String password = new Md5Hash(Constants.PASSWORD,userDO.getUsername(),Constants.HASHITERATIONS).toString();
+        userDO.setPassword(password);
+        userMapper.insertSelective(userDO);
+        peasantDO.setPeasantId(uuid);
         peasantDO.setPeasantTime(new Timestamp(new Date().getTime()));
         peasantMapper.insertSelective(peasantDO);
     }
@@ -60,6 +71,9 @@ public class PeasantServiceImpl implements PeasantService {
     public void deletePeasant(String id) throws MessageException {
         peasantMapper.deleteByPrimaryKey(id);
         userMapper.deleteByPrimaryKey(id);
+        GardenStuffDOExample example = new GardenStuffDOExample();
+        example.createCriteria().andGardenstuffPeasantidEqualTo(id);
+        gardenStuffMapper.deleteByExample(example);
     }
 
     @Override

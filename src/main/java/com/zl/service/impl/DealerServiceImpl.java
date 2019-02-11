@@ -4,10 +4,14 @@ import com.zl.mapper.DealerMapper;
 import com.zl.mapper.UserMapper;
 import com.zl.pojo.DealerDO;
 import com.zl.pojo.DealerDOExample;
+import com.zl.pojo.UserDO;
 import com.zl.pojo.UserDOExample;
 import com.zl.service.DealerService;
 import com.zl.util.AjaxPutPage;
+import com.zl.util.Constants;
 import com.zl.util.MessageException;
+import com.zl.util.UuidUtils;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,7 +62,14 @@ public class DealerServiceImpl implements DealerService {
     }
 
     @Override
-    public void insertDealer(DealerDO dealerDO) throws MessageException {
+    public void insertDealer(UserDO userDO, DealerDO dealerDO) throws MessageException {
+        String uuid = UuidUtils.creatUUID();
+        userDO.setUserid(uuid);
+        userDO.setRole(Constants.ROLE_DEALER);
+        String password = new Md5Hash(Constants.PASSWORD,userDO.getUsername(),Constants.HASHITERATIONS).toString();
+        userDO.setPassword(password);
+        userMapper.insertSelective(userDO);
+        dealerDO.setDealerId(uuid);
         dealerDO.setDealerTime(new Timestamp(new Date().getTime()));
         dealerMapper.insertSelective(dealerDO);
     }
