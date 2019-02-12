@@ -90,5 +90,13 @@ public class GardenStuffServiceImpl implements GardenStuffService {
         categoryMapper.insertSelective(categoryDO);
     }
 
+    @Override
+    public void batchesDelCategoey(List<Integer> deleteId) throws MessageException {
+        categoryMapper.batchesDelCategory(deleteId);
+        CategoryDOExample example = new CategoryDOExample();
+        example.createCriteria().andCategoryIdIn(deleteId);
+        categoryMapper.deleteByExample(example);
+    }
+
 
 }

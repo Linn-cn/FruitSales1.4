@@ -302,6 +302,20 @@ public class AdminController {
         return new MessageBean(true,Constants.SUCCESS_MESSAGE);
     }
 
+    /**
+     * @Description: 批量删除果蔬类别
+     * @Param: [deleteId]
+     * @return: com.zl.util.MessageBean
+     * @date: 2019/2/4 13:38
+     */
+    @SystemControllerLog(description = "批量删除果蔬类别")
+    @RequestMapping("/batchesDelCategory")
+    @ResponseBody
+    public MessageBean batchesDelCategory(@RequestParam("deleteId[]")List<Integer> deleteId) throws Exception{
+        gardenStuffService.batchesDelCategoey(deleteId);
+        return new MessageBean(true,Constants.SUCCESS_DELETE);
+    }
+
     /** 
     * @Description: 修改果蔬信息
     * @Param: [gardenStuffDO] 

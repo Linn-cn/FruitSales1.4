@@ -148,7 +148,6 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.zl.pojo.CategoryDO" >
-
     <if test="categoryName != null" >
       UPDATE gardenstuff
       SET gardenstuff_categoryname = REPLACE (
@@ -173,9 +172,54 @@
     </set>
     where category_id = #{categoryId,jdbcType=INTEGER};
   </update>
+
   <update id="updateByPrimaryKey" parameterType="com.zl.pojo.CategoryDO" >
     update category
     set category_name = #{categoryName,jdbcType=VARCHAR}
     where category_id = #{categoryId,jdbcType=INTEGER}
   </update>
+  
+  <delete id="batchesDelCategory" parameterType="java.util.List">
+    <foreach collection="list" index="index" item="item">
+      UPDATE gardenstuff
+      SET gardenstuff_categoryname = REPLACE (
+          gardenstuff_categoryname,
+          (
+              SELECT
+                  CONCAT(',', category_name)
+              FROM
+                  category
+              WHERE
+                  category_id = #{item}
+          ),
+          ''
+      );
+      UPDATE gardenstuff
+      SET gardenstuff_categoryname = REPLACE (
+          gardenstuff_categoryname,
+          (
+              SELECT
+                  CONCAT(category_name,',')
+              FROM
+                  category
+              WHERE
+                  category_id = #{item}
+          ),
+          ''
+      );
+      UPDATE gardenstuff
+      SET gardenstuff_categoryname = REPLACE (
+          gardenstuff_categoryname,
+          (
+              SELECT
+                  category_name
+              FROM
+                  category
+              WHERE
+                  category_id = #{item}
+          ),
+          ''
+      );
+    </foreach>
+  </delete>
 </mapper>

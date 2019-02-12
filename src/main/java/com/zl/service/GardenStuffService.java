@@ -87,4 +87,12 @@ public interface GardenStuffService {
     * @Date: 2019/1/30 
     */ 
     void insertCategory(CategoryDO categoryDO) throws MessageException;
+
+    /**
+     * @Description: 批量删除果蔬类别
+     * @Param: [deleteId]
+     * @return: void
+     * @date: 2019/2/4 13:39
+     */
+    void batchesDelCategoey(List<Integer> deleteId) throws MessageException;
 }

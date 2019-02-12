@@ -27,4 +27,13 @@ public interface CategoryMapper {
     int updateByPrimaryKeySelective(CategoryDO record);
 
     int updateByPrimaryKey(CategoryDO record);
+
+    /** 
+    * @Description:
+    * @Param: [categoryId] 
+    * @return: int 
+    * @Author: ZhuLin
+    * @Date: 2019/2/12 
+    */ 
+    int batchesDelCategory(List<Integer> deleteId);
 }
