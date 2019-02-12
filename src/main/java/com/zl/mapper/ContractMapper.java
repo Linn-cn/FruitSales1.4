@@ -1,9 +1,6 @@
 package com.zl.mapper;
 
-import com.zl.pojo.ContractDO;
-import com.zl.pojo.ContractDOExample;
-import com.zl.pojo.ContractDTO;
-import com.zl.pojo.ContractVO;
+import com.zl.pojo.*;
 import com.zl.util.AjaxPutPage;
 import org.apache.ibatis.annotations.Param;
 
@@ -41,10 +38,19 @@ public interface ContractMapper {
     List<ContractDTO> listContract(AjaxPutPage<ContractDTO> ajaxPutPage);
 
     /**
-     * @Description: 返回合同详情
+     * @Description: 返回单个合同详情
      * @Param: [contractId]
      * @return: com.zl.pojo.ContractVO
      * @date: 2019/2/8 11:43 
      */
     ContractVO getContractInfo(String contractId);
+
+    /** 
+    * @Description: 返回单个合同的果蔬详情
+    * @Param: [contractId] 
+    * @return: java.util.List<com.zl.pojo.GardenStuffVO> 
+    * @Author: ZhuLin
+    * @Date: 2019/2/12 
+    */ 
+    List<GardenStuffVO> listGardenStuffInfoByContractID(String contractId);
 }

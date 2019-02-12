@@ -4,6 +4,7 @@ import com.zl.mapper.ContractMapper;
 import com.zl.pojo.ContractDO;
 import com.zl.pojo.ContractDTO;
 import com.zl.pojo.ContractVO;
+import com.zl.pojo.GardenStuffVO;
 import com.zl.service.ContractService;
 import com.zl.util.AjaxPutPage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,10 @@ public class ContractServiceImpl implements ContractService {
     @Override
     public ContractVO getContractInfo(String contractId) {
         return contractMapper.getContractInfo(contractId);
+    }
+
+    @Override
+    public List<GardenStuffVO> listGardenStuffInfoByContractID(String contractId) {
+        return contractMapper.listGardenStuffInfoByContractID(contractId);
     }
 }

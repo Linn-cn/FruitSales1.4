@@ -306,5 +306,6 @@
 	  g.gardenstuff_peasantid = p.peasant_id
     <include refid="GardenStuffQueryCondition"></include>
     ORDER BY g.gardenstuff_time DESC
+    LIMIT #{start},#{limit}
   </select>
 </mapper>

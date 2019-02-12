@@ -287,8 +287,10 @@
         AND c.dealer_id = d.dealer_id
         <include refid="ContractQueryCondition"></include>
         ORDER BY c.createtime DESC
+        LIMIT #{start},#{limit}
   </select>
 
+    <!--单个合同详情-->
   <resultMap id="ContractInfo" type="com.zl.pojo.ContractVO">
       <id column="contract_id" property="contractId" jdbcType="VARCHAR" />
       <result column="barcode" property="barcode" jdbcType="VARCHAR" />
@@ -322,6 +324,23 @@
           </collection>
       </collection>
   </resultMap>
+
+    <!--单个合同的果蔬信息-->
+    <resultMap id="GardenStuffInfo" type="com.zl.pojo.GardenStuffVO">
+        <id column="gardenstuff_id" property="gardenstuffId" jdbcType="VARCHAR"/>
+        <result column="gardenstuff_peasantid" property="gardenstuffPeasantid" jdbcType="VARCHAR"/>
+        <result column="gardenstuff_name" property="gardenstuffName" jdbcType="VARCHAR"/>
+        <result column="gardenstuff_price" property="gardenstuffPrice" jdbcType="DECIMAL"/>
+        <result column="gardenstuff_category" property="gardenstuffCategory" jdbcType="VARCHAR"/>
+        <result column="gardenstuff_categoryname" property="gardenstuffCategoryname" jdbcType="VARCHAR"/>
+        <result column="gardenstuff_number" property="gardenstuffNumber" jdbcType="INTEGER" />
+        <result column="gardenstuff_address" property="gardenstuffAddress" jdbcType="VARCHAR"/>
+        <result column="gardenstuff_time" property="gardenstuffTime" jdbcType="TIMESTAMP"/>
+        <collection property="accessoryList" ofType="com.zl.pojo.AccessoryDO">
+            <result column="accessory_name" property="accessoryName" jdbcType="VARCHAR" />
+            <result column="accessory_price" property="accessoryPrice" jdbcType="DECIMAL" />
+        </collection>
+    </resultMap>
 
     <!-- 单个合同详情 -->
   <select id="getContractInfo" parameterType="java.lang.String" resultMap="ContractInfo">
@@ -375,5 +394,40 @@
     WHERE
         c.contract_id = #{contractId}
   </select>
+    
+    <select id="listGardenStuffInfoByContractID" parameterType="java.lang.String" resultMap="GardenStuffInfo">
+        SELECT
+        mdl.gardenstuff_id,
+        mdl.gardenstuff_name,
+        mdl.gardenstuff_price,
+        mdl.gardenstuff_address,
+        mdl.gardenstuff_categoryname,
+        mdl.number AS gardenstuff_number,
+        mdl.accessory_name,
+        mdl.accessory_price
+        FROM
+                (
+            SELECT
+                c.gardenstuff_id,
+                c.gardenstuff_name,
+                c.gardenstuff_price,
+                c.gardenstuff_address,
+                c.gardenstuff_categoryname,
+                m.number,
+                a.accessory_name,
+                a.accessory_price
+            FROM
+                middle AS m
+                LEFT JOIN gardenstuff AS c ON m.gardenstuff_id = c.gardenstuff_id
+                LEFT JOIN accessory AS a ON a.gardenstuff_id = m.gardenstuff_id
+            WHERE
+                m.contract_id = #{contractId}
+                ) AS mdl,
+                contract AS c
+                LEFT JOIN dealer d ON c.dealer_id = d.dealer_id
+                LEFT JOIN peasant p ON c.peasant_id = p.peasant_id
+        WHERE
+                c.contract_id = #{contractId}
+    </select>
   
 </mapper>

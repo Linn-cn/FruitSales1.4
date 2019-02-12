@@ -273,6 +273,7 @@
       peasant
     <include refid="peasantQueryCondition"></include>
     ORDER BY peasant.peasant_time DESC
+    LIMIT #{start},#{limit}
   </select>
 
   <select id="getPeasantCount" parameterType="com.zl.util.AjaxPutPage" resultType="java.lang.Long">

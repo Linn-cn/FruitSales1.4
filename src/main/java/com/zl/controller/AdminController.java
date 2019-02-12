@@ -464,7 +464,7 @@ public class AdminController {
     }
 
     /**
-     * @Description: 返回合同信息
+     * @Description: 返回合同列表信息
      * @Param: [ajaxPutPage, contractCondition]
      * @return: com.zl.util.AjaxResultPage<com.zl.pojo.ContractDO>
      * @date: 2019/2/5 15:41 
@@ -472,7 +472,6 @@ public class AdminController {
     @RequestMapping("/getContractList")
     @ResponseBody
     public AjaxResultPage<ContractDTO> getContractList(AjaxPutPage<ContractDTO> ajaxPutPage, ContractDTO contractCondition){
-        System.out.println(contractCondition.toString());
         AjaxResultPage<ContractDTO> result = new AjaxResultPage<ContractDTO>();
         ajaxPutPage.setCondition(contractCondition);
         List<ContractDTO> list = contractService.listContract(ajaxPutPage);
@@ -492,6 +491,23 @@ public class AdminController {
     public MessageBean getContractInfo(String contractId){
         ContractVO contractVO = contractService.getContractInfo(contractId);
         return new MessageBean(true,null,contractVO);
+    }
+
+    /** 
+    * @Description: 返回合同的果蔬和附属品信息
+    * @Param: [contractId] 
+    * @return: com.zl.util.AjaxResultPage<com.zl.pojo.GardenStuffVO> 
+    * @Author: ZhuLin
+    * @Date: 2019/2/12 
+    */ 
+    @RequestMapping("/getGardenStuffInfoList")
+    @ResponseBody
+    public AjaxResultPage<GardenStuffVO> getGardenStuffInfoList(String contractId){
+        AjaxResultPage<GardenStuffVO> result = new AjaxResultPage<GardenStuffVO>();
+        List<GardenStuffVO> list = contractService.listGardenStuffInfoByContractID(contractId);
+        result.setData(list);
+        result.setCount(list.size());
+        return result;
     }
 
 }
