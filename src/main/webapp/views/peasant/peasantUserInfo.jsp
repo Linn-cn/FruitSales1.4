@@ -130,11 +130,11 @@
             var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
             console.log(datas);
             // 提交信息
-            $.post("admin/updatePeasant",datas,function(s){
+            $.post("peasant/updatePeasant",datas,function(s){
                 setTimeout(function(){
                     top.layer.close(index);
                     top.layer.msg(s.msg);
-                    layer.closeAll("iframe");
+                    x_admin_close();
                 },1500);
             });
             return false;

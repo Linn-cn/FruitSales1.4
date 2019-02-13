@@ -134,18 +134,7 @@ public class UserController {
         }
         UserDTO userinfo = new UserDTO();
         BeanUtils.copyProperties(user, userinfo);
-        switch (userDTO.getRole()) {
-            case 1:
-                PeasantDO peasant = userService.getPeasantInfo(user.getUserid());
-                BeanCopyPropertiesUtil.peasantCopyProperties(peasant, userinfo);
-                break;
-            case 2:
-                DealerDO dealer = userService.getDealerInfo(user.getUserid());
-                BeanCopyPropertiesUtil.dealerCopyProperties(dealer, userinfo);
-                break;
-            default:
-                break;
-        }
+        userinfo = copyUserInfo(user,userinfo);
         System.out.println("用户存在于数据库数据:" + userinfo.toString());
         boolean flag = userinfo.getName().equals(userDTO.getName())
                 && userinfo.getPhone().equals(userDTO.getPhone())
@@ -238,7 +227,32 @@ public class UserController {
     @ResponseBody
     public UserDTO getUserInfo(){
         UserDTO userInfo = BaseController.getSessionUser();
-        return userInfo;
+        UserDO user = userService.validateUserName(userInfo.getUsername());
+        UserDTO userDTO = new UserDTO();
+        BeanUtils.copyProperties(user,userDTO);
+        userDTO = copyUserInfo(user,userDTO);
+        return userDTO;
+    }
+
+    /**
+     * @Description: 根据农民还是零售商来返回对应的完整userinfo
+     * @Param: [user, userDTO]用于判断的user和拷贝到的user
+     * @return: com.zl.pojo.UserDTO
+     * @date: 2019/2/13 21:28 
+     */
+    public UserDTO copyUserInfo(UserDO user,UserDTO userDTO){
+        switch (user.getRole()){
+            case 1:
+                PeasantDO peasant = userService.getPeasantInfo(user.getUserid());
+                BeanCopyPropertiesUtil.peasantCopyProperties(peasant, userDTO);
+                break;
+            case 2:
+                DealerDO dealer = userService.getDealerInfo(user.getUserid());
+                BeanCopyPropertiesUtil.dealerCopyProperties(dealer, userDTO);
+                break;
+            default:break;
+        }
+        return userDTO;
     }
 
 }

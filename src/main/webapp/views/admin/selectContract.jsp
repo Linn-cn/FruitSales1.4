@@ -83,7 +83,7 @@
         <div class="layui-form-item layui-row layui-col-md12">
             <label class="layui-form-label">合同状态：</label>
             <div class="layui-input-inline" style="padding-top: 8px;">
-                <input type="checkbox" name="check" lay-skin="switch" lay-text="已确认|未确认">
+                <input type="checkbox" disabled="disabled" name="check" lay-skin="switch" lay-text="已确认|未确认">
             </div>
         </div>
         <div class="layui-form-item layui-row layui-col-md12">

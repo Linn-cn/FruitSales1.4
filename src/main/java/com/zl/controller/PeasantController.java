@@ -49,6 +49,7 @@ public class PeasantController {
     @RequestMapping("/updatePeasant")
     @ResponseBody
     public MessageBean updatePeasant(PeasantDO peasantInfo) throws Exception{
+        System.out.println(peasantInfo.toString());
         peasantService.updatePeasant(peasantInfo);
         return new MessageBean(true,Constants.SUCCESS_UPDATE);
     }
