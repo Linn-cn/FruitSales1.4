@@ -41,28 +41,28 @@
                                         <a href="javascript:;" class="x-admin-backlog-body">
                                             <h3>已入驻零售商</h3>
                                             <p>
-                                                <cite>1</cite></p>
+                                                <cite>${SysDealer}</cite></p>
                                         </a>
                                     </li>
                                     <li class="layui-col-xs2">
                                         <a href="javascript:;" class="x-admin-backlog-body">
                                             <h3>已入驻农民</h3>
                                             <p>
-                                                <cite>12</cite></p>
+                                                <cite>${SysPeasant}</cite></p>
                                         </a>
                                     </li>
                                     <li class="layui-col-xs2">
                                         <a href="javascript:;" class="x-admin-backlog-body">
                                             <h3>果蔬数量</h3>
                                             <p>
-                                                <cite>12</cite></p>
+                                                <cite>${SysGarden}</cite></p>
                                         </a>
                                     </li>
                                     <li class="layui-col-xs2">
                                         <a href="javascript:;" class="x-admin-backlog-body">
                                             <h3>成功签约</h3>
                                             <p>
-                                                <cite>1</cite></p>
+                                                <cite>${SysContract}</cite></p>
                                         </a>
                                     </li>
                                 </ul>

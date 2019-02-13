@@ -22,13 +22,13 @@
 </body>
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm addCategory">
+        <button class="layui-btn layui-btn-sm" lay-event="addCategory">
             <i class="layui-icon">&#xe654;&nbsp;</i>添加果蔬类别
         </button>
-        <button class="layui-btn layui-btn-danger layui-btn-sm deleteCategory">
+        <button class="layui-btn layui-btn-danger layui-btn-sm" lay-event="deleteCategory">
             <i class="layui-icon">&#xe640;&nbsp;</i>删除所选类别
         </button>
-        <button class="layui-btn layui-btn-sm refresh">
+        <button class="layui-btn layui-btn-sm" lay-event="refresh">
             <i class="layui-icon">&#xe9aa;&nbsp;</i>刷新数据
         </button>
     </div>
@@ -67,43 +67,44 @@
             });
         });
 
-        $('.addCategory').click(function () {
-            console.log("测试");
-            //默认prompt
-            layer.prompt({title: '添加果蔬类别', formType: 0, maxlength: 50}, function (value, index) {
-                $.post("admin/addCategory", {"categoryName": value}, function (s) {
-                    layer.msg(s.msg);
-                    tableIns.reload();
-                });
-                layer.close(index);
-            });
-        });
-
-        $('.refresh').click(function () {
-            tableIns.reload();
-        });
-
-        //批量删除
-        $(".deleteCategory").click(function () {
-            var checkStatus = table.checkStatus('Category'),
-                data = checkStatus.data,
-                deleteId = [];
-            if (data.length > 0) {
-                for (var i in data) {
-                    deleteId.push(data[i].categoryId);
-                }
-                layer.confirm('确定删除选中的' + data.length + '个类别？', {icon: 3, title: '提示信息'}, function (index) {
-                    $.post("admin/batchesDelCategory", {
-                        deleteId: deleteId
-                    }, function (s) {
-                        tableIns.reload();
+        table.on('toolbar(Category)', function (obj) {
+            switch(obj.event){
+                case 'addCategory':
+                    //默认prompt
+                    layer.prompt({title: '添加果蔬类别', formType: 0, maxlength: 50}, function (value, index) {
+                        $.post("admin/addCategory", {"categoryName": value}, function (s) {
+                            layer.msg(s.msg);
+                            tableIns.reload();
+                        });
                         layer.close(index);
-                        layer.msg(s.msg);
                     });
-                });
-            } else {
-                layer.msg("请选择需要删除的类别");
-            }
+                    break;
+                case 'deleteCategory':
+                    //批量删除
+                    var checkStatus = table.checkStatus('Category'),
+                        data = checkStatus.data,
+                        deleteId = [];
+                    if (data.length > 0) {
+                        for (var i in data) {
+                            deleteId.push(data[i].categoryId);
+                        }
+                        layer.confirm('确定删除选中的' + data.length + '个类别？', {icon: 3, title: '提示信息'}, function (index) {
+                            $.post("admin/batchesDelCategory", {
+                                deleteId: deleteId
+                            }, function (s) {
+                                tableIns.reload();
+                                layer.close(index);
+                                layer.msg(s.msg);
+                            });
+                        });
+                    } else {
+                        layer.msg("请选择需要删除的类别");
+                    }
+                    break;
+                case 'refresh':
+                    tableIns.reload();
+                    break;
+            };
         });
 
     });

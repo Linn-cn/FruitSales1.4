@@ -279,9 +279,9 @@ public class AdminController {
     */
     @RequestMapping("/getCategoryList")
     @ResponseBody
-    public AjaxResultPage<CategoryDO> getCategoryList(){
+    public AjaxResultPage<CategoryDO> getCategoryList(AjaxPutPage<CategoryDO> ajaxPutPage){
         AjaxResultPage<CategoryDO> result = new AjaxResultPage<CategoryDO>();
-        List<CategoryDO> list = gardenStuffService.listCategory();
+        List<CategoryDO> list = gardenStuffService.listCategory(ajaxPutPage);
         result.setData(list);
         result.setCount(list.size());
         return result;

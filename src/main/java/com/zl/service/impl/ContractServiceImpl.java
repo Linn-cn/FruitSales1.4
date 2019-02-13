@@ -31,6 +31,11 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
+    public Integer getContractCount() {
+        return contractMapper.countByExample(null);
+    }
+
+    @Override
     public ContractVO getContractInfo(String contractId) {
         return contractMapper.getContractInfo(contractId);
     }

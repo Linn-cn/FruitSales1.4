@@ -41,10 +41,10 @@ public interface DealerMapper {
 
     /**
      * @Description: 返回零售商总条数
-     * @Param: [ajaxPutPage]
+     * @Param: []
      * @return: java.lang.Long
      * @Author: ZhuLin
      * @Date: 2019/1/13
      */
-    Long getDealerCount(AjaxPutPage<DealerDO> ajaxPutPage);
+    Integer getDealerCount();
 }

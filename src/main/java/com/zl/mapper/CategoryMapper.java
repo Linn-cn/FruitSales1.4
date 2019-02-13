@@ -3,6 +3,8 @@ package com.zl.mapper;
 import com.zl.pojo.CategoryDO;
 import com.zl.pojo.CategoryDOExample;
 import java.util.List;
+
+import com.zl.util.AjaxPutPage;
 import org.apache.ibatis.annotations.Param;
 
 public interface CategoryMapper {
@@ -27,6 +29,15 @@ public interface CategoryMapper {
     int updateByPrimaryKeySelective(CategoryDO record);
 
     int updateByPrimaryKey(CategoryDO record);
+
+    /** 
+    * @Description: 分页返回所有类别信息 
+    * @Param: [ajaxPutPage] 
+    * @return: java.util.List<com.zl.pojo.CategoryDO> 
+    * @Author: ZhuLin
+    * @Date: 2019/2/13 
+    */ 
+    List<CategoryDO> listCategory(AjaxPutPage<CategoryDO> ajaxPutPage);
 
     /** 
     * @Description:

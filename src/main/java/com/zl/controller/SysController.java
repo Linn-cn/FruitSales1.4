@@ -3,8 +3,7 @@ package com.zl.controller;
 import com.zl.aop.SystemControllerLog;
 import com.zl.pojo.LogDO;
 import com.zl.pojo.SysDO;
-import com.zl.service.LogService;
-import com.zl.service.SysService;
+import com.zl.service.*;
 import com.zl.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +27,18 @@ public class SysController {
     private SysService sysService;
 
     @Autowired
+    private DealerService dealerService;
+
+    @Autowired
+    private PeasantService peasantService;
+
+    @Autowired
+    private GardenStuffService gardenStuffService;
+
+    @Autowired
+    private ContractService contractService;
+
+    @Autowired
     private LogService logService;
 
     /** 
@@ -39,9 +50,11 @@ public class SysController {
     */
     @RequestMapping("/welcome")
     public String gotoWelcome(HttpSession session){
-        SysDO sysDO = sysService.getSysInfo();
-        System.out.println("系统参数:" + sysDO.toString());
-        session.setAttribute(Constants.SYSINFO,sysDO);
+        session.setAttribute(Constants.SYSINFO,sysService.getSysInfo());
+        session.setAttribute(Constants.SYSINFO_DEALER,dealerService.getDealerCount());
+        session.setAttribute(Constants.SYSINFO_PEASANT,peasantService.getPeasantCount());
+        session.setAttribute(Constants.SYSINFO_GARDEN,gardenStuffService.getGardenStuffCount());
+        session.setAttribute(Constants.SYSINFO_CONTRACT,contractService.getContractCount());
         return "redirect:/welcome.jsp";
     }
 

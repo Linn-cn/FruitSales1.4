@@ -41,8 +41,8 @@ public class PeasantServiceImpl implements PeasantService {
     }
 
     @Override
-    public Long getPeasantCount(AjaxPutPage<PeasantDO> ajaxPutPage) {
-        return peasantMapper.getPeasantCount(ajaxPutPage);
+    public Integer getPeasantCount() {
+        return peasantMapper.getPeasantCount();
     }
 
     @Override

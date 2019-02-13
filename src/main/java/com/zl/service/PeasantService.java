@@ -26,7 +26,7 @@ public interface PeasantService {
     * @Author: ZhuLin
     * @Date: 2019/1/13 
     */ 
-    Long getPeasantCount(AjaxPutPage<PeasantDO> ajaxPutPage);
+    Integer getPeasantCount();
 
     /** 
     * @Description: 修改农民资料

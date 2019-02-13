@@ -20,13 +20,22 @@ public interface GardenStuffService {
     List<GardenStuffDTO> listGardenStuff(AjaxPutPage<GardenStuffDTO> ajaxPutPage);
 
     /** 
+    * @Description: 返回果蔬总数
+    * @Param: [] 
+    * @return: java.lang.Integer 
+    * @Author: ZhuLin
+    * @Date: 2019/2/13 
+    */ 
+    Integer getGardenStuffCount();
+
+    /** 
     * @Description: 返回所有果蔬类别 
     * @Param: [] 
     * @return: java.util.List<com.zl.pojo.CategoryDO> 
     * @Author: ZhuLin
     * @Date: 2019/1/22 
     */ 
-    List<CategoryDO> listCategory();
+    List<CategoryDO> listCategory(AjaxPutPage<CategoryDO> ajaxPutPage);
 
     /**
      * @Description: 添加果蔬

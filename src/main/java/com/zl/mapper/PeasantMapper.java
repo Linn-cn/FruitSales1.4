@@ -46,5 +46,5 @@ public interface PeasantMapper {
     * @Author: ZhuLin
     * @Date: 2019/1/13 
     */ 
-    Long getPeasantCount(AjaxPutPage<PeasantDO> ajaxPutPage);
+    Integer getPeasantCount();
 }

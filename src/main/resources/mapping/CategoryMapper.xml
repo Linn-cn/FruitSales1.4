@@ -147,6 +147,18 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+
+  <select id="listCategory" parameterType="com.zl.util.AjaxPutPage" resultMap="BaseResultMap">
+    SELECT
+        category.category_id,
+        category.category_name
+    FROM
+        category
+    <if test="start != null and limit != null">
+      LIMIT #{start},#{limit}
+    </if>
+  </select>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.zl.pojo.CategoryDO" >
     <if test="categoryName != null" >
       UPDATE gardenstuff

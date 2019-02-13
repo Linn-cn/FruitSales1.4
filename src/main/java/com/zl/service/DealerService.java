@@ -32,7 +32,7 @@ public interface DealerService {
      * @Author: ZhuLin
      * @Date: 2019/1/13
      */
-    Long getDealerCount(AjaxPutPage<DealerDO> ajaxPutPage);
+    Integer getDealerCount();
 
     /*** 
     * @Description: 删除零售商

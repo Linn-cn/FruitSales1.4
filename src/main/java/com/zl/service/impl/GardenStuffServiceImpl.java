@@ -39,8 +39,13 @@ public class GardenStuffServiceImpl implements GardenStuffService {
     }
 
     @Override
-    public List<CategoryDO> listCategory() {
-        return categoryMapper.selectByExample(null);
+    public Integer getGardenStuffCount() {
+        return gardenStuffMapper.countByExample(null);
+    }
+
+    @Override
+    public List<CategoryDO> listCategory(AjaxPutPage<CategoryDO> ajaxPutPage) {
+        return categoryMapper.listCategory(ajaxPutPage);
     }
 
     @Override

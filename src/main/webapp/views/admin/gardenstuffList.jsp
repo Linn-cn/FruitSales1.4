@@ -104,7 +104,7 @@
         form.on('submit(search_btn)', function(data){
             var datas = data.field;
             if (datas.gardenstuffCategory != null && datas.gardenstuffCategory != ''){
-                datas.gardenstuffCategory = "[" + datas.gardenstuffCategory + "]";
+                datas.gardenstuffCategory = datas.gardenstuffCategory;
             }
             console.log(data.field); //当前容器的全部表单字段，名值对形式：{name: value}
             tableIns.reload({

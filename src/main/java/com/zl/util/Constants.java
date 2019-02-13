@@ -28,6 +28,10 @@ public class Constants {
 
     //系统相关信息
     public static final String SYSINFO = "SysInfo";
+    public static final String SYSINFO_DEALER = "SysDealer";
+    public static final String SYSINFO_GARDEN = "SysGarden";
+    public static final String SYSINFO_CONTRACT = "SysContract";
+    public static final String SYSINFO_PEASANT = "SysPeasant";
     public static final String SUCCESS_SYSINFO = "修改系统信息成功";
     public static final String SUCCESS_MESSAGE = "成功";
 

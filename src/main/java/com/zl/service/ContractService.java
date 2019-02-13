@@ -26,6 +26,15 @@ public interface ContractService {
      */
     List<ContractDTO> listContract(AjaxPutPage<ContractDTO> ajaxPutPage);
 
+    /** 
+    * @Description: 返回合同总数量
+    * @Param: [] 
+    * @return: java.lang.Integer 
+    * @Author: ZhuLin
+    * @Date: 2019/2/13 
+    */ 
+    Integer getContractCount();
+
     /**
      * @Description: 返回合同详情
      * @Param: [contractId]

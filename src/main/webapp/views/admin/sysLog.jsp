@@ -41,7 +41,6 @@
             page : true,
             height : "full-20",
             toolbar: '#toolbarDemo',
-            limits : [10,15,20,25],
             cols : [[
                 {type: 'checkbox', fixed: 'left'},
                 {field: 'logId', title: '编号', align:"center"},

@@ -41,8 +41,8 @@ public class DealerServiceImpl implements DealerService {
     }
 
     @Override
-    public Long getDealerCount(AjaxPutPage<DealerDO> ajaxPutPage) {
-        return dealerMapper.getDealerCount(ajaxPutPage);
+    public Integer getDealerCount() {
+        return dealerMapper.getDealerCount();
     }
 
     @Override
