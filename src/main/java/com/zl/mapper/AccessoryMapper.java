@@ -3,6 +3,8 @@ package com.zl.mapper;
 import com.zl.pojo.AccessoryDO;
 import com.zl.pojo.AccessoryDOExample;
 import java.util.List;
+
+import com.zl.util.AjaxPutPage;
 import org.apache.ibatis.annotations.Param;
 
 public interface AccessoryMapper {
@@ -27,4 +29,13 @@ public interface AccessoryMapper {
     int updateByPrimaryKeySelective(AccessoryDO record);
 
     int updateByPrimaryKey(AccessoryDO record);
+
+    /** 
+    * @Description: 分页查询对应果蔬的附属品
+    * @Param: [ajaxPutPage] 
+    * @return: java.util.List<com.zl.pojo.AccessoryDO> 
+    * @Author: ZhuLin
+    * @Date: 2019/2/13 
+    */ 
+    List<AccessoryDO> listAccessoryByGardenId(AjaxPutPage<AccessoryDO> ajaxPutPage);
 }

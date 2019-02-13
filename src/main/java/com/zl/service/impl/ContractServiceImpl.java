@@ -1,12 +1,11 @@
 package com.zl.service.impl;
 
 import com.zl.mapper.ContractMapper;
-import com.zl.pojo.ContractDO;
-import com.zl.pojo.ContractDTO;
-import com.zl.pojo.ContractVO;
-import com.zl.pojo.GardenStuffVO;
+import com.zl.mapper.MiddleMapper;
+import com.zl.pojo.*;
 import com.zl.service.ContractService;
 import com.zl.util.AjaxPutPage;
+import com.zl.util.MessageException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +23,9 @@ public class ContractServiceImpl implements ContractService {
 
     @Autowired
     private ContractMapper contractMapper;
+
+    @Autowired
+    private MiddleMapper middleMapper;
 
     @Override
     public List<ContractDTO> listContract(AjaxPutPage<ContractDTO> ajaxPutPage) {
@@ -43,5 +45,13 @@ public class ContractServiceImpl implements ContractService {
     @Override
     public List<GardenStuffVO> listGardenStuffInfoByContractID(String contractId) {
         return contractMapper.listGardenStuffInfoByContractID(contractId);
+    }
+
+    @Override
+    public void deleteContractByKey(String id) throws MessageException {
+        contractMapper.deleteByPrimaryKey(id);
+        MiddleDOExample example = new MiddleDOExample();
+        example.createCriteria().andContractIdEqualTo(id);
+        middleMapper.deleteByExample(example);
     }
 }

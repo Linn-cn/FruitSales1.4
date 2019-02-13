@@ -140,7 +140,7 @@
                 <tbody>
                 <tr>
                     <th>版权所有</th>
-                    <td>${SysInfo.sysCopyright} <a href="http://www.xxx.com/" class='x-a' target="_blank">访问官网</a></td>
+                    <td>${SysInfo.sysCopyright} <a href="https://www.layui.com/" class='x-a' target="_blank">访问官网</a></td>
                 </tr>
                 <tr>
                     <th>开发者</th>

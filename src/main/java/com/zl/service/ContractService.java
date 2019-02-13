@@ -6,6 +6,7 @@ import com.zl.pojo.ContractVO;
 import com.zl.pojo.GardenStuffVO;
 import com.zl.util.AjaxPutPage;
 import com.zl.util.AjaxResultPage;
+import com.zl.util.MessageException;
 
 import java.util.List;
 
@@ -51,4 +52,13 @@ public interface ContractService {
      * @Date: 2019/2/12
      */
     List<GardenStuffVO> listGardenStuffInfoByContractID(String contractId);
+
+    /** 
+    * @Description: 删除合同[级联删除合同中间表]
+    * @Param: [id] 
+    * @return: void 
+    * @Author: ZhuLin
+    * @Date: 2019/2/13 
+    */ 
+    void deleteContractByKey(String id) throws MessageException;
 }

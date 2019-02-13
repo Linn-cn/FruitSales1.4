@@ -44,7 +44,7 @@
         <div class="layui-form-item">
             <label for="submit" class="layui-form-label">
             </label>
-            <input id="submit" type="button" class="layui-btn" lay-submit lay-filter="update" value="提交">
+            <input id="submit" type="button" class="layui-btn" lay-submit lay-filter="close" value="关闭">
             </input>
         </div>
     </form>

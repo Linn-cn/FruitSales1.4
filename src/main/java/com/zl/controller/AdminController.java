@@ -369,7 +369,7 @@ public class AdminController {
      */
     @RequestMapping("/gotoCategoryList")
     public String gotoCategoryList(){
-        return "admin/CategoryList";
+        return "admin/categoryList";
     }
 
     /** 
@@ -411,9 +411,10 @@ public class AdminController {
     */ 
     @RequestMapping("/getAccessoryList")
     @ResponseBody
-    public AjaxResultPage<AccessoryDO> getAccessoryList(String gardenstuffId){
+    public AjaxResultPage<AccessoryDO> getAccessoryList(AjaxPutPage<AccessoryDO> ajaxPutPage,AccessoryDO accessoryDO){
         AjaxResultPage<AccessoryDO> result = new AjaxResultPage<AccessoryDO>();
-        List<AccessoryDO> list = accessoryService.listAccessoryByGardenId(gardenstuffId);
+        ajaxPutPage.setCondition(accessoryDO);
+        List<AccessoryDO> list = accessoryService.listAccessoryByGardenId(ajaxPutPage);
         result.setCount(list.size());
         result.setData(list);
         return result;
@@ -474,7 +475,7 @@ public class AdminController {
      */
     @RequestMapping("/gotoContractList")
     public String gotoContractList(){
-        return "admin/ContractList";
+        return "admin/contractList";
     }
 
     /**
@@ -522,6 +523,21 @@ public class AdminController {
         result.setData(list);
         result.setCount(list.size());
         return result;
+    }
+
+    /** 
+    * @Description: 删除合同
+    * @Param: [id] 
+    * @return: com.zl.util.MessageBean 
+    * @Author: ZhuLin
+    * @Date: 2019/2/13 
+    */
+    @SystemControllerLog(description = "删除合同")
+    @RequestMapping("/deleteContract")
+    @ResponseBody
+    public MessageBean deleteContract(String id) throws Exception{
+        contractService.deleteContractByKey(id);
+        return new MessageBean(true,Constants.SUCCESS_DELETE);
     }
 
 }

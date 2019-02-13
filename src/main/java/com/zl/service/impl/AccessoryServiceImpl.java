@@ -4,6 +4,7 @@ import com.zl.mapper.AccessoryMapper;
 import com.zl.pojo.AccessoryDO;
 import com.zl.pojo.AccessoryDOExample;
 import com.zl.service.AccessoryService;
+import com.zl.util.AjaxPutPage;
 import com.zl.util.MessageException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,10 +24,8 @@ public class AccessoryServiceImpl implements AccessoryService {
     private AccessoryMapper accessoryMapper;
 
     @Override
-    public List<AccessoryDO> listAccessoryByGardenId(String gardenstuffId) {
-        AccessoryDOExample example = new AccessoryDOExample();
-        example.createCriteria().andGardenstuffIdEqualTo(gardenstuffId);
-        return accessoryMapper.selectByExample(example);
+    public List<AccessoryDO> listAccessoryByGardenId(AjaxPutPage<AccessoryDO> ajaxPutPage) {
+        return accessoryMapper.listAccessoryByGardenId(ajaxPutPage);
     }
 
     @Override

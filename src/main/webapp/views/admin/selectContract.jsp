@@ -12,7 +12,7 @@
     <%@include file="../../assets/styleAndscriptForm.jsp" %>
     <style type="text/css">
         @media print {
-            #submit{
+            #check{
                 display:none;
             }
         }
@@ -81,7 +81,14 @@
             </div>
         </div>
         <div class="layui-form-item layui-row layui-col-md12">
-            <div class="layui-input-block">
+            <label class="layui-form-label">合同状态：</label>
+            <div class="layui-input-inline" style="padding-top: 8px;">
+                <input type="checkbox" name="check" lay-skin="switch" lay-text="已确认|未确认">
+            </div>
+        </div>
+        <div class="layui-form-item layui-row layui-col-md12">
+            <label class="layui-form-label"></label>
+            <div id="check" class="layui-input-block">
                 <input id="submit" type="button" class="layui-btn" lay-submit lay-filter="print" value="打印详情">
                 </input>
             </div>
@@ -108,6 +115,7 @@
                 "peasantName": edit.peasant.peasantName,
                 "peasantPhone": edit.peasant.peasantPhone,
                 "peasantAddress": edit.peasant.peasantAddress,
+                "check" : edit.check == '1' ? true : false,
             });
         }
 

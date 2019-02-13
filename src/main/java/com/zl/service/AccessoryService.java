@@ -1,6 +1,7 @@
 package com.zl.service;
 
 import com.zl.pojo.AccessoryDO;
+import com.zl.util.AjaxPutPage;
 import com.zl.util.MessageException;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public interface AccessoryService {
     * @Author: ZhuLin
     * @Date: 2019/1/31 
     */ 
-    List<AccessoryDO> listAccessoryByGardenId(String gardenstuffId);
+    List<AccessoryDO> listAccessoryByGardenId(AjaxPutPage<AccessoryDO> ajaxPutPage);
 
     /** 
     * @Description: 修改附属品 

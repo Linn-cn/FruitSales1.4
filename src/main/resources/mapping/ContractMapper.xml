@@ -287,7 +287,9 @@
         AND c.dealer_id = d.dealer_id
         <include refid="ContractQueryCondition"></include>
         ORDER BY c.createtime DESC
-        LIMIT #{start},#{limit}
+      <if test="start != null and limit != null">
+          LIMIT #{start},#{limit}
+      </if>
   </select>
 
     <!--单个合同详情-->

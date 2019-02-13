@@ -30,14 +30,11 @@
                 <div class="layui-input-inline">
                     <select name="check">
                         <option value="">选择合同状态</option>
-                        <option value="1">正常使用</option>
-                        <option value="2">限制使用</option>
+                        <option value="1">已确认</option>
+                        <option value="2">未确认</option>
                     </select>
                 </div>
                 <a title="搜索" class="layui-btn" lay-submit lay-filter="search_btn"><i class="layui-icon">&#xe615;</i></a>
-            </div>
-            <div class="layui-inline">
-                <a class="layui-btn layui-btn-normal deleteNews_btn">批量删除</a>
             </div>
             <div class="layui-inline" style="float: right">
                 <a class="layui-btn" href="javascript:location.reload();" title="刷新">
@@ -121,33 +118,6 @@
             });
         }
 
-        $(".deleteNews_btn").click(function(){
-
-        });
-
-        /*//批量删除
-       $(".delAll_btn").click(function(){
-           var checkStatus = table.checkStatus('gardenStuffListTable'),
-               data = checkStatus.data,
-               deleteId = [];
-           if(data.length > 0) {
-               for (var i in data) {
-                   deleteId.push(data[i].gardenstuffId);
-               }
-               layer.confirm('确定删除选中的' + data.length + '个果蔬？', {icon: 3, title: '提示信息'}, function (index) {
-                   $.post("admin/batchesDelGardenStuff", {
-                       deleteId : deleteId
-                   }, function (s) {
-                       tableIns.reload();
-                       layer.close(index);
-                       layer.msg(s.msg);
-                   });
-               });
-           }else{
-               layer.msg("请选择需要删除的果蔬");
-           }
-       });*/
-
         //监听工具条
         table.on('tool(ContractList)', function(obj){
             var data = obj.data; //获得当前行数据
@@ -164,10 +134,10 @@
                         layer.msg(s.msg);
                     }
                 });
-            }else if(layEvent === 'del'){ //编辑
-                layer.confirm('确定删除此果蔬？',{icon:3, title:'提示信息'},function(index){
-                    $.get("admin/deleteGardenStuff", {
-                        id: data.gardenstuffId  //将需要删除的Id作为参数传入
+            }else if(layEvent === 'del'){ //删除
+                layer.confirm('确定删除此合同？',{icon:3, title:'提示信息'},function(index){
+                    $.get("admin/deleteContract", {
+                        id: data.contractId  //将需要删除的Id作为参数传入
                     }, function (s) {
                         if (s.success){
                             layer.msg(s.msg);
