@@ -285,6 +285,10 @@
       <if test="condition.peasantName != '' and condition.peasantName != null">
         AND p.peasant_name LIKE concat('%',#{condition.peasantName},'%')
       </if>
+      <!-- 用于查询当前农民对应的果蔬 -->
+      <if test="condition.gardenstuffPeasantid != '' and condition.gardenstuffPeasantid != null">
+        AND g.gardenstuff_peasantid = #{condition.gardenstuffPeasantid}
+      </if>
   </sql>
 
   <select id="listGardenStuff" parameterType="com.zl.util.AjaxPutPage" resultType="com.zl.pojo.GardenStuffDTO">

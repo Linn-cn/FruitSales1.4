@@ -41,7 +41,7 @@
         var tableIns = table.render({
             elem: '#accessory',
             id : "accessory",
-            url : 'admin/getAccessoryList?gardenstuffId='+window.sessionStorage.getItem("gardenStuffId"),
+            url : 'peasant/getAccessoryList?gardenstuffId='+window.sessionStorage.getItem("gardenStuffId"),
             title: '附属品表',
             page : true,
             height : "full-40",
@@ -59,7 +59,7 @@
         table.on('edit(accessory)', function(obj){
             console.log(obj.data); //所在行的所有相关数据
             // 提交信息
-            $.post("admin/updateAccessory",obj.data,function(s){
+            $.post("peasant/updateAccessory",obj.data,function(s){
                 if(!s.success){
                     layer.msg(s.msg);
                 }
@@ -73,7 +73,7 @@
 
             if(layEvent === 'del'){ //删除
                 layer.confirm('确定删除此附属品？',{icon:3, title:'提示信息'},function(index){
-                    $.get("admin/deleteAccessory", {
+                    $.get("peasant/deleteAccessory", {
                         id: data.accessoryId
                     }, function (s) {
                         if (s.success){
@@ -121,7 +121,7 @@
             datas.gardenstuffId = window.sessionStorage.getItem("gardenStuffId");
             var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
             // 提交信息
-            $.post("admin/addAccessory",datas,function(s){
+            $.post("peasant/addAccessory",datas,function(s){
                 setTimeout(function(){
                     top.layer.close(index);
                     top.layer.msg(s.msg);

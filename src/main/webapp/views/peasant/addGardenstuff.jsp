@@ -14,18 +14,6 @@
 <body class="x-body">
 <form class="layui-form" style="width:90%;" autocomplete="off">
     <div class="layui-form-item layui-row layui-col-xs12">
-        <label class="layui-form-label">农民名</label>
-        <div class="layui-input-inline">
-            <select name="gardenstuffPeasantid" xm-select-search
-                    xm-select-radio="" xm-select="gardenstuffPeasantid" xm-select-skin="normal">
-                <option value="">请选择农民</option>
-            </select>
-        </div>
-        <div class="layui-form-mid layui-word-aux">
-            <span class="x-red">*</span>已登记入库的果农
-        </div>
-    </div>
-    <div class="layui-form-item layui-row layui-col-xs12">
         <label class="layui-form-label">果蔬名</label>
         <div class="layui-input-inline">
             <input type="text" name="gardenstuffName" class="layui-input" lay-verify="required" placeholder="请输入果蔬名字">
@@ -76,22 +64,13 @@
 
         var formSelects = layui.formSelects;
 
-        //动态加载农民
-        formSelects.config('gardenstuffPeasantid',{
-            data:{"peasantStatus" : 1}, //禁用状态的农民不显示
-            keyName: 'peasantName',
-            keyVal: 'peasantId'
-        });
-        formSelects.data('gardenstuffPeasantid', 'server', {
-            url: 'admin/getPeasantList',
-        });
         //动态加载果蔬类别
         formSelects.config('gardenstuffCategory',{
             keyName: 'categoryName',
             keyVal: 'categoryId'
         });
         formSelects.data('gardenstuffCategory', 'server', {
-            url: 'admin/getCategoryList'
+            url: 'peasant/getCategoryList'
         });
         //配置只显示名称,紧凑型, 适合宽度较窄的情况
         formSelects.btns('gardenstuffCategory', ['select']);
@@ -102,7 +81,7 @@
             var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
             console.log(datas);
             // 提交信息
-            $.post("admin/addGardenStuff",datas,function(s){
+            $.post("peasant/addGardenStuff",datas,function(s){
                 setTimeout(function(){
                     top.layer.close(index);
                     top.layer.alert(s.msg);

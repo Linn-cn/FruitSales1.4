@@ -104,6 +104,7 @@
                 case 'refresh':
                     tableIns.reload();
                     break;
+                default:break;
             };
         });
 

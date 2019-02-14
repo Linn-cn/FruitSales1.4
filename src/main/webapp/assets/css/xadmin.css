@@ -127,7 +127,7 @@ html{
     height: 39px;
     overflow: hidden;
 }
-xblock{
+.xblock{
     display: block;
     margin-bottom: 10px;
     padding: 5px;
@@ -136,6 +136,11 @@ xblock{
     border-radius: 0 2px 2px 0;
     background-color: #f2f2f2;
 }
+
+.border_circle{
+    border-radius: 20px;
+}
+
 .x-right{
     float: right;
 }

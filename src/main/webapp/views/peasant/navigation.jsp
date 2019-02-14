@@ -100,11 +100,8 @@
                 <cite>果蔬管理</cite> <i class="iconfont nav_right">&#xe697;</i>
             </a>
                 <ul class="sub-menu">
-                    <li><a _href="admin/gotoGardenStuffList"> <i
+                    <li><a _href="peasant/gotoGardenStuffList"> <i
                             class="iconfont">&#xe6a7;</i> <cite>果蔬列表</cite>
-                    </a></li>
-                    <li><a _href="admin/gotoCategoryList"> <i
-                            class="iconfont">&#xe6a7;</i> <cite>果蔬类别</cite>
                     </a></li>
                 </ul></li>
             <li><a href="javascript:;"> <i class="layui-icon">&#xe6b2;</i>

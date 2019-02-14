@@ -87,6 +87,12 @@
             </div>
         </div>
         <div class="layui-form-item layui-row layui-col-md12">
+            <label class="layui-form-label">合同金额：</label>
+            <div class="layui-input-inline">
+                <input class="layui-input layui-bg-red border_circle" type="text" name="contractPrice" disabled="disabled" placeholder="￥">
+            </div>
+        </div>
+        <div class="layui-form-item layui-row layui-col-md12">
             <label class="layui-form-label"></label>
             <div id="check" class="layui-input-block">
                 <input id="submit" type="button" class="layui-btn" lay-submit lay-filter="print" value="打印详情">
@@ -116,6 +122,7 @@
                 "peasantPhone": edit.peasant.peasantPhone,
                 "peasantAddress": edit.peasant.peasantAddress,
                 "check" : edit.check == '1' ? true : false,
+                "contractPrice": edit.contractPrice + "元"
             });
         }
 

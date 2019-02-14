@@ -12,7 +12,7 @@
     <%@include file="../../assets/styleAndscript.jsp" %>
 </head>
 <body class="x-body">
-<form class="layui-form" style="width:90%;">
+<form class="layui-form" style="width:90%;" autocomplete="off">
     <div class="layui-form-item layui-row layui-col-xs12">
         <label class="layui-form-label">登录名</label>
         <div class="layui-input-inline">
