@@ -54,4 +54,11 @@ public class ContractServiceImpl implements ContractService {
         example.createCriteria().andContractIdEqualTo(id);
         middleMapper.deleteByExample(example);
     }
+
+    @Override
+    public Integer contractCountByDealerID(String dealerid) {
+        ContractDOExample example = new ContractDOExample();
+        example.createCriteria().andDealerIdEqualTo(dealerid);
+        return contractMapper.countByExample(example);
+    }
 }

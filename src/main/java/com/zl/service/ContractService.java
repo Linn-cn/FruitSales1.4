@@ -61,4 +61,13 @@ public interface ContractService {
     * @Date: 2019/2/13 
     */ 
     void deleteContractByKey(String id) throws MessageException;
+
+    /** 
+    * @Description: 返回零售商对应的合同数 
+    * @Param: [dealerid] 
+    * @return: java.lang.Integer 
+    * @Author: ZhuLin
+    * @Date: 2019/2/15 
+    */ 
+    Integer contractCountByDealerID(String dealerid);
 }

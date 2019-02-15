@@ -229,4 +229,48 @@ public class PeasantController {
         accessoryService.insertAccessory(accessoryDO);
         return new MessageBean(true,Constants.SUCCESS_MESSAGE);
     }
+
+    /**
+     * @Description: 跳转零售商列表
+     * @Param: []
+     * @return: java.lang.String
+     * @date: 2019/1/19 23:01
+     */
+    @RequestMapping("/gotoDealerList")
+    public String gotoDealerList(){
+        return "peasant/dealerList";
+    }
+
+    /**
+     * @Description: 获取零售商列表
+     * @Param: [ajaxPutPage, dealerCondition]
+     * @return: com.zl.util.AjaxResultPage<com.zl.pojo.DealerDO>
+     * @Author: ZhuLin
+     * @Date: 2019/1/22
+     */
+    @RequestMapping("/getDealerList")
+    @ResponseBody
+    public AjaxResultPage<DealerDO> getDealerList(AjaxPutPage<DealerDO> ajaxPutPage, DealerDO dealerCondition){
+        System.out.println(dealerCondition.toString());
+        AjaxResultPage<DealerDO> result = new AjaxResultPage<DealerDO>();
+        ajaxPutPage.setCondition(dealerCondition);
+        List<DealerDO> list = dealerService.listDealer(ajaxPutPage);
+        result.setData(list);
+        result.setCount(list.size());
+        return result;
+    }
+
+    /** 
+    * @Description: 返回对应零售商的签约合同数 
+    * @Param: [dealerId] 
+    * @return: com.zl.util.MessageBean 
+    * @Author: ZhuLin
+    * @Date: 2019/2/15 
+    */ 
+    @RequestMapping("/getContractCountByDealer")
+    @ResponseBody
+    public MessageBean getContractCountByDealer(String dealerId){
+        Integer count = contractService.contractCountByDealerID(dealerId);
+        return new MessageBean(true,null,count);
+    }
 }
