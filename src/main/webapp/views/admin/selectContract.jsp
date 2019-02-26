@@ -132,9 +132,7 @@
             id : "GardenStuffListTable",
             url : 'admin/getGardenStuffInfoList?contractId=' + edit.contractId,
             title: '果蔬列表',
-            page : true,
-            limit : 2,
-            limits : [2,4],
+            size: 'sm',
             cols : [[
                 {field: 'gardenstuffName', title: '果蔬名字', align:"center",unresize:"true"},
                 {field: 'gardenstuffPrice', title: '单价', align:'center',unresize:"true"},

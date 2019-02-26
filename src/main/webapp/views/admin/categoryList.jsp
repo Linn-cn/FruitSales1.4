@@ -49,6 +49,7 @@
             page: true,
             height: "full-20",
             toolbar: '#toolbarDemo',
+            limits: [10],
             defaultToolbar: [], //不显示右侧工具栏
             cols: [[
                 {type: "checkbox", fixed: "left"},

@@ -84,6 +84,7 @@
             page : true,
             height : "full-110",
             toolbar: true,
+            limits: [10],
             cols : [[
                 {type: "checkbox", fixed:"left"},
                 {field: 'gardenstuffName', title: '果蔬名', align:'center',unresize:"true"},

@@ -252,11 +252,8 @@ public class PeasantController {
     @ResponseBody
     public AjaxResultPage<DealerDO> getDealerList(AjaxPutPage<DealerDO> ajaxPutPage, DealerDO dealerCondition){
         System.out.println(dealerCondition.toString());
-        AjaxResultPage<DealerDO> result = new AjaxResultPage<DealerDO>();
         ajaxPutPage.setCondition(dealerCondition);
-        List<DealerDO> list = dealerService.listDealer(ajaxPutPage);
-        result.setData(list);
-        result.setCount(list.size());
+        AjaxResultPage<DealerDO> result = dealerService.listDealer(ajaxPutPage);
         return result;
     }
 

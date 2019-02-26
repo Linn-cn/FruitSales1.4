@@ -68,6 +68,7 @@
             page : true,
             height : "full-110",
             toolbar: true,
+            limits: [10],
             cols : [[
                 {type: "checkbox", fixed:"left"},
                 {field: 'peasantName', title: '农民名字', align:"center",unresize:"true"},

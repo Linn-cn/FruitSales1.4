@@ -7,10 +7,7 @@ import com.zl.pojo.DealerDOExample;
 import com.zl.pojo.UserDO;
 import com.zl.pojo.UserDOExample;
 import com.zl.service.DealerService;
-import com.zl.util.AjaxPutPage;
-import com.zl.util.Constants;
-import com.zl.util.MessageException;
-import com.zl.util.UuidUtils;
+import com.zl.util.*;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,8 +33,12 @@ public class DealerServiceImpl implements DealerService {
     private UserMapper userMapper;
 
     @Override
-    public List<DealerDO> listDealer(AjaxPutPage<DealerDO> ajaxPutPage) {
-        return dealerMapper.listDealer(ajaxPutPage);
+    public AjaxResultPage<DealerDO> listDealer(AjaxPutPage<DealerDO> ajaxPutPage) {
+        AjaxResultPage<DealerDO> result = new AjaxResultPage<DealerDO>();
+        List<DealerDO> list = dealerMapper.listDealer(ajaxPutPage);
+        result.setData(list);
+        result.setCount(dealerMapper.listDealerCount(ajaxPutPage));
+        return result;
     }
 
     @Override

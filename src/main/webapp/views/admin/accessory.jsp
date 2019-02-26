@@ -47,6 +47,7 @@
             height : "full-40",
             toolbar: '#toolbarDemo',
             size: 'sm',
+            limits: [10],
             defaultToolbar: [], //不显示右侧工具栏
             cols : [[
                 {field: 'accessoryName', title: '附属品名字', align:"center",edit:"text"},

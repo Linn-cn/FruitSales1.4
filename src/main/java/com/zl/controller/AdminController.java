@@ -64,12 +64,8 @@ public class AdminController {
     @RequestMapping("/getPeasantList")
     @ResponseBody
     public AjaxResultPage<PeasantDO> getPeasantList(AjaxPutPage<PeasantDO> ajaxPutPage,PeasantDO peasantCondition){
-        System.out.println(peasantCondition.toString());
-        AjaxResultPage<PeasantDO> result = new AjaxResultPage<PeasantDO>();
         ajaxPutPage.setCondition(peasantCondition);
-        List<PeasantDO> list = peasantService.listPeasant(ajaxPutPage);
-        result.setData(list);
-        result.setCount(list.size());
+        AjaxResultPage<PeasantDO> result = peasantService.listPeasant(ajaxPutPage);
         return result;
     }
 
@@ -171,11 +167,8 @@ public class AdminController {
     @ResponseBody
     public AjaxResultPage<DealerDO> getDealerList(AjaxPutPage<DealerDO> ajaxPutPage, DealerDO dealerCondition){
         System.out.println(dealerCondition.toString());
-        AjaxResultPage<DealerDO> result = new AjaxResultPage<DealerDO>();
         ajaxPutPage.setCondition(dealerCondition);
-        List<DealerDO> list = dealerService.listDealer(ajaxPutPage);
-        result.setData(list);
-        result.setCount(list.size());
+        AjaxResultPage<DealerDO> result = dealerService.listDealer(ajaxPutPage);
         return result;
     }
 

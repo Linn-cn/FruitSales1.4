@@ -5,10 +5,7 @@ import com.zl.mapper.PeasantMapper;
 import com.zl.mapper.UserMapper;
 import com.zl.pojo.*;
 import com.zl.service.PeasantService;
-import com.zl.util.AjaxPutPage;
-import com.zl.util.Constants;
-import com.zl.util.MessageException;
-import com.zl.util.UuidUtils;
+import com.zl.util.*;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,8 +33,12 @@ public class PeasantServiceImpl implements PeasantService {
     private GardenStuffMapper gardenStuffMapper;
 
     @Override
-    public List<PeasantDO> listPeasant(AjaxPutPage<PeasantDO> ajaxPutPage) {
-        return peasantMapper.listPeasant(ajaxPutPage);
+    public AjaxResultPage<PeasantDO> listPeasant(AjaxPutPage<PeasantDO> ajaxPutPage) {
+        AjaxResultPage<PeasantDO> result = new AjaxResultPage<PeasantDO>();
+        List<PeasantDO> list = peasantMapper.listPeasant(ajaxPutPage);
+        result.setData(list);
+        result.setCount(peasantMapper.listPeasantCount(ajaxPutPage));
+        return result;
     }
 
     @Override

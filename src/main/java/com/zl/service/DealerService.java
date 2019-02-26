@@ -3,6 +3,7 @@ package com.zl.service;
 import com.zl.pojo.DealerDO;
 import com.zl.pojo.UserDO;
 import com.zl.util.AjaxPutPage;
+import com.zl.util.AjaxResultPage;
 import com.zl.util.MessageException;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public interface DealerService {
      * @Author: ZhuLin
      * @Date: 2019/1/13
      */
-    List<DealerDO> listDealer(AjaxPutPage<DealerDO> ajaxPutPage);
+    AjaxResultPage<DealerDO> listDealer(AjaxPutPage<DealerDO> ajaxPutPage);
 
     /**
      * @Description: 获取返回的零售商总数

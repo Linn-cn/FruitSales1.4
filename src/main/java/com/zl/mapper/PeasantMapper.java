@@ -36,7 +36,7 @@ public interface PeasantMapper {
     * @return: java.util.List<com.zl.pojo.PeasantDO> 
     * @Author: ZhuLin
     * @Date: 2019/1/13 
-    */ 
+    */
     List<PeasantDO> listPeasant(AjaxPutPage<PeasantDO> ajaxPutPage);
 
     /** 
@@ -47,4 +47,12 @@ public interface PeasantMapper {
     * @Date: 2019/1/13 
     */ 
     Integer getPeasantCount();
+
+    /**
+     * @Description: 返回[可带条件]的农民列表的总行数
+     * @Param: [ajaxPutPage]
+     * @return: java.lang.Integer
+     * @date: 2019/2/26 22:18 
+     */
+    Integer listPeasantCount(AjaxPutPage<PeasantDO> ajaxPutPage);
 }

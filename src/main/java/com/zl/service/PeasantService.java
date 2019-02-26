@@ -3,7 +3,7 @@ package com.zl.service;
 import com.zl.pojo.PeasantDO;
 import com.zl.pojo.UserDO;
 import com.zl.util.AjaxPutPage;
-import com.zl.util.MessageBean;
+import com.zl.util.AjaxResultPage;
 import com.zl.util.MessageException;
 
 import java.util.List;
@@ -17,7 +17,7 @@ public interface PeasantService {
      * @Author: ZhuLin
      * @Date: 2019/1/13
      */
-    List<PeasantDO> listPeasant(AjaxPutPage<PeasantDO> ajaxPutPage);
+    AjaxResultPage<PeasantDO> listPeasant(AjaxPutPage<PeasantDO> ajaxPutPage);
 
     /** 
     * @Description: 获取返回的农民总数

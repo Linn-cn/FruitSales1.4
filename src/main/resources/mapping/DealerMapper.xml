@@ -264,4 +264,12 @@
     FROM
       dealer
   </select>
+
+  <select id="listDealerCount" parameterType="com.zl.util.AjaxPutPage" resultType="java.lang.Integer">
+    SELECT
+      count(*)
+    FROM
+    dealer
+    <include refid="dealerQueryCondition"></include>
+  </select>
 </mapper>

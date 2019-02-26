@@ -74,7 +74,7 @@
             page : true,
             height : "full-110",
             toolbar: true,
-            limits : [10,15,20,25],
+            limits: [10],
             cols : [[
                 {type: "checkbox", fixed:"left"},
                 {field: 'dealerName', title: '零售商名字', align:"center",unresize:"true"},

@@ -66,9 +66,8 @@
             page : true,
             height : "full-110",
             toolbar: true,
-            limits : [10,15,20,25],
+            limits: [10],
             cols : [[
-                {type: "checkbox", fixed:"left"},
                 {field: 'dealerName', title: '零售商名字', align:"center",unresize:"true"},
                 {field: 'dealerPhone', title: '电话号码', align:'center',unresize:"true"},
                 {field: 'dealerStatus', title: '账号状态', align:'center',unresize:"true",templet:function (d) {
@@ -101,16 +100,8 @@
             var index = layui.layer.open({
                 title : "零售商详情",
                 type : 2,
-                area: ['750px', '450px'],
+                area: ['750px', '500px'],
                 content : url,
-                success : function(layero, index){
-                    setTimeout(function(){
-                        layui.layer.tips('点击此处关闭窗口', '.layui-layer-setwin .layui-layer-close', {
-                            tips: 3,
-                            time:2000
-                        });
-                    },300);
-                },
                 end: function(){
                     window.sessionStorage.removeItem("dealer");
                 }

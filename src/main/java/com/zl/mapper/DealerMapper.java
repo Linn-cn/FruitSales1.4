@@ -47,4 +47,12 @@ public interface DealerMapper {
      * @Date: 2019/1/13
      */
     Integer getDealerCount();
+
+    /**
+     * @Description: 返回零售商列表[可带条件][总行数]
+     * @Param: [ajaxPutPage]
+     * @return: java.lang.Integer
+     * @date: 2019/2/26 22:28 
+     */
+    Integer listDealerCount(AjaxPutPage<DealerDO> ajaxPutPage);
 }

@@ -87,7 +87,6 @@ public class PeasantDO {
                 ", peasantPhone='" + peasantPhone + '\'' +
                 ", peasantAddress='" + peasantAddress + '\'' +
                 ", peasantStatus=" + peasantStatus +
-                ", peasantTime=" + peasantTime +
-                '}';
+                ", peasantTime=" + peasantTime;
     }
 }

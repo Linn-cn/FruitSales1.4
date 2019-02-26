@@ -43,7 +43,7 @@
         </div>
     </div>
     <div class="layui-form-item layui-row layui-col-xs12">
-        <label class="layui-form-label">信用星级</label>
+        <label class="layui-form-label" style="margin-top: 5px;">信用星级</label>
         <div class="layui-input-block">
             <div id="grade"></div>
         </div>
@@ -53,7 +53,7 @@
 <script>
     layui.use(['form','layer','rate'],function(){
         var form = layui.form,
-            layer = parent.layer === undefined ? layui.layer : top.layer,
+            layer = layui.layer,
             $ = layui.jquery,
             rate = layui.rate;
 
@@ -89,6 +89,14 @@
             ,text: true //开启文本
             ,readonly: true
             ,theme: '#FE0000'
+        });
+
+        var tip_index = 0;
+        $(document).on('mouseenter', '#grade', function(){
+            console.log("1111");
+            tip_index = layer.tips('签订&nbsp;&nbsp;0-10份合同为1星级;<br/>签订10-20份合同为2星级;<br/>签订20-30份合同为3星级;<br/>签订30-40份合同为4星级;<br/>签订40份合同以上为5星级', '#grade', {time: 0});
+        }).on('mouseleave', '#grade', function(){
+            layer.close(tip_index);
         });
     });
 </script>
