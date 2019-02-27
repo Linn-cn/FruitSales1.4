@@ -245,7 +245,6 @@ public class PeasantController {
     @RequestMapping("/getDealerList")
     @ResponseBody
     public AjaxResultPage<DealerDO> getDealerList(AjaxPutPage<DealerDO> ajaxPutPage, DealerDO dealerCondition){
-        System.out.println(dealerCondition.toString());
         ajaxPutPage.setCondition(dealerCondition);
         AjaxResultPage<DealerDO> result = dealerService.listDealer(ajaxPutPage);
         return result;
@@ -263,5 +262,31 @@ public class PeasantController {
     public MessageBean getContractCountByDealer(String dealerId){
         Integer count = contractService.contractCountByDealerID(dealerId);
         return new MessageBean(true,null,count);
+    }
+
+    /**
+     * @Description: 跳转合同列表界面
+     * @Param: []
+     * @return: java.lang.String
+     * @date: 2019/2/5 20:12
+     */
+    @RequestMapping("/gotoContractList")
+    public String gotoContractList(){
+        return "peasant/contractList";
+    }
+
+    /**
+     * @Description: 返回合同列表信息
+     * @Param: [ajaxPutPage, contractCondition]
+     * @return: com.zl.util.AjaxResultPage<com.zl.pojo.ContractDO>
+     * @date: 2019/2/5 15:41
+     */
+    @RequestMapping("/getContractList")
+    @ResponseBody
+    public AjaxResultPage<ContractDTO> getContractList(AjaxPutPage<ContractDTO> ajaxPutPage, ContractDTO contractCondition){
+        contractCondition.setPeasantId(BaseController.getSessionUser().getUserid());
+        ajaxPutPage.setCondition(contractCondition);
+        AjaxResultPage<ContractDTO> result = contractService.listContract(ajaxPutPage);
+        return result;
     }
 }

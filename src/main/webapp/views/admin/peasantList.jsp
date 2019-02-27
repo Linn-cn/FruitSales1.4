@@ -161,9 +161,13 @@
                     $.post("admin/batchesDelPeasant", {
                         deleteId : deleteId
                     }, function (s) {
-                        tableIns.reload();
-                        layer.close(index);
-                        layer.msg(s.msg);
+                        if (s.success){
+                            tableIns.reload();
+                            layer.close(index);
+                            layer.msg(s.msg);
+                        }else{
+                            layer.alert(s.msg);
+                        }
                     });
                 });
             }else{
@@ -187,7 +191,7 @@
                             layer.msg(s.msg);
                             tableIns.reload();
                         }else{
-                            layer.msg(s.msg);
+                            layer.alert(s.msg);
                         }
                     });
                     layer.close(index);
@@ -201,7 +205,7 @@
                             layer.msg(s.msg);
                             tableIns.reload();
                         }else{
-                            layer.msg(s.msg);
+                            layer.alert(s.msg);
                         }
                     });
                     layer.close(index);

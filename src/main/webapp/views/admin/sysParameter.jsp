@@ -109,7 +109,7 @@
                             layer.msg(s.msg);
                         },500);
                     }else{
-                        layer.msg(s.msg, function(){});
+                        layer.alert(s.msg);
                     }
                 }
             });

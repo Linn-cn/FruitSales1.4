@@ -266,6 +266,10 @@
     <if test="condition.check != '' and condition.check != null">
       AND c.`check` = #{condition.check}
     </if>
+    /*用于处理在农民身份情况下返回合同列表*/
+    <if test="condition.peasantId != '' and condition.peasantId != null">
+      AND c.peasant_id = #{condition.peasantId}
+    </if>
   </sql>
 
   <select id="listContract" parameterType="com.zl.util.AjaxPutPage" resultType="com.zl.pojo.ContractDTO">

@@ -68,8 +68,12 @@
 
         $(".deleteLog").click(function(){
             $.post("sys/deleteLog",function(s){
-                layer.msg(s.msg);
-                tableIns.reload();
+                if (s.success){
+                    layer.msg(s.msg);
+                    tableIns.reload();
+                }else{
+                    layer.alert(s.msg);
+                }
             });
         });
 

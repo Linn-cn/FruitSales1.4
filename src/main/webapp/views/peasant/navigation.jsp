@@ -105,7 +105,7 @@
                 <cite>合同管理</cite> <i class="iconfont nav_right">&#xe697;</i>
             </a>
                 <ul class="sub-menu">
-                    <li><a _href="admin/gotoContractList"> <i
+                    <li><a _href="peasant/gotoContractList"> <i
                             class="iconfont">&#xe6a7;</i> <cite>合同列表</cite>
                     </a></li>
                 </ul></li>

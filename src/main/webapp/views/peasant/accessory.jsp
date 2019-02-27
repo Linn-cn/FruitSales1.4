@@ -61,7 +61,7 @@
             // 提交信息
             $.post("peasant/updateAccessory",obj.data,function(s){
                 if(!s.success){
-                    layer.msg(s.msg);
+                    layer.alert(s.msg);
                 }
             });
         });
@@ -80,7 +80,7 @@
                             layer.msg(s.msg);
                             tableIns.reload();
                         }else{
-                            layer.msg(s.msg);
+                            layer.alert(s.msg);
                         }
                     });
                     layer.close(index);

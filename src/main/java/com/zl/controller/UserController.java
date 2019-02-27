@@ -178,7 +178,7 @@ public class UserController {
         if (oldPwd.equals(userinfo.getPassword())){
             return new MessageBean(false);
         }
-        return new MessageBean(true);
+        return new MessageBean(true,Constants.ERROR_PASSWORD);
     }
 
     /*** 

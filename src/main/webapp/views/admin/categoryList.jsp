@@ -63,7 +63,7 @@
             // 提交信息
             $.post("admin/updateCategory", obj.data, function (s) {
                 if (!s.success) {
-                    layer.msg(s.msg);
+                    layer.alert(s.msg);
                 }
             });
         });
@@ -93,10 +93,14 @@
                             $.post("admin/batchesDelCategory", {
                                 deleteId: deleteId
                             }, function (s) {
-                                tableIns.reload();
-                                layer.close(index);
-                                layer.msg(s.msg);
+                                if (s.success){
+                                    tableIns.reload();
+                                    layer.msg(s.msg);
+                                }else{
+                                    layer.alert(s.msg);
+                                }
                             });
+                            layer.close(index);
                         });
                     } else {
                         layer.msg("请选择需要删除的类别");

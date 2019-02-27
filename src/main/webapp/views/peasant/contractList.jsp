@@ -48,6 +48,7 @@
 </body>
 <!--操作-->
 <script type="text/html" id="ContractListBar">
+    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-xs" lay-event="info">查看详情</a>
     <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
 </script>
@@ -63,7 +64,7 @@
         var tableIns = table.render({
             elem: '#ContractList',
             id : "ContractListTable",
-            url : 'admin/getContractList',
+            url : 'peasant/getContractList',
             title: '合同列表',
             page : true,
             height : "full-110",
@@ -151,11 +152,15 @@
                         layer.close(index);
                     });
                     break;
+                case 'edit':    //编辑
+                    layer.msg("编辑");
+                    break;
                 default:
                     layer.alert("<fmt:message key='common.msg'/>");
                     break;
             }
         });
+
     });
 </script>
 </html>

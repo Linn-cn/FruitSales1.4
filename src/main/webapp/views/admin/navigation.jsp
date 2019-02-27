@@ -281,7 +281,7 @@
                     data : {"oldPwd":oldPwd},
                     success : function(s) {
                         if (s.success) {
-                            layer.msg("密码错误，请重新输入！");
+                            layer.alert(s.msg);
                             $(this).siblings(".admin-header-lock-input").val('').focus();
                         }else{
                             window.sessionStorage.setItem("lockcms",false);

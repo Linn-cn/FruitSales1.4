@@ -159,10 +159,14 @@
                     $.post("admin/batchesDelGardenStuff", {
                         deleteId : deleteId
                     }, function (s) {
-                        tableIns.reload();
-                        layer.close(index);
-                        layer.msg(s.msg);
+                        if (s.success){
+                            tableIns.reload();
+                            layer.msg(s.msg);
+                        }else{
+                            layer.alert(s.msg);
+                        }
                     });
+                    layer.close(index);
                 });
             }else{
                 layer.msg("请选择需要删除的果蔬");
@@ -185,7 +189,7 @@
                             layer.msg(s.msg);
                             tableIns.reload();
                         }else{
-                            layer.msg(s.msg);
+                            layer.alert(s.msg);
                         }
                     });
                     layer.close(index);
