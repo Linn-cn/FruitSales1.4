@@ -167,27 +167,26 @@
 </body>
 
 <!-- 更换皮肤窗口 -->
-<div class="skins_box" id="ChangeSkin">
+<div class="skins_box" id="ChangeSkin" style="display: none;">
     <form class="layui-form">
-        <div class="layui-form-item">
-            <input type="radio" name="skin" value="默认" title="默认" lay-filter="default" checked="">
-            <input type="radio" name="skin" value="浅绿色" title="浅绿色" lay-filter="reseda">
-            <input type="radio" name="skin" value="实木色" title="实木色" lay-filter="burlywood">
-        </div>
         <div class="layui-form-item layui-text weadmin-text">
-            <p>更多主题敬请期待。</p>
+            <p>请通过下方按钮选定你自己喜欢的颜色，更多主题敬请期待。</p>
         </div>
-        <div class="layui-form-item skinBtn">
-            <a href="javascript:;" class="layui-btn layui-btn-sm layui-btn-normal" lay-submit="" lay-filter="changeSkin">确定更换</a>
-            <a href="javascript:;" class="layui-btn layui-btn-sm layui-btn-primary" lay-submit="" lay-filter="noChangeSkin">朕再想想</a>
+        <div class="layui-form-item">
+            <div>
+                <input type="hidden" name="color" value="" id="theme-all-input">
+                <div id="theme-all"></div>
+            </div>
         </div>
     </form>
 </div>
+
 <script>
-    layui.use(['form','jquery',"layer"],function() {
+    layui.use(['form','jquery',"layer",'colorpicker'],function() {
         var form = layui.form,
             $ = layui.jquery,
-            layer = layui.layer;
+            layer = layui.layer,
+            colorpicker = layui.colorpicker;
 
         //清除缓存
         $(".clearCache").click(function(){
@@ -300,57 +299,45 @@
         });
 
         //更换皮肤
-        skins();
-
-        function deleteClass(){
-            $(".container").removeClass("reseda burlywood");
-            $(".left-nav").removeClass("reseda burlywood");
-        }
-        function skins(){
-            var skin = window.sessionStorage.getItem("skin");
-            if(skin != undefined){  //如果更换过皮肤
-                deleteClass();
-                $(".container").addClass(skin);
-                $(".left-nav").addClass(skin);
-            }else{
-                deleteClass();
+        $(function(){
+            var theme = window.sessionStorage.getItem("theme");
+            if(theme != undefined){  //如果更换过皮肤
+                $('.container,.left-nav').css('background-color', theme);
             }
-        }
+        });
 
         $(".changeSkin").click(function(){
+            $('#ChangeSkin').show();
             layer.open({
                 title : "更换皮肤",
                 type : "1",
                 content : $('#ChangeSkin'),
-                success: function(index, layero){
-                    if(window.sessionStorage.getItem("skinValue")){
-                        console.log('默认选中');
-                        $(".skins_box input[value="+window.sessionStorage.getItem("skinValue")+"]").attr("checked","checked");
-                    };
-                    form.render();
-                    var skinColor;
-                    form.on("submit(changeSkin)",function(data){
-                        if (data.field.skin == "浅绿色") {
-                            skinColor = "reseda";
-                            window.sessionStorage.setItem("skin", skinColor);
-                            window.sessionStorage.setItem("skinValue", data.field.skin);
-                        } else if (data.field.skin == "实木色") {
-                            skinColor = "burlywood";
-                            window.sessionStorage.setItem("skin", skinColor);
-                            window.sessionStorage.setItem("skinValue", data.field.skin);
-                        } else if (data.field.skin == "默认") {
-                            window.sessionStorage.removeItem("skin");
-                            window.sessionStorage.removeItem("skinValue");
-                        }
-                        skins();
-                        layer.closeAll("page");
-                    });
-
-                    form.on("submit(noChangeSkin)",function(){
-                        layer.closeAll("page");
-                    });
+                end : function(){
+                    $('#ChangeSkin').hide();
                 }
             });
+        });
+
+        //开启主题颜色选择功能
+        colorpicker.render({
+            elem: '#theme-all'
+            ,color: 'rgba(7, 155, 140, 1)'
+            ,format: 'rgb'
+            ,predefine: true
+            ,alpha: true
+            ,done: function(color){
+                $('#theme-all-input').val(color); //向隐藏域赋值
+                layer.tips('给当前主题设置了颜色值：'+ color, this.elem,{
+                        tips: [2,'#78BA32']
+                    });
+
+                color || this.change(color); //清空时执行 change
+            }
+            ,change: function(color){
+                window.sessionStorage.setItem("theme", color);
+                //给当前页面头部和左侧设置主题色
+                $('.container,.left-nav').css('background-color', color);
+            }
         });
 
     });
