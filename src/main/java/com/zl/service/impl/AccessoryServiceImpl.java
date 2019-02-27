@@ -5,6 +5,7 @@ import com.zl.pojo.AccessoryDO;
 import com.zl.pojo.AccessoryDOExample;
 import com.zl.service.AccessoryService;
 import com.zl.util.AjaxPutPage;
+import com.zl.util.AjaxResultPage;
 import com.zl.util.MessageException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,8 +25,12 @@ public class AccessoryServiceImpl implements AccessoryService {
     private AccessoryMapper accessoryMapper;
 
     @Override
-    public List<AccessoryDO> listAccessoryByGardenId(AjaxPutPage<AccessoryDO> ajaxPutPage) {
-        return accessoryMapper.listAccessoryByGardenId(ajaxPutPage);
+    public AjaxResultPage<AccessoryDO> listAccessoryByGardenId(AjaxPutPage<AccessoryDO> ajaxPutPage) {
+        AjaxResultPage<AccessoryDO> result = new AjaxResultPage<AccessoryDO>();
+        List<AccessoryDO> list = accessoryMapper.listAccessoryByGardenId(ajaxPutPage);
+        result.setData(list);
+        result.setCount(accessoryMapper.listAccessoryByGardenIdCount(ajaxPutPage));
+        return result;
     }
 
     @Override

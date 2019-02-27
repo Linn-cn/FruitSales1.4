@@ -223,4 +223,13 @@
       LIMIT #{start},#{limit}
     </if>
   </select>
+
+  <select id="listAccessoryByGardenIdCount" parameterType="com.zl.util.AjaxPutPage" resultType="java.lang.Integer">
+    SELECT
+    count(*)
+    FROM
+    accessory
+    WHERE
+    accessory.gardenstuff_id = #{condition.gardenstuffId}
+  </select>
 </mapper>

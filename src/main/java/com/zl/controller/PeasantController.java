@@ -79,12 +79,9 @@ public class PeasantController {
     @RequestMapping("/getGardenStuffList")
     @ResponseBody
     public AjaxResultPage<GardenStuffDTO> getGardenStuffList(AjaxPutPage<GardenStuffDTO> ajaxPutPage, GardenStuffDTO GardenStuffCondition){
-        AjaxResultPage<GardenStuffDTO> result = new AjaxResultPage<GardenStuffDTO>();
         GardenStuffCondition.setGardenstuffPeasantid(BaseController.getSessionUser().getUserid());
         ajaxPutPage.setCondition(GardenStuffCondition);
-        List<GardenStuffDTO> list = gardenStuffService.listGardenStuff(ajaxPutPage);
-        result.setData(list);
-        result.setCount(list.size());
+        AjaxResultPage<GardenStuffDTO> result = gardenStuffService.listGardenStuff(ajaxPutPage);
         return result;
     }
 
@@ -175,11 +172,8 @@ public class PeasantController {
     @RequestMapping("/getAccessoryList")
     @ResponseBody
     public AjaxResultPage<AccessoryDO> getAccessoryList(AjaxPutPage<AccessoryDO> ajaxPutPage,AccessoryDO accessoryDO){
-        AjaxResultPage<AccessoryDO> result = new AjaxResultPage<AccessoryDO>();
         ajaxPutPage.setCondition(accessoryDO);
-        List<AccessoryDO> list = accessoryService.listAccessoryByGardenId(ajaxPutPage);
-        result.setCount(list.size());
-        result.setData(list);
+        AjaxResultPage<AccessoryDO> result = accessoryService.listAccessoryByGardenId(ajaxPutPage);
         return result;
     }
 

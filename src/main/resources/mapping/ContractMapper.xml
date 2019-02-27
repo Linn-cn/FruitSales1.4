@@ -292,6 +292,19 @@
       </if>
   </select>
 
+    <select id="listContractCount" parameterType="com.zl.util.AjaxPutPage" resultType="java.lang.Integer">
+        SELECT
+        count(*)
+        FROM
+        contract AS c,
+        dealer AS d,
+        peasant AS p
+        WHERE
+        c.peasant_id = p.peasant_id
+        AND c.dealer_id = d.dealer_id
+        <include refid="ContractQueryCondition"></include>
+    </select>
+
     <!--单个合同详情-->
   <resultMap id="ContractInfo" type="com.zl.pojo.ContractVO">
       <id column="contract_id" property="contractId" jdbcType="VARCHAR" />

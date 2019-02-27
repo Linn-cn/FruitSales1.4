@@ -2,6 +2,7 @@ package com.zl.service;
 
 import com.zl.pojo.AccessoryDO;
 import com.zl.util.AjaxPutPage;
+import com.zl.util.AjaxResultPage;
 import com.zl.util.MessageException;
 
 import java.util.List;
@@ -14,8 +15,8 @@ public interface AccessoryService {
     * @return: java.util.List<com.zl.pojo.AccessoryDO> 
     * @Author: ZhuLin
     * @Date: 2019/1/31 
-    */ 
-    List<AccessoryDO> listAccessoryByGardenId(AjaxPutPage<AccessoryDO> ajaxPutPage);
+    */
+    AjaxResultPage<AccessoryDO> listAccessoryByGardenId(AjaxPutPage<AccessoryDO> ajaxPutPage);
 
     /** 
     * @Description: 修改附属品 

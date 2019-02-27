@@ -166,7 +166,6 @@ public class AdminController {
     @RequestMapping("/getDealerList")
     @ResponseBody
     public AjaxResultPage<DealerDO> getDealerList(AjaxPutPage<DealerDO> ajaxPutPage, DealerDO dealerCondition){
-        System.out.println(dealerCondition.toString());
         ajaxPutPage.setCondition(dealerCondition);
         AjaxResultPage<DealerDO> result = dealerService.listDealer(ajaxPutPage);
         return result;
@@ -254,12 +253,8 @@ public class AdminController {
     @RequestMapping("/getGardenStuffList")
     @ResponseBody
     public AjaxResultPage<GardenStuffDTO> getGardenStuffList(AjaxPutPage<GardenStuffDTO> ajaxPutPage, GardenStuffDTO GardenStuffCondition){
-        System.out.println(GardenStuffCondition.toString());
-        AjaxResultPage<GardenStuffDTO> result = new AjaxResultPage<GardenStuffDTO>();
         ajaxPutPage.setCondition(GardenStuffCondition);
-        List<GardenStuffDTO> list = gardenStuffService.listGardenStuff(ajaxPutPage);
-        result.setData(list);
-        result.setCount(list.size());
+        AjaxResultPage<GardenStuffDTO> result = gardenStuffService.listGardenStuff(ajaxPutPage);
         return result;
     }
 
@@ -276,7 +271,7 @@ public class AdminController {
         AjaxResultPage<CategoryDO> result = new AjaxResultPage<CategoryDO>();
         List<CategoryDO> list = gardenStuffService.listCategory(ajaxPutPage);
         result.setData(list);
-        result.setCount(list.size());
+        result.setCount(gardenStuffService.getGardenStuffCount());
         return result;
     }
 
@@ -405,11 +400,8 @@ public class AdminController {
     @RequestMapping("/getAccessoryList")
     @ResponseBody
     public AjaxResultPage<AccessoryDO> getAccessoryList(AjaxPutPage<AccessoryDO> ajaxPutPage,AccessoryDO accessoryDO){
-        AjaxResultPage<AccessoryDO> result = new AjaxResultPage<AccessoryDO>();
         ajaxPutPage.setCondition(accessoryDO);
-        List<AccessoryDO> list = accessoryService.listAccessoryByGardenId(ajaxPutPage);
-        result.setCount(list.size());
-        result.setData(list);
+        AjaxResultPage<AccessoryDO> result = accessoryService.listAccessoryByGardenId(ajaxPutPage);
         return result;
     }
     
@@ -480,11 +472,8 @@ public class AdminController {
     @RequestMapping("/getContractList")
     @ResponseBody
     public AjaxResultPage<ContractDTO> getContractList(AjaxPutPage<ContractDTO> ajaxPutPage, ContractDTO contractCondition){
-        AjaxResultPage<ContractDTO> result = new AjaxResultPage<ContractDTO>();
         ajaxPutPage.setCondition(contractCondition);
-        List<ContractDTO> list = contractService.listContract(ajaxPutPage);
-        result.setData(list);
-        result.setCount(list.size());
+        AjaxResultPage<ContractDTO> result = contractService.listContract(ajaxPutPage);
         return result;
     }
 

@@ -39,4 +39,13 @@ public interface GardenStuffMapper {
     * @Date: 2019/1/22 
     */ 
     List<GardenStuffDTO> listGardenStuff(AjaxPutPage<GardenStuffDTO> ajaxPutPage);
+
+    /*** 
+    * @Description: 返回果蔬列表[可带条件][的总行数]
+    * @Param: [ajaxPutPage] 
+    * @return: java.lang.Integer 
+    * @Author: ZhuLin
+    * @Date: 2019/2/27 
+    */ 
+    Integer listGardenStuffCount(AjaxPutPage<GardenStuffDTO> ajaxPutPage);
 }

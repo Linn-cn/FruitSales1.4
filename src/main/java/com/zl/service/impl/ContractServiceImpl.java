@@ -5,6 +5,7 @@ import com.zl.mapper.MiddleMapper;
 import com.zl.pojo.*;
 import com.zl.service.ContractService;
 import com.zl.util.AjaxPutPage;
+import com.zl.util.AjaxResultPage;
 import com.zl.util.MessageException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,8 +29,12 @@ public class ContractServiceImpl implements ContractService {
     private MiddleMapper middleMapper;
 
     @Override
-    public List<ContractDTO> listContract(AjaxPutPage<ContractDTO> ajaxPutPage) {
-        return contractMapper.listContract(ajaxPutPage);
+    public AjaxResultPage<ContractDTO> listContract(AjaxPutPage<ContractDTO> ajaxPutPage) {
+        AjaxResultPage<ContractDTO> result = new AjaxResultPage<ContractDTO>();
+        List<ContractDTO> list = contractMapper.listContract(ajaxPutPage);
+        result.setData(list);
+        result.setCount(contractMapper.listContractCount(ajaxPutPage));
+        return result;
     }
 
     @Override

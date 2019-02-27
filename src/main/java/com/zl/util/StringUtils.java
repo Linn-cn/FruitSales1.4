@@ -41,7 +41,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     
     /**
      * 转换为字节数组
-     * @param str
+     * @param bytes
      * @return
      */
     public static String toString(byte[] bytes){
@@ -94,18 +94,6 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
 		}
 		return html.replaceAll("<([a-z]+?)\\s+?.*?>", "<$1>");
 	}
-	
-	/**
-	 * 替换为手机识别的HTML，去掉样式及属性，保留回车。
-	 * @param txt
-	 * @return
-	 */
-	/*public static String toHtml(String txt){
-		if (txt == null){
-			return "";
-		}
-		return replace(replace(Encodes.escapeHtml(txt), "\n", "<br/>"), "\t", "&nbsp; &nbsp; ");
-	}*/
 
 	/**
 	 * 缩略字符串（不区分中英文字符）
@@ -172,16 +160,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
 	public static Integer toInteger(Object val){
 		return toLong(val).intValue();
 	}
-	
-	/**
-	 * 获得i18n字符串
-	 */
-/*	public static String getMessage(String code, Object[] args) {
-		LocaleResolver localLocaleResolver = (LocaleResolver) SpringContextHolder.getBean(LocaleResolver.class);
-		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();  
-		Locale localLocale = localLocaleResolver.resolveLocale(request);
-		return SpringContextHolder.getApplicationContext().getMessage(code, args, localLocale);
-	}*/
+
 	
 	/**
 	 * 获得用户远程地址

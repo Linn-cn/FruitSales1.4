@@ -25,7 +25,7 @@ public interface ContractService {
      * @return: java.util.List<com.zl.pojo.ContractDO>
      * @date: 2019/2/5 15:40 
      */
-    List<ContractDTO> listContract(AjaxPutPage<ContractDTO> ajaxPutPage);
+    AjaxResultPage<ContractDTO> listContract(AjaxPutPage<ContractDTO> ajaxPutPage);
 
     /** 
     * @Description: 返回合同总数量

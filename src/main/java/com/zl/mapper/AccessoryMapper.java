@@ -38,4 +38,13 @@ public interface AccessoryMapper {
     * @Date: 2019/2/13 
     */ 
     List<AccessoryDO> listAccessoryByGardenId(AjaxPutPage<AccessoryDO> ajaxPutPage);
+
+    /**
+    * @Description: 返回分页查询对应果蔬的附属品的总行数
+    * @Param: [ajaxPutPage] 
+    * @return: java.lang.Integer 
+    * @Author: ZhuLin
+    * @Date: 2019/2/27 
+    */ 
+    Integer listAccessoryByGardenIdCount(AjaxPutPage<AccessoryDO> ajaxPutPage);
 }

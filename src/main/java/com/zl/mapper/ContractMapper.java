@@ -30,12 +30,21 @@ public interface ContractMapper {
     int updateByPrimaryKey(ContractDO record);
 
     /**
-     * @Description: 获取合同列表
+     * @Description: 获取合同列表[带条件]
      * @Param: [ajaxPutPage]
      * @return: java.util.List<com.zl.pojo.ContractDTO>
      * @date: 2019/2/5 15:59 
      */
     List<ContractDTO> listContract(AjaxPutPage<ContractDTO> ajaxPutPage);
+
+    /** 
+    * @Description: 获取合同列表总行数[带条件] 
+    * @Param: [ajaxResultPage] 
+    * @return: java.lang.Integer 
+    * @Author: ZhuLin
+    * @Date: 2019/2/27 
+    */
+    Integer listContractCount(AjaxPutPage<ContractDTO> ajaxPutPage);
 
     /**
      * @Description: 返回单个合同详情

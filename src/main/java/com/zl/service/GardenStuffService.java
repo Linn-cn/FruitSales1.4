@@ -3,7 +3,9 @@ package com.zl.service;
 import com.zl.pojo.CategoryDO;
 import com.zl.pojo.GardenStuffDO;
 import com.zl.pojo.GardenStuffDTO;
+import com.zl.pojo.PeasantDO;
 import com.zl.util.AjaxPutPage;
+import com.zl.util.AjaxResultPage;
 import com.zl.util.MessageException;
 
 import java.util.List;
@@ -16,8 +18,8 @@ public interface GardenStuffService {
     * @return: java.util.List<com.zl.pojo.GardenStuffDTO> 
     * @Author: ZhuLin
     * @Date: 2019/1/22 
-    */ 
-    List<GardenStuffDTO> listGardenStuff(AjaxPutPage<GardenStuffDTO> ajaxPutPage);
+    */
+    AjaxResultPage<GardenStuffDTO> listGardenStuff(AjaxPutPage<GardenStuffDTO> ajaxPutPage);
 
     /** 
     * @Description: 返回果蔬总数

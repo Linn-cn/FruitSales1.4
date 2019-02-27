@@ -71,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    gardenstuff_id, gardenstuff_peasantid, gardenstuff_name, gardenstuff_price, gardenstuff_category, 
+    gardenstuff_id, gardenstuff_peasantid, gardenstuff_name, gardenstuff_price, gardenstuff_category,
     gardenstuff_categoryname, gardenstuff_number, gardenstuff_address, gardenstuff_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zl.pojo.GardenStuffDOExample" >
@@ -89,7 +89,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from gardenstuff
     where gardenstuff_id = #{gardenstuffId,jdbcType=VARCHAR}
@@ -105,13 +105,13 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.zl.pojo.GardenStuffDO" >
-    insert into gardenstuff (gardenstuff_id, gardenstuff_peasantid, 
-      gardenstuff_name, gardenstuff_price, gardenstuff_category, 
-      gardenstuff_categoryname, gardenstuff_number, 
+    insert into gardenstuff (gardenstuff_id, gardenstuff_peasantid,
+      gardenstuff_name, gardenstuff_price, gardenstuff_category,
+      gardenstuff_categoryname, gardenstuff_number,
       gardenstuff_address, gardenstuff_time)
-    values (#{gardenstuffId,jdbcType=VARCHAR}, #{gardenstuffPeasantid,jdbcType=VARCHAR}, 
-      #{gardenstuffName,jdbcType=VARCHAR}, #{gardenstuffPrice,jdbcType=DECIMAL}, #{gardenstuffCategory,jdbcType=VARCHAR}, 
-      #{gardenstuffCategoryname,jdbcType=VARCHAR}, #{gardenstuffNumber,jdbcType=INTEGER}, 
+    values (#{gardenstuffId,jdbcType=VARCHAR}, #{gardenstuffPeasantid,jdbcType=VARCHAR},
+      #{gardenstuffName,jdbcType=VARCHAR}, #{gardenstuffPrice,jdbcType=DECIMAL}, #{gardenstuffCategory,jdbcType=VARCHAR},
+      #{gardenstuffCategoryname,jdbcType=VARCHAR}, #{gardenstuffNumber,jdbcType=INTEGER},
       #{gardenstuffAddress,jdbcType=VARCHAR}, #{gardenstuffTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.zl.pojo.GardenStuffDO" >
@@ -313,5 +313,16 @@
     <if test="start != null and limit != null">
       LIMIT #{start},#{limit}
     </if>
+  </select>
+
+  <select id="listGardenStuffCount" parameterType="com.zl.util.AjaxPutPage" resultType="java.lang.Integer">
+    SELECT
+      count(*)
+    FROM
+      gardenstuff AS g,
+      peasant AS p
+    WHERE
+      g.gardenstuff_peasantid = p.peasant_id
+    <include refid="GardenStuffQueryCondition"></include>
   </select>
 </mapper>

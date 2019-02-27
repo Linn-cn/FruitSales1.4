@@ -6,6 +6,7 @@ import com.zl.mapper.GardenStuffMapper;
 import com.zl.pojo.*;
 import com.zl.service.GardenStuffService;
 import com.zl.util.AjaxPutPage;
+import com.zl.util.AjaxResultPage;
 import com.zl.util.MessageException;
 import com.zl.util.UuidUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +35,12 @@ public class GardenStuffServiceImpl implements GardenStuffService {
     private CategoryMapper categoryMapper;
 
     @Override
-    public List<GardenStuffDTO> listGardenStuff(AjaxPutPage<GardenStuffDTO> ajaxPutPage) {
-        return gardenStuffMapper.listGardenStuff(ajaxPutPage);
+    public AjaxResultPage<GardenStuffDTO> listGardenStuff(AjaxPutPage<GardenStuffDTO> ajaxPutPage) {
+        AjaxResultPage<GardenStuffDTO> result = new AjaxResultPage<GardenStuffDTO>();
+        List<GardenStuffDTO> list = gardenStuffMapper.listGardenStuff(ajaxPutPage);
+        result.setData(list);
+        result.setCount(gardenStuffMapper.listGardenStuffCount(ajaxPutPage));
+        return result;
     }
 
     @Override
