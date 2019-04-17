@@ -34,7 +34,8 @@
     <div class="layui-form-item layui-row layui-col-xs12">
         <label class="layui-form-label">果蔬类别</label>
         <div class="layui-input-inline">
-            <select name="gardenstuffCategory" xm-select="gardenstuffCategory" xm-select-show-count="1" xm-select-skin="normal">
+            <select name="gardenstuffCategory" xm-select-max="3"
+                    xm-select="gardenstuffCategory" xm-select-show-count="1" xm-select-skin="normal">
                 <option value="">请选择果蔬类别</option>
             </select>
         </div>

@@ -97,7 +97,7 @@
         });
 
        //打开合同详情
-        function addOrSelectContract(edit){
+        function selectContract(edit){
             url = "views/admin/selectContract.jsp";
             window.sessionStorage.setItem("contract",JSON.stringify(edit));
             var index = layui.layer.open({
@@ -130,7 +130,7 @@
                         contractId : data.contractId
                     }, function (s) {
                         if (s.success){
-                            addOrSelectContract(s.data);
+                            selectContract(s.data);
                         }else{
                             layer.alert(s.msg);
                         }

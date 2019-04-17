@@ -289,4 +289,17 @@ public class PeasantController {
         AjaxResultPage<ContractDTO> result = contractService.listContract(ajaxPutPage);
         return result;
     }
+
+    /**
+     * @Description: 返回合同详情
+     * @Param: [contractId]
+     * @return: com.zl.pojo.ContractVO
+     * @date: 2019/2/8 12:23
+     */
+    @RequestMapping("/getContractInfo")
+    @ResponseBody
+    public MessageBean getContractInfo(String contractId){
+        ContractVO contractVO = contractService.getContractInfo(contractId);
+        return new MessageBean(true,null,contractVO);
+    }
 }

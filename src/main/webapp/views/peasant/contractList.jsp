@@ -36,6 +36,9 @@
                 </div>
                 <a title="搜索" class="layui-btn" lay-submit lay-filter="search_btn"><i class="layui-icon">&#xe615;</i></a>
             </div>
+            <div class="layui-inline">
+                <a class="layui-btn layui-btn-normal addNews_btn">生成合同</a>
+            </div>
             <div class="layui-inline" style="float: right">
                 <a class="layui-btn" href="javascript:location.reload();" title="刷新">
                     <i class="layui-icon">&#xe669;</i>
@@ -48,7 +51,6 @@
 </body>
 <!--操作-->
 <script type="text/html" id="ContractListBar">
-    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-xs" lay-event="info">查看详情</a>
     <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
 </script>
@@ -98,8 +100,8 @@
         });
 
        //打开合同详情
-        function addOrSelectContract(edit){
-            url = "views/admin/selectContract.jsp";
+        function selectContract(edit){
+            url = "views/peasant/selectContract.jsp";
             window.sessionStorage.setItem("contract",JSON.stringify(edit));
             var index = layui.layer.open({
                 title : "合同详情",
@@ -120,6 +122,27 @@
             });
         }
 
+        $(".addNews_btn").click(function(){
+            var url = "views/peasant/addContract.jsp";
+            var index = layui.layer.open({
+                title : "生成合同",
+                type : 2,
+                area: ['750px', '450px'],
+                content : url,
+                success : function(layero, index){
+                    setTimeout(function(){
+                        layui.layer.tips('点击此处关闭窗口', '.layui-layer-setwin .layui-layer-close', {
+                            tips: 3,
+                            time:2000
+                        });
+                    },300);
+                },
+                end: function(){
+
+                }
+            });
+        });
+
         //监听工具条
         table.on('tool(ContractList)', function(obj){
             var data = obj.data; //获得当前行数据
@@ -127,11 +150,11 @@
 
             switch(layEvent){
                 case 'info':    //查看详情
-                    $.get("admin/getContractInfo", {
+                    $.get("peasant/getContractInfo", {
                         contractId : data.contractId
                     }, function (s) {
                         if (s.success){
-                            addOrSelectContract(s.data);
+                            selectContract(s.data);
                         }else{
                             layer.alert(s.msg);
                         }
@@ -151,9 +174,6 @@
                         });
                         layer.close(index);
                     });
-                    break;
-                case 'edit':    //编辑
-                    layer.msg("编辑");
                     break;
                 default:
                     layer.alert("<fmt:message key='common.msg'/>");
