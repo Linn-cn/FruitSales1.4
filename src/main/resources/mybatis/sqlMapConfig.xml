@@ -9,7 +9,7 @@
 
     <typeAliases>
         <!-- 批量定义别名 -->
-        <package name="com.zl.po"/>
+        <package name="com.zl.pojo"/>
     </typeAliases>
 
 </configuration>

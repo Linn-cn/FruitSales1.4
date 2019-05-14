@@ -39,4 +39,5 @@ public class Constants {
     public static final String SUCCESS_UPDATE = "修改成功";
     public static final String SUCCESS_DELETE = "删除成功";
     public static final String SUCCESS_INSERT = "添加成功,默认密码为000000";
+    public static final String ERROR_NUMBER = "不能超过剩余库存";
 }

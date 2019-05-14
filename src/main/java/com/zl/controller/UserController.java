@@ -137,8 +137,7 @@ public class UserController {
         userinfo = copyUserInfo(user,userinfo);
         System.out.println("用户存在于数据库数据:" + userinfo.toString());
         boolean flag = userinfo.getName().equals(userDTO.getName())
-                && userinfo.getPhone().equals(userDTO.getPhone())
-                && userinfo.getAddress().equals(userDTO.getAddress());
+                && userinfo.getPhone().equals(userDTO.getPhone());
 
         if (flag) {
                 userService.updateUserPassword(userinfo.getUserid(), userinfo.getUsername(), userDTO.getPassword());

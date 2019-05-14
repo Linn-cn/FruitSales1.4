@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -301,5 +302,33 @@ public class PeasantController {
     public MessageBean getContractInfo(String contractId){
         ContractVO contractVO = contractService.getContractInfo(contractId);
         return new MessageBean(true,null,contractVO);
+    }
+
+    /**
+     * @Description: 添加合同
+     * @Param: [ContractDO]
+     * @return: com.zl.util.MessageBean
+     * @date: 2019/4/24 21:25 
+     */
+    @SystemControllerLog(description = "添加合同")
+    @RequestMapping("/addContract")
+    @ResponseBody
+    public MessageBean addContract(ContractDO contractDO,@RequestParam("TCdataId[]")List<String> TCdataId,@RequestParam("TCNumber[]")List<BigDecimal> TCNumber) throws Exception{
+        contractDO.setPeasantId(BaseController.getSessionUser().getUserid());
+        contractService.insertContractAndMiddle(contractDO,TCdataId,TCNumber);
+        return new MessageBean(true,Constants.SUCCESS_MESSAGE);
+    }
+
+    /**
+     * @Description: 库存验证
+     * @Param: [gardenStuffDTO]
+     * @return: com.zl.util.MessageBean
+     * @date: 2019/5/14 11:02 
+     */
+    @RequestMapping("/gardenstuffNumberCheck")
+    @ResponseBody
+    public MessageBean gardenstuffNumberCheck(GardenStuffDTO gardenStuffDTO){
+        boolean flag = gardenStuffService.gardenstuffNumberCheck(gardenStuffDTO.getGardenstuffId(),gardenStuffDTO.getGardenstuffNumber());
+        return new MessageBean(flag,Constants.ERROR_NUMBER);
     }
 }

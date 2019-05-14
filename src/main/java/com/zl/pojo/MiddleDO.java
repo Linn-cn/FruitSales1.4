@@ -40,4 +40,14 @@ public class MiddleDO {
     public void setNumber(Integer number) {
         this.number = number;
     }
+
+    @Override
+    public String toString() {
+        return "MiddleDO{" +
+                "middleId='" + middleId + '\'' +
+                ", contractId='" + contractId + '\'' +
+                ", gardenstuffId='" + gardenstuffId + '\'' +
+                ", number=" + number +
+                '}';
+    }
 }

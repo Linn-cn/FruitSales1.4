@@ -48,4 +48,12 @@ public interface GardenStuffMapper {
     * @Date: 2019/2/27 
     */ 
     Integer listGardenStuffCount(AjaxPutPage<GardenStuffDTO> ajaxPutPage);
+
+    /**
+     * @Description: 库存验证
+     * @Param: [gardenstuffId, gardenstuffNumber]
+     * @return: boolean
+     * @date: 2019/5/14 11:11 
+     */
+    boolean gardenstuffNumberCheck(@Param("gardenstuffId")String gardenstuffId,@Param("gardenstuffNumber")Integer gardenstuffNumber);
 }

@@ -325,4 +325,8 @@
       g.gardenstuff_peasantid = p.peasant_id
     <include refid="GardenStuffQueryCondition"></include>
   </select>
+  
+  <select id="gardenstuffNumberCheck" parameterType="map" resultType="boolean">
+    select if(#{gardenstuffNumber} &lt;= g.gardenstuff_number,1,0) from gardenstuff g where g.gardenstuff_id = #{gardenstuffId}
+  </select>
 </mapper>

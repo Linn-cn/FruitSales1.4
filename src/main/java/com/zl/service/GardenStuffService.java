@@ -106,4 +106,12 @@ public interface GardenStuffService {
      * @date: 2019/2/4 13:39
      */
     void batchesDelCategoey(List<Integer> deleteId) throws MessageException;
+
+    /**
+     * @Description: 库存验证
+     * @Param: [gardenstuffId, gardenstuffNumber]
+     * @return: boolean
+     * @date: 2019/5/14 11:09 
+     */
+    boolean gardenstuffNumberCheck(String gardenstuffId,Integer gardenstuffNumber);
 }

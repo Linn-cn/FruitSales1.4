@@ -88,4 +88,18 @@ public class ContractDO {
     public void setContractPrice(BigDecimal contractPrice) {
         this.contractPrice = contractPrice;
     }
+
+    @Override
+    public String toString() {
+        return "ContractDO{" +
+                "contractId='" + contractId + '\'' +
+                ", peasantId='" + peasantId + '\'' +
+                ", dealerId='" + dealerId + '\'' +
+                ", barcode='" + barcode + '\'' +
+                ", type=" + type +
+                ", createtime=" + createtime +
+                ", check=" + check +
+                ", contractPrice=" + contractPrice +
+                '}';
+    }
 }

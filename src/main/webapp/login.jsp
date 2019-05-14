@@ -26,7 +26,7 @@
                 <label class="layadmin-user-login-icon layui-icon layui-icon-username"
                        for="LAY-user-login-username"></label>
                 <input type="text" name="username" id="LAY-user-login-username" lay-verify="required" placeholder="用户名"
-                       class="layui-input">
+                       class="layui-input" autocomplete="off">
             </div>
             <div class="layui-form-item">
                 <label class="layadmin-user-login-icon layui-icon layui-icon-password"
@@ -36,7 +36,7 @@
             </div>
             <div class="layui-form-item" style="margin-bottom: 20px;">
                 <input type="checkbox" name="remember" lay-skin="primary" title="记住密码">
-                <a href="javascript:void(0);" onclick="x_admin_show('密码重置','retrievePwd.jsp',600,550)" class="layadmin-user-jump-change layadmin-link" style="margin-top: 7px;">忘记密码？</a>
+                <a href="javascript:void(0);" onclick="x_admin_show('密码重置','retrievePwd.jsp',600,450)" class="layadmin-user-jump-change layadmin-link" style="margin-top: 7px;">忘记密码？</a>
             </div>
             <div class="layui-form-item">
                 <button id="login" class="layui-btn layui-btn-fluid" lay-submit lay-filter="LAY-user-login-submit">登 入</button>

@@ -45,7 +45,7 @@
         <div class="layui-form-item layui-row layui-col-md12">
             <label class="layui-form-label">零售商：</label>
             <div class="layui-input-inline">
-                <select name="dealer" xm-select="checkDealer" xm-select-radio=""
+                <select name="dealerId" xm-select="checkDealer" xm-select-radio=""
                         xm-select-show-count="1" xm-select-skin="normal">
                     <option value="">请选择零售商</option>
                 </select>
@@ -55,6 +55,12 @@
             <label class="layui-form-label">选择果蔬：</label>
             <div class="layui-input-block">
                 <table id="GardenStuffList" lay-filter="GardenStuffList"></table>
+            </div>
+        </div>
+        <div class="layui-form-item layui-row layui-col-xs12">
+            <div class="layui-input-block">
+                <input id="submit" type="button" class="layui-btn" lay-submit lay-filter="addContract" value="提交">
+                </input>
             </div>
         </div>
     </form>
@@ -115,19 +121,61 @@
         //果蔬列表
         var tableIns = table.render({
             elem: '#GardenStuffList',
-            id : "gardenStuffListTable",
+            id : "GardenStuffList",
             url : 'peasant/getGardenStuffList',
             title: '果蔬列表',
-            page : true,
-            limits: [5],
             cols : [[
                 {type: "checkbox", fixed:"left"},
                 {field: 'gardenstuffName', title: '果蔬名', align:'center',unresize:"true"},
                 {field: 'gardenstuffPrice', title: '价格', align:'center',unresize:"true"},
                 {field: 'gardenstuffCategoryname', title: '类别', align:'center',unresize:"true"},
-                {field: 'gardenstuffNumber', title: '库存', align:'center',unresize:"true"},
+                {field: 'gardenstuffNumber', title: '库存', align:'center',unresize:"true",edit: "text"},
                 {field: 'gardenstuffAddress', title: '产地', align:'center',unresize:"true"},
             ]]
+        });
+
+
+        table.on('edit(GardenStuffList)', function (obj) {
+            var that = this;
+            var tdElem = $(that).closest('td');
+            // 提交信息
+            $.post("peasant/gardenstuffNumberCheck", obj.data, function (s) {
+                if (!s.success) {
+                    setTimeout(function () {
+                        layer.msg(s.msg, {anim: 6});
+                        tdElem.click();
+                    }, 100);
+                }
+            });
+        });
+
+        form.on("submit(addContract)",function(data){
+            var checkStatus = table.checkStatus('GardenStuffList'),
+                TCdata = checkStatus.data,
+                TCdataId = [],
+                TCNumber = [];
+            if(TCdata.length > 0) {
+                for (var i in TCdata) {
+                    TCdataId.push(TCdata[i].gardenstuffId);
+                    TCNumber.push(TCdata[i].gardenstuffNumber);
+                }
+            }
+            var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
+            var datas = data.field;
+            datas.TCdataId = TCdataId;
+            datas.TCNumber = TCNumber;
+            // 提交信息
+            $.post("peasant/addContract",datas,function(s){
+                setTimeout(function(){
+                    top.layer.close(index);
+                    top.layer.alert(s.msg);
+                    layer.closeAll("iframe");
+                    //刷新父页面
+                    parent.location.reload();
+                },1500);
+            });
+            console.log(datas);
+            return false;
         });
 
     });

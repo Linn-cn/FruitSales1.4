@@ -108,5 +108,10 @@ public class GardenStuffServiceImpl implements GardenStuffService {
         categoryMapper.deleteByExample(example);
     }
 
+    @Override
+    public boolean gardenstuffNumberCheck(String gardenstuffId, Integer gardenstuffNumber) {
+        return gardenStuffMapper.gardenstuffNumberCheck(gardenstuffId,gardenstuffNumber);
+    }
+
 
 }

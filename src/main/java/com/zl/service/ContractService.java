@@ -8,6 +8,7 @@ import com.zl.util.AjaxPutPage;
 import com.zl.util.AjaxResultPage;
 import com.zl.util.MessageException;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -70,4 +71,12 @@ public interface ContractService {
     * @Date: 2019/2/15 
     */ 
     Integer contractCountByDealerID(String dealerid);
+
+    /**
+     * @Description: 插入合同
+     * @Param: [contractDO, TCdataId]
+     * @return: void
+     * @date: 2019/5/14 15:57 
+     */
+    void insertContractAndMiddle(ContractDO contractDO,List<String> TCdataId,List<BigDecimal> TCNumber);
 }

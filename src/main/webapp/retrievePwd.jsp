@@ -52,7 +52,7 @@
                 <span class="x-red">*</span>用于核实的手机号
             </div>
         </div>
-        <div class="layui-form-item">
+<%--        <div class="layui-form-item">
             <label for="address" class="layui-form-label">
                 <span class="x-red">*</span>地址
             </label>
@@ -60,7 +60,7 @@
                 <input type="text" id="address" name="address" required=""
                        autocomplete="off" class="layui-input">
             </div>
-        </div>
+        </div>--%>
         <div class="layui-form-item">
             <label class="layui-form-label"><span class="x-red">*</span>角色</label>
             <div class="layui-input-block">
