@@ -17,7 +17,7 @@
             }
         }
         .layui-table-cell {
-            height: auto;
+            height: auto !important;
         }
     </style>
 </head>
@@ -137,14 +137,13 @@
                 {field: 'gardenstuffName', title: '果蔬名字', align:"center",unresize:"true"},
                 {field: 'gardenstuffPrice', title: '单价', align:'center',unresize:"true"},
                 {field: 'accessoryList', title: '附属品', align:'center',unresize:"true",templet:function (d) {
-                    console.log(d.accessoryList);
                         var datahtml = "";
                         if(d.accessoryList.length == 0){
                             datahtml = "<p>无</p>";
                             return datahtml;
                         }
                         for (var data of d.accessoryList){
-                            datahtml += "<p>" + data.accessoryName + ":" + data.accessoryPrice + "</p>";
+                            datahtml +=  data.accessoryName + ":" + data.accessoryPrice + "<br/>";
                         }
                         return datahtml;
                     }},

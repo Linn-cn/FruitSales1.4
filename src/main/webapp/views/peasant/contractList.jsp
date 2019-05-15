@@ -162,7 +162,7 @@
                     break;
                 case 'del':     //删除
                     layer.confirm('确定删除此合同？',{icon:3, title:'提示信息'},function(index){
-                        $.get("admin/deleteContract", {
+                        $.get("peasant/deleteContract", {
                             id: data.contractId  //将需要删除的Id作为参数传入
                         }, function (s) {
                             if (s.success){

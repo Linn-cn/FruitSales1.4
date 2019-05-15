@@ -16,7 +16,9 @@ public class Constants {
     public static final Integer ROLE_DEALER = 2;
 
     //异常错误提示
+    public static final String ERROR_CODE = "999";
     public static final String ERROR_MSG = "通信异常,请及时联系系统管理员QQ:1320291471!";
+    public static final String ERROR_DELETE = "存在合同，无法直接删除";
 
     //用户相关提示信息
     public static final String EMPTY_USER = "当前用户不存在。";

@@ -3,12 +3,10 @@ package com.zl.service.impl;
 import com.zl.mapper.AccessoryMapper;
 import com.zl.mapper.CategoryMapper;
 import com.zl.mapper.GardenStuffMapper;
+import com.zl.mapper.MiddleMapper;
 import com.zl.pojo.*;
 import com.zl.service.GardenStuffService;
-import com.zl.util.AjaxPutPage;
-import com.zl.util.AjaxResultPage;
-import com.zl.util.MessageException;
-import com.zl.util.UuidUtils;
+import com.zl.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +31,9 @@ public class GardenStuffServiceImpl implements GardenStuffService {
 
     @Autowired
     private CategoryMapper categoryMapper;
+
+    @Autowired
+    private MiddleMapper middleMapper;
 
     @Override
     public AjaxResultPage<GardenStuffDTO> listGardenStuff(AjaxPutPage<GardenStuffDTO> ajaxPutPage) {
@@ -74,14 +75,29 @@ public class GardenStuffServiceImpl implements GardenStuffService {
 
     @Override
     public void deleteGardenStuff(String id) throws MessageException{
-        gardenStuffMapper.deleteByPrimaryKey(id);
-        AccessoryDOExample example = new AccessoryDOExample();
-        example.createCriteria().andGardenstuffIdEqualTo(id);
-        accessoryMapper.deleteByExample(example);
+        MiddleDOExample middleDOExample = new MiddleDOExample();
+        middleDOExample.createCriteria().andGardenstuffIdEqualTo(id);
+        List<MiddleDO> middleDOS = middleMapper.selectByExample(middleDOExample);
+        if(middleDOS.size() <= 0){
+            gardenStuffMapper.deleteByPrimaryKey(id);
+            AccessoryDOExample example = new AccessoryDOExample();
+            example.createCriteria().andGardenstuffIdEqualTo(id);
+            accessoryMapper.deleteByExample(example);
+        }else{
+            throw new MessageException(Constants.ERROR_CODE,Constants.ERROR_DELETE);
+        }
     }
 
     @Override
     public void batchesDelGardenStuff(List<String> deleteId) throws MessageException {
+        for (String id : deleteId){
+            MiddleDOExample middleDOExample = new MiddleDOExample();
+            middleDOExample.createCriteria().andGardenstuffIdEqualTo(id);
+            List<MiddleDO> middleDOS = middleMapper.selectByExample(middleDOExample);
+            if (middleDOS.size() > 0){
+                throw new MessageException(gardenStuffMapper.selectByPrimaryKey(id).getGardenstuffName(),Constants.ERROR_DELETE);
+            }
+        }
         AccessoryDOExample example = new AccessoryDOExample();
         example.createCriteria().andGardenstuffIdIn(deleteId);
         accessoryMapper.deleteByExample(example);

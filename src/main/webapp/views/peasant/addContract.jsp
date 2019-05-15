@@ -35,7 +35,7 @@
         <div class="layui-form-item layui-row layui-col-md12">
             <label class="layui-form-label">合同类型</label>
             <div class="layui-input-inline">
-                <select name="type">
+                <select name="type" lay-verify="required">
                     <option value="">-请选择-</option>
                     <option value="1">省内</option>
                     <option value="2">省外</option>
@@ -46,7 +46,7 @@
             <label class="layui-form-label">零售商：</label>
             <div class="layui-input-inline">
                 <select name="dealerId" xm-select="checkDealer" xm-select-radio=""
-                        xm-select-show-count="1" xm-select-skin="normal">
+                        xm-select-show-count="1" xm-select-skin="normal" lay-verify="required">
                     <option value="">请选择零售商</option>
                 </select>
             </div>
@@ -129,7 +129,7 @@
                 {field: 'gardenstuffName', title: '果蔬名', align:'center',unresize:"true"},
                 {field: 'gardenstuffPrice', title: '价格', align:'center',unresize:"true"},
                 {field: 'gardenstuffCategoryname', title: '类别', align:'center',unresize:"true"},
-                {field: 'gardenstuffNumber', title: '库存', align:'center',unresize:"true",edit: "text"},
+                {field: 'gardenstuffNumber', title: '库存(可编辑)', align:'center',unresize:"true",edit: "text"},
                 {field: 'gardenstuffAddress', title: '产地', align:'center',unresize:"true"},
             ]]
         });
@@ -159,6 +159,9 @@
                     TCdataId.push(TCdata[i].gardenstuffId);
                     TCNumber.push(TCdata[i].gardenstuffNumber);
                 }
+            }else{
+                layer.alert("未选择签订的果蔬");
+                return false;
             }
             var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
             var datas = data.field;
@@ -174,7 +177,6 @@
                     parent.location.reload();
                 },1500);
             });
-            console.log(datas);
             return false;
         });
 

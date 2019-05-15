@@ -97,7 +97,7 @@
                 {field: 'gardenstuffNumber', title: '库存', align:'center',unresize:"true"},
                 {field: 'gardenstuffAddress', title: '产地', align:'center',unresize:"true"},
                 {field: 'gardenstuffTime', title: '录入时间', align:'center',sort:true,unresize:"true"},
-                {title: '操作',align:"center",unresize:"true",toolbar:"#gardenStuffListBar"}
+                {title: '操作',align:"center",width:"20%",toolbar:"#gardenStuffListBar"}
             ]]
         });
 

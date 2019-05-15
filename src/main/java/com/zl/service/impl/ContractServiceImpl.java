@@ -80,25 +80,23 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public void insertContractAndMiddle(ContractDO contractDO, List<String> TCdataId,List<BigDecimal> TCNumber) {
+    public void insertContractAndMiddle(ContractDO contractDO, List<String> TCdataId,List<BigDecimal> TCNumber)throws MessageException {
         String contractId = UuidUtils.creatUUID();
         contractDO.setContractId(contractId);
         contractDO.setCreatetime(new Timestamp(new Date().getTime()));
-        BigDecimal contractPrice = new BigDecimal(0);
+        BigDecimal contractPrice = new BigDecimal("0");
         for (int i = 0; i < TCdataId.size() && i<TCNumber.size();i++){
-            BigDecimal price = new BigDecimal(0);
+            BigDecimal price = new BigDecimal(TCNumber.get(i).toString());
             GardenStuffDO gardenStuffDO = gardenStuffMapper.selectByPrimaryKey(TCdataId.get(i));
-            price = price.add(TCNumber.get(i));
             price = price.multiply(gardenStuffDO.getGardenstuffPrice());
             contractPrice = contractPrice.add(price);
             AccessoryDOExample example = new AccessoryDOExample();
             example.createCriteria().andGardenstuffIdEqualTo(TCdataId.get(i));
             List<AccessoryDO> accessoryDOList = accessoryMapper.selectByExample(example);
             for (AccessoryDO accessoryDO : accessoryDOList){
-                BigDecimal accessoryPrice = new BigDecimal(0);
-                accessoryPrice.add(TCNumber.get(i));
-                accessoryPrice.multiply(accessoryDO.getAccessoryPrice());
-                contractPrice = contractPrice.add(accessoryPrice);
+                price = new BigDecimal(TCNumber.get(i).toString());
+                price = price.multiply(accessoryDO.getAccessoryPrice());
+                contractPrice = contractPrice.add(price);
             }
         }
         contractDO.setContractPrice(contractPrice);

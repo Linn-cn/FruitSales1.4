@@ -84,13 +84,13 @@ public class AdminController {
         return new MessageBean(true,Constants.SUCCESS_UPDATE);
     }
 
-    /*** 
+    /***
     * @Description: 添加农民
-    * @Param: [userDO, peasantDO] 
-    * @return: com.zl.util.MessageBean 
+    * @Param: [userDO, peasantDO]
+    * @return: com.zl.util.MessageBean
     * @Author: ZhuLin
-    * @Date: 2019/1/21 
-    */ 
+    * @Date: 2019/1/21
+    */
     @SystemControllerLog(description = "添加农民")
     @RequestMapping("/addPeasant")
     @ResponseBody
@@ -112,22 +112,31 @@ public class AdminController {
     @ResponseBody
     public MessageBean deletePeasant(String id) throws Exception{
         // 优化农民删除，防止出现错误导致事务不回滚
-        peasantService.deletePeasant(id);
+        try {
+            peasantService.deletePeasant(id);
+        } catch (MessageException e) {
+            return new MessageBean(false,e.getExceptionMsg());
+        }
         return new MessageBean(true,Constants.SUCCESS_DELETE);
     }
 
-    /** 
+    /**
     * @Description: 批量删除农民
-    * @Param: [list] 
-    * @return: com.zl.util.MessageBean 
+    * @Param: [list]
+    * @return: com.zl.util.MessageBean
     * @Author: ZhuLin
-    * @Date: 2019/1/18 
+    * @Date: 2019/1/18
     */
     @SystemControllerLog(description = "批量删除农民")
     @RequestMapping("/batchesDelPeasant")
     @ResponseBody
     public MessageBean batchesDelPeasant(@RequestParam("deleteId[]")List<String> deleteId) throws Exception{
-        peasantService.batchesDelPeasant(deleteId);
+        try {
+            peasantService.batchesDelPeasant(deleteId);
+        } catch (MessageException e) {
+            System.out.println(e.getExceptionCode());
+            return new MessageBean(false,"'"+e.getExceptionCode()+"'"+e.getExceptionMsg());
+        }
         return new MessageBean(true,Constants.SUCCESS_DELETE);
     }
 
@@ -135,7 +144,7 @@ public class AdminController {
      * @Description: 管理员重置密码
      * @Param: [id] 需要重置的用户id
      * @return: com.zl.util.MessageBean
-     * @date: 2019/1/19 14:49 
+     * @date: 2019/1/19 14:49
      */
     @SystemControllerLog(description = "管理员重置密码")
     @RequestMapping("/resetUserPwd")
@@ -156,13 +165,13 @@ public class AdminController {
         return "admin/dealerList";
     }
 
-    /** 
+    /**
     * @Description: 获取零售商列表
-    * @Param: [ajaxPutPage, dealerCondition] 
-    * @return: com.zl.util.AjaxResultPage<com.zl.pojo.DealerDO> 
+    * @Param: [ajaxPutPage, dealerCondition]
+    * @return: com.zl.util.AjaxResultPage<com.zl.pojo.DealerDO>
     * @Author: ZhuLin
-    * @Date: 2019/1/22 
-    */ 
+    * @Date: 2019/1/22
+    */
     @RequestMapping("/getDealerList")
     @ResponseBody
     public AjaxResultPage<DealerDO> getDealerList(AjaxPutPage<DealerDO> ajaxPutPage, DealerDO dealerCondition){
@@ -171,42 +180,50 @@ public class AdminController {
         return result;
     }
 
-    /*** 
+    /***
     * @Description: 删除零售商
-    * @Param: [id] 
-    * @return: com.zl.util.MessageBean 
+    * @Param: [id]
+    * @return: com.zl.util.MessageBean
     * @Author: ZhuLin
-    * @Date: 2019/1/21 
+    * @Date: 2019/1/21
     */
     @SystemControllerLog(description = "删除零售商")
     @RequestMapping("/deleteDealer")
     @ResponseBody
     public MessageBean deleteDealer(String id) throws Exception{
-        dealerService.deleteDealer(id);
+        try {
+            dealerService.deleteDealer(id);
+        } catch (MessageException e) {
+            return new MessageBean(false,e.getExceptionMsg());
+        }
         return new MessageBean(true,Constants.SUCCESS_DELETE);
     }
 
-    /** 
+    /**
     * @Description: 批量删除零售商
-    * @Param: [deleteId] 
-    * @return: com.zl.util.MessageBean 
+    * @Param: [deleteId]
+    * @return: com.zl.util.MessageBean
     * @Author: ZhuLin
-    * @Date: 2019/1/21 
+    * @Date: 2019/1/21
     */
     @SystemControllerLog(description = "批量删除零售商")
     @RequestMapping("/batchesDelDealer")
     @ResponseBody
     public MessageBean batchesDelDealer(@RequestParam("deleteId[]")List<String> deleteId) throws Exception{
-        dealerService.batchesDelPeasant(deleteId);
+        try {
+            dealerService.batchesDelPeasant(deleteId);
+        } catch (MessageException e) {
+            return new MessageBean(false,"'" + e.getExceptionCode() + "'" + e.getExceptionMsg());
+        }
         return new MessageBean(true,Constants.SUCCESS_DELETE);
     }
 
-    /** 
+    /**
     * @Description: 添加零售商
-    * @Param: [userDO, dealerDO] 
-    * @return: com.zl.util.MessageBean 
+    * @Param: [userDO, dealerDO]
+    * @return: com.zl.util.MessageBean
     * @Author: ZhuLin
-    * @Date: 2019/1/21 
+    * @Date: 2019/1/21
     */
     @SystemControllerLog(description = "添加零售商")
     @RequestMapping("/addDealer")
@@ -217,12 +234,12 @@ public class AdminController {
         return new MessageBean(true,Constants.SUCCESS_INSERT);
     }
 
-    /** 
+    /**
     * @Description: 修改零售商
-    * @Param: [dealerDO] 
-    * @return: com.zl.util.MessageBean 
+    * @Param: [dealerDO]
+    * @return: com.zl.util.MessageBean
     * @Author: ZhuLin
-    * @Date: 2019/1/22 
+    * @Date: 2019/1/22
     */
     @SystemControllerLog(description = "修改零售商")
     @RequestMapping("/updateDealer")
@@ -243,13 +260,13 @@ public class AdminController {
         return "admin/gardenstuffList";
     }
 
-    /** 
+    /**
     * @Description: 获取果蔬列表
-    * @Param: [ajaxPutPage, GardenStuffCondition] 
-    * @return: com.zl.util.AjaxResultPage<com.zl.pojo.GardenStuffDTO> 
+    * @Param: [ajaxPutPage, GardenStuffCondition]
+    * @return: com.zl.util.AjaxResultPage<com.zl.pojo.GardenStuffDTO>
     * @Author: ZhuLin
-    * @Date: 2019/1/22 
-    */ 
+    * @Date: 2019/1/22
+    */
     @RequestMapping("/getGardenStuffList")
     @ResponseBody
     public AjaxResultPage<GardenStuffDTO> getGardenStuffList(AjaxPutPage<GardenStuffDTO> ajaxPutPage, GardenStuffDTO GardenStuffCondition){
@@ -280,7 +297,7 @@ public class AdminController {
      * @Description: 添加果蔬
      * @Param: [gardenStuffDTO]
      * @return: com.zl.util.MessageBean
-     * @date: 2019/1/27 20:09 
+     * @date: 2019/1/27 20:09
      */
     @SystemControllerLog(description = "添加果蔬")
     @RequestMapping("/addGardenStuff")
@@ -304,13 +321,13 @@ public class AdminController {
         return new MessageBean(true,Constants.SUCCESS_DELETE);
     }
 
-    /** 
+    /**
     * @Description: 修改果蔬信息
-    * @Param: [gardenStuffDO] 
-    * @return: com.zl.util.MessageBean 
+    * @Param: [gardenStuffDO]
+    * @return: com.zl.util.MessageBean
     * @Author: ZhuLin
-    * @Date: 2019/1/29 
-    */ 
+    * @Date: 2019/1/29
+    */
     @SystemControllerLog(description = "修改果蔬信息")
     @RequestMapping("/updateGardenStuff")
     @ResponseBody
@@ -320,18 +337,22 @@ public class AdminController {
     }
 
 
-    /** 
+    /**
     * @Description: 删除果蔬
-    * @Param: [id] 
-    * @return: com.zl.util.MessageBean 
+    * @Param: [id]
+    * @return: com.zl.util.MessageBean
     * @Author: ZhuLin
-    * @Date: 2019/1/29 
-    */ 
+    * @Date: 2019/1/29
+    */
     @SystemControllerLog(description = "删除果蔬")
     @RequestMapping("/deleteGardenStuff")
     @ResponseBody
     public MessageBean deleteGardenStuff(String id) throws Exception{
-        gardenStuffService.deleteGardenStuff(id);
+        try {
+            gardenStuffService.deleteGardenStuff(id);
+        } catch (MessageException e) {
+            return new MessageBean(false,e.getExceptionMsg());
+        }
         return new MessageBean(true,Constants.SUCCESS_DELETE);
     }
 
@@ -339,13 +360,17 @@ public class AdminController {
      * @Description: 批量删除果蔬
      * @Param: [deleteId]
      * @return: com.zl.util.MessageBean
-     * @date: 2019/2/4 13:38 
+     * @date: 2019/2/4 13:38
      */
     @SystemControllerLog(description = "批量删除果蔬")
     @RequestMapping("/batchesDelGardenStuff")
     @ResponseBody
     public MessageBean batchesDelGardenStuff(@RequestParam("deleteId[]")List<String> deleteId) throws Exception{
-        gardenStuffService.batchesDelGardenStuff(deleteId);
+        try {
+            gardenStuffService.batchesDelGardenStuff(deleteId);
+        } catch (MessageException e) {
+            return new MessageBean(false,"'" + e.getExceptionCode() + "'" + e.getExceptionMsg());
+        }
         return new MessageBean(true,Constants.SUCCESS_DELETE);
     }
 
@@ -360,12 +385,12 @@ public class AdminController {
         return "admin/categoryList";
     }
 
-    /** 
+    /**
     * @Description: 修改果蔬类别信息[同时修改果蔬类别信息记录]
-    * @Param: [categoryDO] 
-    * @return: com.zl.util.MessageBean 
+    * @Param: [categoryDO]
+    * @return: com.zl.util.MessageBean
     * @Author: ZhuLin
-    * @Date: 2019/1/29 
+    * @Date: 2019/1/29
     */
     @SystemControllerLog(description = "修改果蔬类别信息")
     @RequestMapping("/updateCategory")
@@ -375,13 +400,13 @@ public class AdminController {
         return new MessageBean(true,Constants.SUCCESS_UPDATE);
     }
 
-    /** 
+    /**
     * @Description: 添加果蔬类别
     * @Param: [categoryDO]
-    * @return: com.zl.util.MessageBean 
+    * @return: com.zl.util.MessageBean
     * @Author: ZhuLin
-    * @Date: 2019/1/30 
-    */ 
+    * @Date: 2019/1/30
+    */
     @SystemControllerLog(description = "添加果蔬类别")
     @RequestMapping("/addCategory")
     @ResponseBody
@@ -390,13 +415,13 @@ public class AdminController {
         return new MessageBean(true,Constants.SUCCESS_MESSAGE);
     }
 
-    /** 
+    /**
     * @Description: 返回和果蔬对应的附属品
-    * @Param: [gardenstuffId] 
-    * @return: com.zl.util.AjaxResultPage<com.zl.pojo.AccessoryDO> 
+    * @Param: [gardenstuffId]
+    * @return: com.zl.util.AjaxResultPage<com.zl.pojo.AccessoryDO>
     * @Author: ZhuLin
-    * @Date: 2019/1/31 
-    */ 
+    * @Date: 2019/1/31
+    */
     @RequestMapping("/getAccessoryList")
     @ResponseBody
     public AjaxResultPage<AccessoryDO> getAccessoryList(AjaxPutPage<AccessoryDO> ajaxPutPage,AccessoryDO accessoryDO){
@@ -404,14 +429,14 @@ public class AdminController {
         AjaxResultPage<AccessoryDO> result = accessoryService.listAccessoryByGardenId(ajaxPutPage);
         return result;
     }
-    
-    /** 
-    * @Description: 修改附属品信息 
-    * @Param: [accessoryDO] 
-    * @return: com.zl.util.MessageBean 
+
+    /**
+    * @Description: 修改附属品信息
+    * @Param: [accessoryDO]
+    * @return: com.zl.util.MessageBean
     * @Author: ZhuLin
-    * @Date: 2019/1/31 
-    */ 
+    * @Date: 2019/1/31
+    */
     @SystemControllerLog(description = "修改附属品信息")
     @RequestMapping("/updateAccessory")
     @ResponseBody
@@ -420,13 +445,13 @@ public class AdminController {
         return new MessageBean(true,Constants.SUCCESS_UPDATE);
     }
 
-    /** 
-    * @Description: 删除附属品 
-    * @Param: [id] 
-    * @return: com.zl.util.MessageBean 
+    /**
+    * @Description: 删除附属品
+    * @Param: [id]
+    * @return: com.zl.util.MessageBean
     * @Author: ZhuLin
-    * @Date: 2019/1/31 
-    */ 
+    * @Date: 2019/1/31
+    */
     @SystemControllerLog(description = "删除附属品")
     @RequestMapping("/deleteAccessory")
     @ResponseBody
@@ -435,13 +460,13 @@ public class AdminController {
         return new MessageBean(true,Constants.SUCCESS_DELETE);
     }
 
-    /** 
-    * @Description: 添加附属品 
-    * @Param: [accessoryDO] 
-    * @return: com.zl.util.MessageBean 
+    /**
+    * @Description: 添加附属品
+    * @Param: [accessoryDO]
+    * @return: com.zl.util.MessageBean
     * @Author: ZhuLin
-    * @Date: 2019/1/31 
-    */ 
+    * @Date: 2019/1/31
+    */
     @SystemControllerLog(description = "添加附属品")
     @RequestMapping("/addAccessory")
     @ResponseBody
@@ -456,7 +481,7 @@ public class AdminController {
      * @Description: 跳转合同列表界面
      * @Param: []
      * @return: java.lang.String
-     * @date: 2019/2/5 20:12 
+     * @date: 2019/2/5 20:12
      */
     @RequestMapping("/gotoContractList")
     public String gotoContractList(){
@@ -467,7 +492,7 @@ public class AdminController {
      * @Description: 返回合同列表信息
      * @Param: [ajaxPutPage, contractCondition]
      * @return: com.zl.util.AjaxResultPage<com.zl.pojo.ContractDO>
-     * @date: 2019/2/5 15:41 
+     * @date: 2019/2/5 15:41
      */
     @RequestMapping("/getContractList")
     @ResponseBody
@@ -481,7 +506,7 @@ public class AdminController {
      * @Description: 返回合同详情
      * @Param: [contractId]
      * @return: com.zl.pojo.ContractVO
-     * @date: 2019/2/8 12:23 
+     * @date: 2019/2/8 12:23
      */
     @RequestMapping("/getContractInfo")
     @ResponseBody
@@ -490,13 +515,13 @@ public class AdminController {
         return new MessageBean(true,null,contractVO);
     }
 
-    /** 
+    /**
     * @Description: 返回合同的果蔬和附属品信息
-    * @Param: [contractId] 
-    * @return: com.zl.util.AjaxResultPage<com.zl.pojo.GardenStuffVO> 
+    * @Param: [contractId]
+    * @return: com.zl.util.AjaxResultPage<com.zl.pojo.GardenStuffVO>
     * @Author: ZhuLin
-    * @Date: 2019/2/12 
-    */ 
+    * @Date: 2019/2/12
+    */
     @RequestMapping("/getGardenStuffInfoList")
     @ResponseBody
     public AjaxResultPage<GardenStuffVO> getGardenStuffInfoList(String contractId){
@@ -507,12 +532,12 @@ public class AdminController {
         return result;
     }
 
-    /** 
+    /**
     * @Description: 删除合同
-    * @Param: [id] 
-    * @return: com.zl.util.MessageBean 
+    * @Param: [id]
+    * @return: com.zl.util.MessageBean
     * @Author: ZhuLin
-    * @Date: 2019/2/13 
+    * @Date: 2019/2/13
     */
     @SystemControllerLog(description = "删除合同")
     @RequestMapping("/deleteContract")

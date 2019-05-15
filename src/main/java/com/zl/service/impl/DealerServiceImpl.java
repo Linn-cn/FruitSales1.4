@@ -1,11 +1,9 @@
 package com.zl.service.impl;
 
+import com.zl.mapper.ContractMapper;
 import com.zl.mapper.DealerMapper;
 import com.zl.mapper.UserMapper;
-import com.zl.pojo.DealerDO;
-import com.zl.pojo.DealerDOExample;
-import com.zl.pojo.UserDO;
-import com.zl.pojo.UserDOExample;
+import com.zl.pojo.*;
 import com.zl.service.DealerService;
 import com.zl.util.*;
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -32,6 +30,9 @@ public class DealerServiceImpl implements DealerService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private ContractMapper contractMapper;
+
     @Override
     public AjaxResultPage<DealerDO> listDealer(AjaxPutPage<DealerDO> ajaxPutPage) {
         AjaxResultPage<DealerDO> result = new AjaxResultPage<DealerDO>();
@@ -48,12 +49,28 @@ public class DealerServiceImpl implements DealerService {
 
     @Override
     public void deleteDealer(String id) throws MessageException {
-        dealerMapper.deleteByPrimaryKey(id);
-        userMapper.deleteByPrimaryKey(id);
+        ContractDOExample contractDOExample = new ContractDOExample();
+        contractDOExample.createCriteria().andDealerIdEqualTo(id);
+        List<ContractDO> list = contractMapper.selectByExample(contractDOExample);
+        if(list.size() <= 0){
+            dealerMapper.deleteByPrimaryKey(id);
+            userMapper.deleteByPrimaryKey(id);
+        }else{
+            throw new MessageException(Constants.ERROR_CODE,Constants.ERROR_DELETE);
+        }
     }
 
     @Override
     public void batchesDelPeasant(List<String> deleteId) throws MessageException {
+        //验证删除的零售商是否有绑定合同
+        for (String id : deleteId){
+            ContractDOExample contractDOExample = new ContractDOExample();
+            contractDOExample.createCriteria().andDealerIdEqualTo(id);
+            List<ContractDO> list = contractMapper.selectByExample(contractDOExample);
+            if(list.size() > 0){
+                throw new MessageException(dealerMapper.selectByPrimaryKey(id).getDealerName(),Constants.ERROR_DELETE);
+            }
+        }
         DealerDOExample dealerDOExample = new DealerDOExample();
         dealerDOExample.createCriteria().andDealerIdIn(deleteId);
         dealerMapper.deleteByExample(dealerDOExample);

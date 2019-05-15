@@ -78,5 +78,5 @@ public interface ContractService {
      * @return: void
      * @date: 2019/5/14 15:57 
      */
-    void insertContractAndMiddle(ContractDO contractDO,List<String> TCdataId,List<BigDecimal> TCNumber);
+    void insertContractAndMiddle(ContractDO contractDO,List<String> TCdataId,List<BigDecimal> TCNumber)throws MessageException;
 }

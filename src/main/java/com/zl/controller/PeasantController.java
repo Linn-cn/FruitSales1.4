@@ -145,7 +145,11 @@ public class PeasantController {
     @RequestMapping("/deleteGardenStuff")
     @ResponseBody
     public MessageBean deleteGardenStuff(String id) throws Exception{
-        gardenStuffService.deleteGardenStuff(id);
+        try {
+            gardenStuffService.deleteGardenStuff(id);
+        } catch (MessageException e) {
+            return new MessageBean(false,e.getExceptionMsg());
+        }
         return new MessageBean(true,Constants.SUCCESS_DELETE);
     }
 
@@ -159,7 +163,11 @@ public class PeasantController {
     @RequestMapping("/batchesDelGardenStuff")
     @ResponseBody
     public MessageBean batchesDelGardenStuff(@RequestParam("deleteId[]")List<String> deleteId) throws Exception{
-        gardenStuffService.batchesDelGardenStuff(deleteId);
+        try {
+            gardenStuffService.batchesDelGardenStuff(deleteId);
+        } catch (MessageException e) {
+            return new MessageBean(false,"'" + e.getExceptionCode() + "'" + e.getExceptionMsg());
+        }
         return new MessageBean(true,Constants.SUCCESS_DELETE);
     }
 
@@ -330,5 +338,20 @@ public class PeasantController {
     public MessageBean gardenstuffNumberCheck(GardenStuffDTO gardenStuffDTO){
         boolean flag = gardenStuffService.gardenstuffNumberCheck(gardenStuffDTO.getGardenstuffId(),gardenStuffDTO.getGardenstuffNumber());
         return new MessageBean(flag,Constants.ERROR_NUMBER);
+    }
+
+    /**
+     * @Description: 删除合同
+     * @Param: [id]
+     * @return: com.zl.util.MessageBean
+     * @Author: ZhuLin
+     * @Date: 2019/2/13
+     */
+    @SystemControllerLog(description = "删除合同")
+    @RequestMapping("/deleteContract")
+    @ResponseBody
+    public MessageBean deleteContract(String id) throws Exception{
+        contractService.deleteContractByKey(id);
+        return new MessageBean(true,Constants.SUCCESS_DELETE);
     }
 }

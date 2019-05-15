@@ -1,5 +1,6 @@
 package com.zl.service.impl;
 
+import com.zl.mapper.ContractMapper;
 import com.zl.mapper.GardenStuffMapper;
 import com.zl.mapper.PeasantMapper;
 import com.zl.mapper.UserMapper;
@@ -31,6 +32,9 @@ public class PeasantServiceImpl implements PeasantService {
 
     @Autowired
     private GardenStuffMapper gardenStuffMapper;
+
+    @Autowired
+    private ContractMapper contractMapper;
 
     @Override
     public AjaxResultPage<PeasantDO> listPeasant(AjaxPutPage<PeasantDO> ajaxPutPage) {
@@ -70,15 +74,31 @@ public class PeasantServiceImpl implements PeasantService {
 
     @Override
     public void deletePeasant(String id) throws MessageException {
-        peasantMapper.deleteByPrimaryKey(id);
-        userMapper.deleteByPrimaryKey(id);
-        GardenStuffDOExample example = new GardenStuffDOExample();
-        example.createCriteria().andGardenstuffPeasantidEqualTo(id);
-        gardenStuffMapper.deleteByExample(example);
+        ContractDOExample contractDOExample = new ContractDOExample();
+        contractDOExample.createCriteria().andPeasantIdEqualTo(id);
+        List<ContractDO> list = contractMapper.selectByExample(contractDOExample);
+        if(list.size() <= 0){
+            peasantMapper.deleteByPrimaryKey(id);
+            userMapper.deleteByPrimaryKey(id);
+            GardenStuffDOExample example = new GardenStuffDOExample();
+            example.createCriteria().andGardenstuffPeasantidEqualTo(id);
+            gardenStuffMapper.deleteByExample(example);
+        }else{
+            throw new MessageException(Constants.ERROR_CODE,Constants.ERROR_DELETE);
+        }
     }
 
     @Override
     public void batchesDelPeasant(List<String> deleteId) throws MessageException {
+        //验证删除的农民是否有绑定合同
+        for (String id : deleteId){
+            ContractDOExample contractDOExample = new ContractDOExample();
+            contractDOExample.createCriteria().andPeasantIdEqualTo(id);
+            List<ContractDO> list = contractMapper.selectByExample(contractDOExample);
+            if(list.size() > 0){
+                throw new MessageException(peasantMapper.selectByPrimaryKey(id).getPeasantName(),Constants.ERROR_DELETE);
+            }
+        }
         PeasantDOExample peasantDOExample = new PeasantDOExample();
         peasantDOExample.createCriteria().andPeasantIdIn(deleteId);
         peasantMapper.deleteByExample(peasantDOExample);
