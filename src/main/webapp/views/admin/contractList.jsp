@@ -98,7 +98,7 @@
 
        //打开合同详情
         function selectContract(edit){
-            url = "views/admin/selectContract.jsp";
+            url = "views/public/selectContract.jsp";
             window.sessionStorage.setItem("contract",JSON.stringify(edit));
             var index = layui.layer.open({
                 title : "合同详情",

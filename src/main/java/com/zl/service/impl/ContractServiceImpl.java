@@ -51,7 +51,9 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public Integer getContractCount() {
-        return contractMapper.countByExample(null);
+        ContractDOExample contractDOExample = new ContractDOExample();
+        contractDOExample.createCriteria().andCheckEqualTo(1);
+        return contractMapper.countByExample(contractDOExample);
     }
 
     @Override
@@ -70,6 +72,14 @@ public class ContractServiceImpl implements ContractService {
         MiddleDOExample example = new MiddleDOExample();
         example.createCriteria().andContractIdEqualTo(id);
         middleMapper.deleteByExample(example);
+    }
+
+    @Override
+    public void updateContractByCheck(String id,Integer check) throws MessageException {
+        ContractDO contractDO = new ContractDO();
+        contractDO.setContractId(id);
+        contractDO.setCheck(check);
+        contractMapper.updateByPrimaryKeySelective(contractDO);
     }
 
     @Override

@@ -62,6 +62,7 @@
             elem: '#dealerList',
             id : "dealerListTable",
             url : 'peasant/getDealerList',
+            where: {dealerStatus : 1},
             title: '零售商列表',
             page : true,
             height : "full-110",

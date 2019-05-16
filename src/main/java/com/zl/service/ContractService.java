@@ -63,6 +63,14 @@ public interface ContractService {
     */ 
     void deleteContractByKey(String id) throws MessageException;
 
+    /**
+     * @Description: 确认签约合同
+     * @Param: [id]
+     * @return: void
+     * @date: 2019/5/16 15:30 
+     */
+    void updateContractByCheck(String id,Integer check) throws MessageException;
+
     /** 
     * @Description: 返回零售商对应的合同数 
     * @Param: [dealerid] 

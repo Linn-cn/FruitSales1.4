@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * @program: FruitSales
- * @description:
+ * @description: 农民特有权限Controlle
  * @author: ZhuLlin
  * @create: 2019-01-13 17:55
  **/
@@ -27,9 +27,6 @@ public class PeasantController {
 
     @Autowired
     private PeasantService peasantService;
-
-    @Autowired
-    private UserService userService;
 
     @Autowired
     private DealerService dealerService;

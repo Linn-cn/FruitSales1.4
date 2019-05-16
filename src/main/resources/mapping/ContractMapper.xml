@@ -230,13 +230,13 @@
         barcode = #{barcode,jdbcType=VARCHAR},
       </if>
       <if test="type != null" >
-        type = #{type,jdbcType=INTEGER},
+        `type` = #{type,jdbcType=INTEGER},
       </if>
       <if test="createtime != null" >
         createtime = #{createtime,jdbcType=TIMESTAMP},
       </if>
       <if test="check != null" >
-        check = #{check,jdbcType=INTEGER},
+        `check` = #{check,jdbcType=INTEGER},
       </if>
       <if test="contractPrice != null" >
         contract_price = #{contractPrice,jdbcType=DECIMAL},

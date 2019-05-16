@@ -20,14 +20,14 @@
                 # authc 表示要登录了才能访问
                 # 如果用户没有该角色，然后访问该 路径 会报 401错误
 
-                # /admin/** = authc, roles[admin]
-                # /peasant/** = authc, roles[peasant]
-                # /dealer/** = authc, roles[dealer]
-
+                /admin/getGardenStuffInfoList = anon
                 # anon表示匿名拦截器，不需要登录即可访问
-                # /user/login= anon
-
+                /user/login= anon
                 /logout = logout
+
+                /admin/** = authc, roles[admin]
+                /peasant/** = authc, roles[peasant]
+                /dealer/** = authc, roles[dealer]
 
                 # 配置静态资源可以匿名访问
                 /assets/** = anon

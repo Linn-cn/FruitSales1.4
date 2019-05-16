@@ -517,7 +517,7 @@ public class ContractDOExample {
         }
 
         public Criteria andCheckEqualTo(Integer value) {
-            addCriterion("check =", value, "check");
+            addCriterion("`check` =", value, "check");
             return (Criteria) this;
         }
 

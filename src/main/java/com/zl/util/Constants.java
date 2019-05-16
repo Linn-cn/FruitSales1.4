@@ -15,6 +15,10 @@ public class Constants {
     public static final Integer ROLE_PEASANT = 1;
     public static final Integer ROLE_DEALER = 2;
 
+    //合同状态
+    public static final Integer CONTRACT_CONFIRM = 1;
+    public static final Integer CONTRACT_CANCEL = 2;
+
     //异常错误提示
     public static final String ERROR_CODE = "999";
     public static final String ERROR_MSG = "通信异常,请及时联系系统管理员QQ:1320291471!";
