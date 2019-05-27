@@ -63,7 +63,7 @@ public class PeasantServiceImpl implements PeasantService {
     public void insertPeasant(UserDO userDO, PeasantDO peasantDO) throws MessageException {
         String uuid = UuidUtils.creatUUID();
         userDO.setUserid(uuid);
-        userDO.setRole(Constants.ROLE_DEALER);
+        userDO.setRole(Constants.ROLE_PEASANT);
         String password = new Md5Hash(Constants.PASSWORD,userDO.getUsername(),Constants.HASHITERATIONS).toString();
         userDO.setPassword(password);
         userMapper.insertSelective(userDO);
