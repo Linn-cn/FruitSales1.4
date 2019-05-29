@@ -5,7 +5,7 @@
 
 <generatorConfiguration>
     <!--mysql 连接数据库jar 这里选择自己本地位置-->
-    <classPathEntry location="D:\idea\workspace\MybatisGenerator\lib\mysql-connector-java-5.1.37.jar" />
+    <classPathEntry location="D:/Competition/JavaWebAndJS/JDBC/mysql-connector-java-5.1.45/mysql-connector-java-5.1.45-bin.jar" />
     <context id="default" targetRuntime="MyBatis3">
 
         <!-- 生成的Java文件的编码 -->
@@ -65,7 +65,11 @@
         </javaClientGenerator>
 
         <!-- 数据表进行生成操作 tableName:表名; domainObjectName:对应的DO -->
-        <table tableName="accessory" domainObjectName="AccessoryDO">
+        <table tableName="middle" domainObjectName="MiddleDO">
+
+            <property name="useActualColumnNames" value="false"></property>
+        </table>
+        <table tableName="contract" domainObjectName="ContractDO">
 
             <property name="useActualColumnNames" value="false"></property>
         </table>
