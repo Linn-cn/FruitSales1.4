@@ -3,7 +3,6 @@ package com.zl.service;
 import com.zl.pojo.CategoryDO;
 import com.zl.pojo.GardenStuffDO;
 import com.zl.pojo.GardenStuffDTO;
-import com.zl.pojo.PeasantDO;
 import com.zl.util.AjaxPutPage;
 import com.zl.util.AjaxResultPage;
 import com.zl.util.MessageException;

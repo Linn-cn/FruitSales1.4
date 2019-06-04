@@ -73,7 +73,7 @@
             keyVal: 'categoryId'
         });
         formSelects.data('gardenstuffCategory', 'server', {
-            url: 'admin/getCategoryList',
+            url: 'peasant/getCategoryList',
             success: function(id, url, searchVal, result){
                 formSelects.value('gardenstuffCategory',edit.gardenstuffCategory.split(","),true);
             }
