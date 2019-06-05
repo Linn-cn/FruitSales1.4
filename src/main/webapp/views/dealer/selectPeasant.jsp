@@ -55,12 +55,6 @@
             <table id="GardenStuffList" lay-filter="GardenStuffList"></table>
         </div>
     </div>
-    <div class="layui-form-item layui-row layui-col-xs12">
-        <div class="layui-input-block">
-            <input id="submit" type="button" class="layui-btn" lay-submit lay-filter="updatePeasant" value="提交">
-            </input>
-        </div>
-    </div>
 </form>
 </body>
 <script>
