@@ -25,6 +25,9 @@
                 /user/login= anon
                 /logout = logout
 
+                /user/admin/navigation = authc, roles[admin]
+                /user/peasant/navigation = authc, roles[peasant]
+                /user/dealer/navigation = authc, roles[dealer]
                 /admin/** = authc, roles[admin]
                 /peasant/** = authc, roles[peasant]
                 /dealer/** = authc, roles[dealer]
