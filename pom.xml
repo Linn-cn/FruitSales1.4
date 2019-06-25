@@ -72,7 +72,7 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
       <version>${spring.version}</version>
-      <scope>test</scope>
+      <scope>compile</scope>
     </dependency>
 
     <!-- mybatis 包 -->
@@ -192,12 +192,23 @@
       <type>pom</type>
     </dependency>
 
+    <!-- Redis整合   -->
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-redis</artifactId>
+      <version>1.7.1.RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>redis.clients</groupId>
+      <artifactId>jedis</artifactId>
+      <version>2.9.0</version>
+    </dependency>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.12</version>
     </dependency>
-
     <!-- 工具类 -->
     <dependency>
       <groupId>org.apache.commons</groupId>

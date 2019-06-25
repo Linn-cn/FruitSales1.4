@@ -25,8 +25,11 @@ public class Constants {
     public static final String ERROR_DELETE = "存在合同，无法直接删除";
 
     //用户相关提示信息
+    public static final Integer ERROR_COUNT_MAX = 5;
+    public static final String ERROR_COUNT = "输入密码错误五次，锁定账号一小时。";
     public static final String EMPTY_USER = "当前用户不存在。";
-    public static final String ERROR_PASSWORD = "密码错误。";
+    public static final String ERROR_PASSWORD_BEFORE = "密码错误";
+    public static final String ERROR_PASSWORD_AFTER = "次,五次将锁定账号一小时。";
     public static final String LOCK_USER = "当前用户已被锁定,请及时联系系统管理员QQ:1320291471!";
     public static final String SUCCESS_RESET_PASSWORD = "密码重置成功";
     public static final String SUCCESS_UPDATE_PASSWORD = "密码修改成功，请重新登录";

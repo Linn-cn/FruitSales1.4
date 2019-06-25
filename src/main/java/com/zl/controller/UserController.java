@@ -11,14 +11,13 @@ import com.zl.util.Constants;
 import com.zl.util.MessageBean;
 import com.zl.util.MessageException;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.LockedAccountException;
-import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -37,6 +37,9 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+
+    @Autowired
+    RedisTemplate<String,String> redisTemplate;
 
     @Autowired
     private UserService userService;
@@ -67,8 +70,18 @@ public class UserController {
             msg = Constants.EMPTY_USER;
             return new MessageBean(flag, msg);
         } catch (IncorrectCredentialsException ice) {
+            //Redis做验证次数的缓存
+            ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
+            valueOperations.increment(username,1);
+            redisTemplate.expire(username,1, TimeUnit.HOURS);
+            String error_password = valueOperations.get(username);
+
             System.out.println("密码错误。");
-            msg = Constants.ERROR_PASSWORD;
+            msg = Constants.ERROR_PASSWORD_BEFORE + error_password + Constants.ERROR_PASSWORD_AFTER;
+            return new MessageBean(flag, msg);
+        } catch (ExcessiveAttemptsException e){
+            System.out.println("输入密码错误五次，锁定账号一小时。");
+            msg = Constants.ERROR_COUNT;
             return new MessageBean(flag, msg);
         } catch (LockedAccountException lae) {
             System.out.println("当前账号已锁定。");
@@ -177,7 +190,7 @@ public class UserController {
         if (oldPwd.equals(userinfo.getPassword())){
             return new MessageBean(false);
         }
-        return new MessageBean(true,Constants.ERROR_PASSWORD);
+        return new MessageBean(true,Constants.ERROR_PASSWORD_BEFORE);
     }
 
     /*** 

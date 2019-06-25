@@ -3,6 +3,7 @@ package com.zl.realm;
 import com.zl.pojo.*;
 import com.zl.service.UserService;
 import com.zl.util.BeanCopyPropertiesUtil;
+import com.zl.util.Constants;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -11,6 +12,8 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 
 
@@ -28,6 +31,9 @@ import java.util.Set;
  */
 @Component
 public class LoginRealm extends AuthorizingRealm {
+
+    @Autowired
+    RedisTemplate<String,String> redisTemplate;
 
     @Autowired
     private UserService userService;
@@ -71,6 +77,15 @@ public class LoginRealm extends AuthorizingRealm {
         if (user == null) {
             throw new UnknownAccountException();
         }
+
+        ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
+        if(redisTemplate.hasKey(username)){
+            Integer errorCount = Integer.parseInt(valueOperations.get(username));
+            if (errorCount >= Constants.ERROR_COUNT_MAX){
+                throw new ExcessiveAttemptsException();
+            }
+        }
+
 
         UserDTO userDTO = new UserDTO();
         BeanUtils.copyProperties(user,userDTO);
