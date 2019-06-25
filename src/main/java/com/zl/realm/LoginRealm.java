@@ -79,8 +79,9 @@ public class LoginRealm extends AuthorizingRealm {
         }
 
         ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
-        if(redisTemplate.hasKey(username)){
-            Integer errorCount = Integer.parseInt(valueOperations.get(username));
+        String redisName = UserDO.getRedisName() + username;
+        if(redisTemplate.hasKey(redisName)){
+            Integer errorCount = Integer.parseInt(valueOperations.get(redisName));
             if (errorCount >= Constants.ERROR_COUNT_MAX){
                 throw new ExcessiveAttemptsException();
             }

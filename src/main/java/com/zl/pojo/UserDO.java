@@ -9,6 +9,10 @@ public class UserDO {
 
     private Integer role;
 
+    public static String getRedisName(){
+        return "user:";
+    }
+
     public String getUserid() {
         return userid;
     }

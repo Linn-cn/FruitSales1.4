@@ -72,9 +72,10 @@ public class UserController {
         } catch (IncorrectCredentialsException ice) {
             //Redis做验证次数的缓存
             ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
-            valueOperations.increment(username,1);
-            redisTemplate.expire(username,1, TimeUnit.HOURS);
-            String error_password = valueOperations.get(username);
+            String redisName = UserDO.getRedisName() + username;
+            valueOperations.increment(redisName,1);
+            redisTemplate.expire(redisName,1, TimeUnit.HOURS);
+            String error_password = valueOperations.get(redisName);
 
             System.out.println("密码错误。");
             msg = Constants.ERROR_PASSWORD_BEFORE + error_password + Constants.ERROR_PASSWORD_AFTER;
