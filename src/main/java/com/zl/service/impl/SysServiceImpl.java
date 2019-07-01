@@ -5,6 +5,7 @@ import com.zl.pojo.SysDO;
 import com.zl.service.SysService;
 import com.zl.util.MessageException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class SysServiceImpl implements SysService {
     @Autowired
     private SysMapper sysMapper;
 
+    @Cacheable(value = "welcome")
     @Override
     public SysDO getSysInfo() {
         List<SysDO> sysDOs = sysMapper.selectByExample(null);

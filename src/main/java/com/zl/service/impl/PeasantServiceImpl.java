@@ -9,6 +9,7 @@ import com.zl.service.PeasantService;
 import com.zl.util.*;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -45,6 +46,7 @@ public class PeasantServiceImpl implements PeasantService {
         return result;
     }
 
+    @Cacheable(value = "welcome")
     @Override
     public Integer getPeasantCount() {
         return peasantMapper.getPeasantCount();

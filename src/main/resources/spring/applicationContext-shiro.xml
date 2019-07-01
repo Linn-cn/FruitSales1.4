@@ -22,8 +22,8 @@
 
                 /admin/getGardenStuffInfoList = anon
                 # anon表示匿名拦截器，不需要登录即可访问
-                /test=anon
-                /user/login= anon
+                /user/login = anon
+                /redis/** = anon
                 /logout = logout
 
                 /user/admin/navigation = authc, roles[admin]

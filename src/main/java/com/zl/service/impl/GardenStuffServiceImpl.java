@@ -8,6 +8,7 @@ import com.zl.pojo.*;
 import com.zl.service.GardenStuffService;
 import com.zl.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -44,6 +45,7 @@ public class GardenStuffServiceImpl implements GardenStuffService {
         return result;
     }
 
+    @Cacheable(value = "welcome")
     @Override
     public Integer getGardenStuffCount() {
         return gardenStuffMapper.countByExample(null);

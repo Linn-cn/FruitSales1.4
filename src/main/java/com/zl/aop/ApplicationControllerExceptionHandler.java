@@ -1,4 +1,4 @@
-package com.zl.controller;
+package com.zl.aop;
 
 import com.zl.util.Constants;
 import com.zl.util.MessageBean;
@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
  * @create: 2019-01-17 10:24
  **/
 
+/*
 @ControllerAdvice
 public class ApplicationControllerExceptionHandler {
 
@@ -25,3 +26,4 @@ public class ApplicationControllerExceptionHandler {
     }
 
 }
+*/

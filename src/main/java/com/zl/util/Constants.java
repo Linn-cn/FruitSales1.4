@@ -26,7 +26,7 @@ public class Constants {
 
     //用户相关提示信息
     public static final Integer ERROR_COUNT_MAX = 5;
-    public static final String ERROR_COUNT = "输入密码错误五次，锁定账号一小时。";
+    public static final String ERROR_COUNT = "输入密码错误五次，锁定账号时长还剩";
     public static final String EMPTY_USER = "当前用户不存在。";
     public static final String ERROR_PASSWORD_BEFORE = "密码错误";
     public static final String ERROR_PASSWORD_AFTER = "次,五次将锁定账号一小时。";

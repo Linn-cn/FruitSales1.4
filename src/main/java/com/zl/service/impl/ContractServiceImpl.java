@@ -11,6 +11,7 @@ import com.zl.util.AjaxResultPage;
 import com.zl.util.MessageException;
 import com.zl.util.UuidUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -49,6 +50,7 @@ public class ContractServiceImpl implements ContractService {
         return result;
     }
 
+    @Cacheable(value = "welcome")
     @Override
     public Integer getContractCount() {
         ContractDOExample contractDOExample = new ContractDOExample();

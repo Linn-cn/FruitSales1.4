@@ -5,6 +5,7 @@ import com.zl.pojo.DealerDO;
 import com.zl.pojo.PeasantDO;
 import com.zl.pojo.UserDO;
 import com.zl.pojo.UserDTO;
+import com.zl.service.RedisUserService;
 import com.zl.service.UserService;
 import com.zl.util.BeanCopyPropertiesUtil;
 import com.zl.util.Constants;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.concurrent.TimeUnit;
 
@@ -40,6 +42,9 @@ public class UserController {
 
     @Autowired
     RedisTemplate<String,String> redisTemplate;
+
+    @Resource(name = "redisTemplate")
+    ValueOperations<String,Integer> valueOperations;
 
     @Autowired
     private UserService userService;
@@ -71,18 +76,19 @@ public class UserController {
             return new MessageBean(flag, msg);
         } catch (IncorrectCredentialsException ice) {
             //Redis做验证次数的缓存
-            ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
+//            ValueOperations<String, Integer> valueOperations = redisTemplate.opsForValue();
             String redisName = UserDO.getRedisName() + username;
             valueOperations.increment(redisName,1);
             redisTemplate.expire(redisName,1, TimeUnit.HOURS);
-            String error_password = valueOperations.get(redisName);
+            Integer error_password = valueOperations.get(redisName);
 
             System.out.println("密码错误。");
-            msg = Constants.ERROR_PASSWORD_BEFORE + error_password + Constants.ERROR_PASSWORD_AFTER;
+            msg = Constants.ERROR_PASSWORD_BEFORE + error_password.toString() + Constants.ERROR_PASSWORD_AFTER;
             return new MessageBean(flag, msg);
         } catch (ExcessiveAttemptsException e){
             System.out.println("输入密码错误五次，锁定账号一小时。");
-            msg = Constants.ERROR_COUNT;
+            Long minutes = redisTemplate.getExpire(UserDO.getRedisName() + username,TimeUnit.MINUTES);
+            msg = Constants.ERROR_COUNT + minutes + "分钟";
             return new MessageBean(flag, msg);
         } catch (LockedAccountException lae) {
             System.out.println("当前账号已锁定。");

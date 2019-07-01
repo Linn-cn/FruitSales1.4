@@ -33,7 +33,7 @@ import java.util.Set;
 public class LoginRealm extends AuthorizingRealm {
 
     @Autowired
-    RedisTemplate<String,String> redisTemplate;
+    RedisTemplate<String,Integer> redisTemplate;
 
     @Autowired
     private UserService userService;
@@ -78,10 +78,10 @@ public class LoginRealm extends AuthorizingRealm {
             throw new UnknownAccountException();
         }
 
-        ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
+        ValueOperations<String, Integer> valueOperations = redisTemplate.opsForValue();
         String redisName = UserDO.getRedisName() + username;
         if(redisTemplate.hasKey(redisName)){
-            Integer errorCount = Integer.parseInt(valueOperations.get(redisName));
+            Integer errorCount = valueOperations.get(redisName);
             if (errorCount >= Constants.ERROR_COUNT_MAX){
                 throw new ExcessiveAttemptsException();
             }

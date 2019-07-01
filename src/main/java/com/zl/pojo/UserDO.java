@@ -1,6 +1,8 @@
 package com.zl.pojo;
 
-public class UserDO {
+import java.io.Serializable;
+
+public class UserDO implements Serializable {
     private String userid;
 
     private String username;

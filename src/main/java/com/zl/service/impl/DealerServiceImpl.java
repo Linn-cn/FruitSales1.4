@@ -8,6 +8,7 @@ import com.zl.service.DealerService;
 import com.zl.util.*;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -42,6 +43,7 @@ public class DealerServiceImpl implements DealerService {
         return result;
     }
 
+    @Cacheable(value = "welcome")
     @Override
     public Integer getDealerCount() {
         return dealerMapper.getDealerCount();
