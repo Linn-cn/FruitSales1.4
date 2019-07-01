@@ -27,7 +27,7 @@ ORM框架：Mybatis
 # 快速上手
 ### 1、运行环境和所需工具
 * 编译器：IDEA
-* 数据库：Mysql5.7
+* 数据库：Mysql5.7,Redis
 * JDK版本：jdk1.8
 * Tomcat版本：Tomcat8.5
 ### 2、初始化项目
