@@ -5,12 +5,10 @@ import com.zl.pojo.DealerDO;
 import com.zl.pojo.PeasantDO;
 import com.zl.pojo.UserDO;
 import com.zl.pojo.UserDTO;
-import com.zl.service.RedisUserService;
 import com.zl.service.UserService;
 import com.zl.util.BeanCopyPropertiesUtil;
 import com.zl.util.Constants;
 import com.zl.util.MessageBean;
-import com.zl.util.MessageException;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -20,13 +18,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
 import java.util.concurrent.TimeUnit;
 
 
